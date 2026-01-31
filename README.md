@@ -1,7 +1,7 @@
 I am currently working on an AI-powered interview practice system designed to help users prepare for real-world interviews through interactive AI-driven mock interviews.
 As of January, I am actively handling 4+ projects for hackathons and personal development and also { learning Flutter }. This project is currently 70% completed, with the remaining work focused on UI/UX design and the results/feedback section.
 
-✅ Completed Features
+Completed Features
 -AI-powered interview logic
 -OpenCV integration
 -Voice-based interaction (AI listening & speaking)
