@@ -12,6 +12,6 @@ Completed Features
 -Interview result & performance analysis section
 
 I have not shared this project publicly yet because it currently uses personal API keys (e.g., OpenAI), which makes it unsuitable for public release at this stage.
-On 11 Feb 2026, I will complete the remaining parts and officially publish the project on GitHub and LinkedIn, making it accessible for everyone.
+On 28 Feb 2026, I will complete the remaining parts and officially publish the project on GitHub and LinkedIn, making it accessible for everyone.
 
 Thank you, I hope that this project helps people to gain interview experiencce and prepare for that.
