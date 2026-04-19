@@ -1,17 +1,181 @@
-I am currently working on an AI-powered interview practice system designed to help users prepare for real-world interviews through interactive AI-driven mock interviews.
-As of January, I am actively handling 4+ projects for hackathons and personal development and also { learning Flutter }. This project is currently 70% completed, with the remaining work focused on UI/UX design and the results/feedback section.
+# 🤖 AI Interview Preparation System
 
-Completed Features
--AI-powered interview logic
--OpenCV integration
--Voice-based interaction (AI listening & speaking)
--Real-time user interaction
+## 📌 Project Duration
 
-🔧 Remaining Work
--UI/UX design
--Interview result & performance analysis section
+**Start Date:** 28 April 2026
+**End Date:** 5 May 2026
 
-I have not shared this project publicly yet because it currently uses personal API keys (e.g., OpenAI), which makes it unsuitable for public release at this stage.
-On 28 Feb 2026, I will complete the remaining parts and officially publish the project on GitHub and LinkedIn, making it accessible for everyone.
+---
 
-Thank you, I hope that this project helps people to gain interview experiencce and prepare for that.
+## 📖 Overview
+
+This project is an **AI-powered interview preparation platform** designed to help users practice and improve their interview skills.
+
+It simulates real interview scenarios by generating role-specific questions and evaluating user responses using AI, providing **structured feedback and performance analysis**.
+
+---
+
+## 🎯 Problem Statement
+
+Many students and freshers face difficulties in interviews due to:
+
+- Lack of real interview practice
+- Poor answer structuring
+- Weak communication skills
+- No personalized feedback
+
+Existing platforms often provide generic feedback or are not tailored for beginners.
+
+---
+
+## 💡 Solution
+
+This system provides:
+
+- AI-generated interview questions based on selected roles
+- Answer evaluation using intelligent analysis
+- Detailed feedback with improvement suggestions
+- Performance scoring across multiple parameters
+
+---
+
+## ⚙️ Key Features
+
+### 🎯 Role-Based Interview Simulation
+
+- Select job role (e.g., Software Engineer, HR, etc.)
+- Receive relevant, structured interview questions
+
+---
+
+### 🧠 AI-Based Answer Evaluation
+
+- Analyze user responses (text-based initially)
+- Evaluate based on:
+  - Relevance
+  - Clarity
+  - Completeness
+
+- Provide meaningful feedback instead of generic scores
+
+---
+
+### 📊 Performance Scoring System
+
+- Communication score
+- Answer quality score
+- Overall rating (out of 10)
+
+---
+
+### 📈 Detailed Feedback
+
+- Identify weak areas
+- Suggest improvements
+- Provide better sample answers
+
+---
+
+### 📝 Interview Report
+
+- Summary of performance
+- Strengths and weaknesses
+- Suggestions for improvement
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- React.js
+
+### Backend
+
+- Node.js
+- Express.js
+
+### AI / NLP
+
+- LLM API (for question generation and evaluation)
+- Natural Language Processing concepts
+
+### Optional Enhancements
+
+- OpenCV (for basic emotion detection - optional)
+
+---
+
+## 🧠 System Design Highlights
+
+- Modular architecture (question generation, evaluation, scoring)
+- API-based AI integration
+- Scalable backend for handling multiple users
+- Separation of logic for evaluation and feedback
+
+---
+
+## 🔐 Privacy & Data Handling
+
+- No permanent storage of sensitive user responses (optional design)
+- Secure API handling
+- User-controlled session data
+
+---
+
+## 🚧 Future Improvements
+
+- Voice-based interview responses
+- Real-time speech analysis
+- Emotion detection (experimental)
+- Personalized learning paths
+- Industry/company-specific interview sets
+
+---
+
+## 📊 Project Goals
+
+- Build a **real-world AI application**
+- Strengthen understanding of NLP and AI integration
+- Create a **resume-level advanced project**
+
+---
+
+## 🧪 How to Run Locally
+
+```bash id="run-ai-interview"
+# Clone the repository
+git clone <your-repo-link>
+
+# Navigate to project directory
+cd project-folder
+
+# Install dependencies
+npm install
+
+# Start backend server
+npm start
+
+# Start frontend
+npm run dev
+```
+
+---
+
+## 📌 Status
+
+🚧 In Development
+
+---
+
+## 🤝 Contribution
+
+Suggestions and improvements are welcome.
+
+---
+
+## 📎 Author
+
+**Aditya Jaiswal**
+
+---
