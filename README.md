@@ -2,8 +2,8 @@
 
 ## 📌 Project Duration
 
-**Start Date:** 28 April 2026
-**End Date:** 5 May 2026
+**Start Date:** 11 April 2026
+**End Date:** 20 May 2026
 
 ---
 

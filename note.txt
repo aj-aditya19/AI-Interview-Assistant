@@ -1,0 +1,13 @@
+venv\Scripts\activate
+py -3.10 -m venv venv
+
+# 1. Copy .env files and fill in your keys
+cp backend/.env.example backend/.env       # Add MONGO_URI + ANTHROPIC_API_KEY
+cp frontend/.env.example frontend/.env
+
+cd backend
+    npm install
+cd ../frontend 
+    npm install
+
+bash start.sh

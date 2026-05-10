@@ -1,0 +1,7 @@
+fastapi==0.109.0
+uvicorn==0.27.0
+textblob==0.17.1
+nltk==3.8.1
+python-dotenv==1.0.0
+pydantic==2.5.3
+httpx==0.26.0

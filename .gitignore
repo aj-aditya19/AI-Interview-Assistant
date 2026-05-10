@@ -1,0 +1,20 @@
+.env
+.node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+venv.bak/
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+# Ignore log files
+*.log
+# Ignore database files
+*.db
+backend/node_modules/
+frontend/node_modules/
+backend/dist/
