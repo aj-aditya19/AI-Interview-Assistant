@@ -1,13 +1,13 @@
-# 🤖 AI Interview Preparation System
+# AI Interview Preparation System
 
-## 📌 Project Duration
+## Project Duration
 
-**Start Date:** 11 April 2026
+**Start Date:** 12 May 2026
 **End Date:** 20 May 2026
 
 ---
 
-## 📖 Overview
+## Overview
 
 This project is an **AI-powered interview preparation platform** designed to help users practice and improve their interview skills.
 
@@ -15,7 +15,7 @@ It simulates real interview scenarios by generating role-specific questions and 
 
 ---
 
-## 🎯 Problem Statement
+## Problem Statement
 
 Many students and freshers face difficulties in interviews due to:
 
@@ -28,7 +28,7 @@ Existing platforms often provide generic feedback or are not tailored for beginn
 
 ---
 
-## 💡 Solution
+## Solution
 
 This system provides:
 
@@ -41,14 +41,14 @@ This system provides:
 
 ## ⚙️ Key Features
 
-### 🎯 Role-Based Interview Simulation
+### Role-Based Interview Simulation
 
 - Select job role (e.g., Software Engineer, HR, etc.)
 - Receive relevant, structured interview questions
 
 ---
 
-### 🧠 AI-Based Answer Evaluation
+### AI-Based Answer Evaluation
 
 - Analyze user responses (text-based initially)
 - Evaluate based on:
@@ -60,7 +60,7 @@ This system provides:
 
 ---
 
-### 📊 Performance Scoring System
+### Performance Scoring System
 
 - Communication score
 - Answer quality score
@@ -68,7 +68,7 @@ This system provides:
 
 ---
 
-### 📈 Detailed Feedback
+### Detailed Feedback
 
 - Identify weak areas
 - Suggest improvements
@@ -76,7 +76,7 @@ This system provides:
 
 ---
 
-### 📝 Interview Report
+### Interview Report
 
 - Summary of performance
 - Strengths and weaknesses
@@ -84,7 +84,7 @@ This system provides:
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 
@@ -106,7 +106,7 @@ This system provides:
 
 ---
 
-## 🧠 System Design Highlights
+## System Design Highlights
 
 - Modular architecture (question generation, evaluation, scoring)
 - API-based AI integration
@@ -115,7 +115,7 @@ This system provides:
 
 ---
 
-## 🔐 Privacy & Data Handling
+## Privacy & Data Handling
 
 - No permanent storage of sensitive user responses (optional design)
 - Secure API handling
@@ -123,7 +123,7 @@ This system provides:
 
 ---
 
-## 🚧 Future Improvements
+## Future Improvements
 
 - Voice-based interview responses
 - Real-time speech analysis
@@ -133,7 +133,7 @@ This system provides:
 
 ---
 
-## 📊 Project Goals
+## Project Goals
 
 - Build a **real-world AI application**
 - Strengthen understanding of NLP and AI integration
@@ -141,7 +141,7 @@ This system provides:
 
 ---
 
-## 🧪 How to Run Locally
+## How to Run Locally
 
 ```bash id="run-ai-interview"
 # Clone the repository
@@ -162,19 +162,19 @@ npm run dev
 
 ---
 
-## 📌 Status
+## Status
 
 🚧 In Development
 
 ---
 
-## 🤝 Contribution
+## Contribution
 
 Suggestions and improvements are welcome.
 
 ---
 
-## 📎 Author
+## Author
 
 **Aditya Jaiswal**
 

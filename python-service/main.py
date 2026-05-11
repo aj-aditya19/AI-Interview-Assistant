@@ -15,7 +15,7 @@ import nltk
 load_dotenv()
 
 # Download required NLTK data on first run
-for pkg in ['punkt', 'averaged_perceptron_tagger', 'brown']:
+for pkg in ['punkt', 'averaged_perceptroclearn_tagger', 'brown']:
     try:
         nltk.download(pkg, quiet=True)
     except Exception:
