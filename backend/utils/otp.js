@@ -1,0 +1,38 @@
+const otpStore = new Map();
+
+const OTP_TTL_MS = 5 * 60 * 1000;
+
+export function generateOtp() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+export function storeOtp(email, otp) {
+  otpStore.set(email.toLowerCase(), {
+    otp,
+    expiry: Date.now() + OTP_TTL_MS,
+  });
+}
+
+export function verifyOtp(email, otp) {
+  const entry = otpStore.get(email.toLowerCase());
+
+  if (!entry) {
+    return { valid: false, reason: "No OTP found. Please request a new one." };
+  }
+
+  if (Date.now() > entry.expiry) {
+    otpStore.delete(email.toLowerCase());
+    return { valid: false, reason: "OTP expired. Please request a new one." };
+  }
+
+  if (entry.otp !== otp) {
+    return { valid: false, reason: "Invalid OTP." };
+  }
+
+  otpStore.delete(email.toLowerCase());
+  return { valid: true };
+}
+
+export function clearOtp(email) {
+  otpStore.delete(email.toLowerCase());
+}
