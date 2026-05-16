@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import api from "../services/api";
+import api from "../utils/api";
+import "../styles/Home.css";
 
 function HomePage() {
   const { user, logout } = useAuth();
@@ -10,31 +11,33 @@ function HomePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await api.get("/home");
+        await api.get("/home");
       } catch (err) {
         logout();
         navigate("/auth");
       }
     };
     fetchData();
-  }, []);
+  }, [logout, navigate]);
 
-  if (!user) return <p>Loading user info...</p>;
+  if (!user) return <p className="home-loading">Loading user info...</p>;
 
   return (
-    <div style={{ padding: "50px" }}>
-      <h2>Home</h2>
-      <p>
-        Welcome, <strong>{user.name}</strong>!
-      </p>
-      <button
-        onClick={() => {
-          logout();
-          navigate("/auth");
-        }}
-      >
-        Logout
-      </button>
+    <div className="home-page">
+      <div className="home-card">
+        <h2>Welcome Back</h2>
+        <p>
+          Hello, <strong>{user.name}</strong>. Your practice session is ready.
+        </p>
+        <button
+          onClick={() => {
+            logout();
+            navigate("/auth");
+          }}
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 }

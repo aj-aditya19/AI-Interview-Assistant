@@ -1,0 +1,41 @@
+.home-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: var(--bg);
+}
+
+.home-card {
+  width: 100%;
+  max-width: 620px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  background: #fff;
+}
+
+.home-card h2 {
+  font-family: "Syne", sans-serif;
+  margin-bottom: 10px;
+}
+
+.home-card p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.home-card button {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 16px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.home-loading {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}

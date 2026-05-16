@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { authAPI } from "../services/api";
+import { authAPI } from "../utils/api";
+import "../styles/Auth.css";
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -15,6 +17,8 @@ function AuthPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     try {
       if (isLogin) {
         const res = await authAPI.login({
@@ -25,36 +29,59 @@ function AuthPage() {
         navigate("/home");
       } else {
         await authAPI.register(form);
-        alert("Registered. Check OTP and verify.");
+        sessionStorage.setItem("pendingEmail", form.email);
+        navigate("/otp-verify");
       }
     } catch (err) {
-      alert(err.response?.data?.message || "Error");
+      setError(err.response?.data?.message || "Something went wrong");
     }
   };
 
   return (
-    <div style={{ padding: "50px" }}>
-      <h2>{isLogin ? "Login" : "Register"}</h2>
-      <form onSubmit={handleSubmit}>
-        {!isLogin && (
-          <input name="name" placeholder="Name" onChange={handleChange} />
-        )}
-        <br />
-        <input name="email" placeholder="Email" onChange={handleChange} />
-        <br />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
-        <br />
-        <button type="submit">{isLogin ? "Login" : "Register"}</button>
-      </form>
-      <br />
-      <button onClick={() => setIsLogin(!isLogin)}>
-        Switch to {isLogin ? "Register" : "Login"}
-      </button>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2 className="auth-title">{isLogin ? "Login" : "Register"}</h2>
+        <p className="auth-subtitle">
+          {isLogin
+            ? "Access your interview practice dashboard"
+            : "Create your account to start practicing"}
+        </p>
+
+        <form className="auth-form" onSubmit={handleSubmit}>
+          {!isLogin && (
+            <input
+              name="name"
+              placeholder="Name"
+              onChange={handleChange}
+              required
+            />
+          )}
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
+
+          {error && <p className="auth-error">{error}</p>}
+
+          <button type="submit" className="auth-submit">
+            {isLogin ? "Login" : "Register"}
+          </button>
+        </form>
+
+        <button className="auth-switch" onClick={() => setIsLogin(!isLogin)}>
+          Switch to {isLogin ? "Register" : "Login"}
+        </button>
+      </div>
     </div>
   );
 }
