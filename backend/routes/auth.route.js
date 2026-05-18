@@ -1,9 +1,7 @@
 import express from "express";
-import User from "../models/User.js";
+import User from "../models/auth.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/jwt.js";
-import { generateOtp, storeOtp, verifyOtp } from "../utils/otp.js";
-import { sendOtpEmail } from "../utils/email.js";
 import { protect } from "../middleware/auth.js";
 
 const auth_router = express.Router();
@@ -27,52 +25,12 @@ auth_router.post("/register", async (req, res) => {
       name,
       email: email.toLowerCase(),
       password: hashedPassword,
-      role: "viewer",
-      status: "active",
     });
-
-    const otp = generateOtp();
-    storeOtp(email, otp);
-    await sendOtpEmail(email, otp, name);
-
-    res.status(201).json({
-      message: "OTP sent to email. Verify to complete registration",
-      userId: user._id,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error during registration" });
-  }
-});
-
-auth_router.post("/verify-otp", async (req, res) => {
-  try {
-    const { email, otp } = req.body;
-
-    if (!email || !otp) {
-      return res.status(400).json({ message: "Email and OTP required" });
-    }
-
-    const result = verifyOtp(email, otp);
-
-    if (!result.valid) {
-      return res.status(400).json({ message: result.reason });
-    }
-
-    const user = await User.findOneAndUpdate(
-      { email: email.toLowerCase() },
-      { isVerified: true },
-      { new: true },
-    ).select("-password");
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
 
     const token = generateToken(user._id, user.role);
 
-    res.json({
-      message: "Email verified successfully",
+    res.status(201).json({
+      message: "Registration successful",
       token,
       user: {
         id: user._id,
@@ -82,7 +40,8 @@ auth_router.post("/verify-otp", async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    console.error(error);
+    res.status(500).json({ message: "Error during registration" });
   }
 });
 
@@ -106,10 +65,6 @@ auth_router.post("/login", async (req, res) => {
       return res.status(403).json({ message: "Account inactive" });
     }
 
-    if (!user.isVerified) {
-      return res.status(403).json({ message: "Email not verified" });
-    }
-
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
@@ -129,26 +84,6 @@ auth_router.post("/login", async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Error during login" });
-  }
-});
-
-auth_router.post("/resend-otp", async (req, res) => {
-  try {
-    const { email } = req.body;
-
-    const user = await User.findOne({ email: email.toLowerCase() });
-
-    if (!user) {
-      return res.status(404).json({ message: "Email not registered" });
-    }
-
-    const otp = generateOtp();
-    storeOtp(email, otp);
-    await sendOtpEmail(email, otp, user.name);
-
-    res.json({ message: "OTP resent successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
   }
 });
 

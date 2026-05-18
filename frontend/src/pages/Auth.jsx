@@ -28,9 +28,9 @@ function AuthPage() {
         login(res.data.token, res.data.user);
         navigate("/home");
       } else {
-        await authAPI.register(form);
-        sessionStorage.setItem("pendingEmail", form.email);
-        navigate("/otp-verify");
+        const res = await authAPI.register(form);
+        login(res.data.token, res.data.user);
+        navigate("/home");
       }
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");

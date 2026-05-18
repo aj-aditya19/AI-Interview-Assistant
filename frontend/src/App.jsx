@@ -3,7 +3,6 @@ import { useAuth } from "./context/AuthContext";
 import LandingPage from "./pages/Landing";
 import AuthPage from "./pages/Auth";
 import HomePage from "./pages/Home";
-import OtpVerifyPage from "./pages/OtpVerify";
 import "./styles/App.css";
 
 const PublicRoute = ({ children }) => {
@@ -43,14 +42,6 @@ function App() {
         element={
           <PublicRoute>
             <AuthPage />
-          </PublicRoute>
-        }
-      />
-      <Route
-        path="/otp-verify"
-        element={
-          <PublicRoute>
-            <OtpVerifyPage />
           </PublicRoute>
         }
       />

@@ -1,22 +1,43 @@
 .landing-page {
   min-height: 100vh;
-  padding: 48px 20px;
-  background: var(--bg);
+  padding: 36px 20px 56px;
+  background: transparent;
+}
+
+.landing-shell {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  gap: 20px;
 }
 
 .landing-hero {
-  max-width: 860px;
-  margin: 0 auto;
+  max-width: 100%;
   text-align: center;
-  padding: 40px 20px;
+  padding: 56px 24px;
   border: 1px solid var(--border);
-  border-radius: 16px;
-  background: #ffffff;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 .landing-hero h1 {
   font-family: "Syne", sans-serif;
-  font-size: 2.4rem;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 1;
   margin-bottom: 12px;
 }
 
@@ -34,7 +55,7 @@
 
 .btn {
   padding: 10px 18px;
-  border-radius: 10px;
+  border-radius: 12px;
   text-decoration: none;
   border: 1px solid var(--border);
 }
@@ -46,23 +67,23 @@
 }
 
 .btn-secondary {
-  background: #fff;
+  background: var(--surface-soft);
   color: var(--text);
 }
 
 .landing-features {
-  max-width: 960px;
-  margin: 24px auto 0;
+  max-width: 100%;
   display: grid;
   gap: 14px;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 }
 
 .feature-card {
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.88);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.05);
 }
 
 .feature-card h3 {

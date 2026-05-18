@@ -3,21 +3,24 @@
   display: grid;
   place-items: center;
   padding: 20px;
-  background: var(--bg);
+  background: transparent;
 }
 
 .auth-card {
   width: 100%;
   max-width: 460px;
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 24px;
-  background: #fff;
+  border-radius: 20px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(10px);
 }
 
 .auth-title {
   font-family: "Syne", sans-serif;
   margin-bottom: 6px;
+  font-size: 2rem;
 }
 
 .auth-subtitle {
@@ -33,14 +36,16 @@
 .auth-form input {
   height: 42px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 0 12px;
+  background: var(--surface-soft);
+  color: var(--text);
 }
 
 .auth-submit,
 .auth-switch {
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 10px 14px;
   background: #fff;
   cursor: pointer;
@@ -50,6 +55,7 @@
   background: var(--primary);
   color: #fff;
   border-color: var(--primary);
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.18);
 }
 
 .auth-switch {

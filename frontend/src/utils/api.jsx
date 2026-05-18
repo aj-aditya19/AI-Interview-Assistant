@@ -2,7 +2,7 @@ import axios from "axios";
 import "../styles/Api.css";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
   timeout: 5000,
 });
 
@@ -28,11 +28,13 @@ api.interceptors.response.use(
 
 export const authAPI = {
   register: (data) => api.post("/register", data),
-  verifyOtp: (data) => api.post("/verify-otp", data),
-  resendOtp: (data) => api.post("/resend-otp", data),
   login: (data) => api.post("/login", data),
   me: () => api.get("/me"),
   updateProfile: (data) => api.put("/profile", data),
+};
+
+export const groqAPI = {
+  reply: (text) => api.post("/groq/reply", { text }),
 };
 
 export default api;

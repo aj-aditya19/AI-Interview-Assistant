@@ -5,3 +5,7 @@
   color: var(--muted);
   background: var(--bg);
 }
+
+.app-page {
+  min-height: 100vh;
+}

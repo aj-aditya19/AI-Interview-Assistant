@@ -5,21 +5,30 @@
 }
 
 :root {
-  --bg: #ffffff;
+  --bg: #f5f7fb;
   --text: #111827;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --surface: #f9fafb;
+  --muted: #5b6577;
+  --border: #dce3ee;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
   --primary: #111827;
+  --primary-soft: #eef2ff;
 }
 
 body {
   font-family: "DM Sans", sans-serif;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at top, rgba(17, 24, 39, 0.08), transparent 38%),
+    var(--bg);
   color: var(--text);
   line-height: 1.5;
 }
 
 a {
   color: inherit;
+}
+
+button,
+input {
+  font: inherit;
 }
