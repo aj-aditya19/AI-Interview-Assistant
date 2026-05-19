@@ -37,4 +37,15 @@ export const groqAPI = {
   reply: (text) => api.post("/groq/reply", { text }),
 };
 
+export const interviewAPI = {
+  start: (setup) => api.post("/interview/session", { action: "start", setup }),
+  review: (payload) =>
+    api.post("/interview/session", { action: "review", ...payload }),
+};
+
+export const speechAPI = {
+  speak: (text) =>
+    api.post("/speech/speak", { text }, { responseType: "arraybuffer" }),
+};
+
 export default api;

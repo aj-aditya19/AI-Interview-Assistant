@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import { connectDb } from "./config/db.js";
 import authRouter from "./routes/auth.route.js";
 import groqRouter from "./routes/groq.route.js";
+import speechRouter from "./routes/speech.route.js";
+import interviewRouter from "./routes/interview.route.js";
 
 dotenv.config();
 
@@ -26,6 +28,8 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api", authRouter);
 app.use("/api", groqRouter);
+app.use("/api", speechRouter);
+app.use("/api", interviewRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
