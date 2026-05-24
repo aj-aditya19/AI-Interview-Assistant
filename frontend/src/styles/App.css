@@ -3,7 +3,9 @@
   display: grid;
   place-items: center;
   color: var(--muted);
-  background: var(--bg);
+  background:
+    radial-gradient(circle at top left, rgba(111, 124, 255, 0.12), transparent 30%),
+    var(--bg);
 }
 
 .app-page {

@@ -1,0 +1,18 @@
+.home-answer-input {
+  width: 100%;
+  flex: 1;
+  resize: vertical;
+  min-height: 320px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 249, 255, 0.92));
+  color: var(--text);
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.home-answer-input:focus {
+  border-color: rgba(111, 124, 255, 0.42);
+  box-shadow: 0 0 0 4px rgba(111, 124, 255, 0.12);
+}

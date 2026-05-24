@@ -1,0 +1,105 @@
+.home-setup-box {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.home-setup-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.home-track-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-track-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(241, 246, 255, 0.92));
+  color: var(--text);
+  text-align: left;
+  display: grid;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(20, 32, 51, 0.04);
+}
+
+.home-track-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(20, 32, 51, 0.08);
+}
+
+.home-track-card strong {
+  font-size: 1rem;
+}
+
+.home-track-card span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.home-track-card.is-active {
+  border-color: rgba(111, 124, 255, 0.4);
+  background: linear-gradient(180deg, rgba(223, 234, 255, 0.95), rgba(241, 246, 255, 0.92));
+}
+
+.home-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.home-field span {
+  font-weight: 700;
+}
+
+.home-required {
+  margin-left: 4px;
+  color: var(--danger);
+  font-style: normal;
+}
+
+.home-field input,
+.home-field textarea,
+.home-field select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px 16px;
+  background: var(--surface-soft);
+  color: var(--text);
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.home-field input:focus,
+.home-field textarea:focus,
+.home-field select:focus {
+  border-color: rgba(111, 124, 255, 0.42);
+  box-shadow: 0 0 0 4px rgba(111, 124, 255, 0.12);
+}
+
+.home-field textarea {
+  resize: vertical;
+}
+
+.home-setup-grid .home-field:first-child {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  .home-setup-grid,
+  .home-track-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-field-hint {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}

@@ -1,0 +1,24 @@
+.home-score-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-score-chip {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(241, 246, 255, 0.92));
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 10px 24px rgba(20, 32, 51, 0.04);
+}
+
+.home-score-chip span {
+  color: var(--muted);
+}
+
+.home-score-chip strong {
+  font-size: 1.3rem;
+}

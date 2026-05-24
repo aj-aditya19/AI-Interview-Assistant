@@ -1,0 +1,39 @@
+.home-result-lists {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-result-list h4,
+.home-result-history h4 {
+  margin-bottom: 10px;
+}
+
+.home-result-list ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.home-result-history {
+  display: grid;
+  gap: 14px;
+}
+
+.home-history-item + .home-history-item {
+  margin-top: 0;
+}
+
+.home-result-profile {
+  display: grid;
+  gap: 12px;
+}
+
+.home-result-profile p {
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .home-result-lists {
+    grid-template-columns: 1fr;
+  }
+}

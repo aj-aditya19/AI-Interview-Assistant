@@ -17,10 +17,13 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
+    const requestUrl = err.config?.url || "";
+    const isAuthRequest = /\/(login|register)(\?|$)/.test(requestUrl);
+
+    if (err.response?.status === 401 && !isAuthRequest) {
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("user");
-      window.location.href = "/";
+      window.dispatchEvent(new Event("auth:session-expired"));
     }
     return Promise.reject(err);
   },
@@ -41,6 +44,8 @@ export const interviewAPI = {
   start: (setup) => api.post("/interview/session", { action: "start", setup }),
   review: (payload) =>
     api.post("/interview/session", { action: "review", ...payload }),
+  finish: (payload) =>
+    api.post("/interview/session", { action: "finish", ...payload }),
 };
 
 export const speechAPI = {

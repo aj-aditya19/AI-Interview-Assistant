@@ -1,0 +1,23 @@
+.home-analysis-card {
+	border: 1px solid var(--border);
+	border-radius: 18px;
+	padding: 16px;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 249, 255, 0.92));
+}
+
+.home-analysis-card h4 {
+	margin-bottom: 10px;
+}
+
+.home-analysis-card ul {
+	margin: 0;
+	padding-left: 18px;
+}
+
+.home-analysis-card li + li {
+	margin-top: 10px;
+}
+
+.home-analysis-card li {
+	color: var(--text);
+}

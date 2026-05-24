@@ -5,23 +5,31 @@
 }
 
 :root {
-  --bg: #f5f7fb;
-  --text: #111827;
-  --muted: #5b6577;
-  --border: #dce3ee;
+  --bg: #f6f8fc;
+  --bg-accent: #eef5ff;
+  --text: #142033;
+  --muted: #61708a;
+  --border: #d9e2ef;
   --surface: #ffffff;
-  --surface-soft: #f8fafc;
-  --primary: #111827;
-  --primary-soft: #eef2ff;
+  --surface-soft: #f8fbff;
+  --primary: #203b6b;
+  --primary-soft: #dfeaff;
+  --primary-strong: #6f7cff;
+  --primary-warm: #ffb36b;
+  --success: #18794e;
+  --danger: #b42318;
 }
 
 body {
   font-family: "DM Sans", sans-serif;
   background:
-    radial-gradient(circle at top, rgba(17, 24, 39, 0.08), transparent 38%),
-    var(--bg);
+    radial-gradient(circle at top left, rgba(111, 124, 255, 0.16), transparent 32%),
+    radial-gradient(circle at top right, rgba(255, 179, 107, 0.16), transparent 28%),
+    linear-gradient(180deg, #fbfcff 0%, var(--bg) 55%, #f2f6fc 100%);
   color: var(--text);
   line-height: 1.5;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -31,4 +39,17 @@ a {
 button,
 input {
   font: inherit;
+}
+
+button {
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease,
+    border-color 180ms ease, opacity 180ms ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+::selection {
+  background: rgba(111, 124, 255, 0.2);
 }

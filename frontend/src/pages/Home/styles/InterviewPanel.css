@@ -1,0 +1,46 @@
+.home-question-box,
+.home-score-box,
+.home-answer-box,
+.home-result-main,
+.home-result-side {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.home-score-box,
+.home-result-main {
+	animation-delay: 80ms;
+}
+
+.home-answer-box,
+.home-result-side {
+	animation-delay: 120ms;
+}
+
+.home-box-head label,
+.home-box-head p {
+	margin: 0;
+}
+
+.home-box-head label {
+	display: inline-block;
+	margin-bottom: 6px;
+}
+
+.home-result-side,
+.home-score-box {
+	min-height: 0;
+}
+
+.home-score-box .home-secondary-button {
+	align-self: flex-start;
+}
+
+@media (max-width: 900px) {
+	.home-score-box .home-secondary-button {
+		width: 100%;
+		justify-content: center;
+		align-self: stretch;
+	}
+}

@@ -105,6 +105,48 @@
   gap: 14px;
 }
 
+.home-track-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-track-card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+  background: var(--surface-soft);
+  color: var(--text);
+  text-align: left;
+  display: grid;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.home-track-card strong {
+  font-size: 1rem;
+}
+
+.home-track-card span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.home-track-card.is-active {
+  border-color: rgba(17, 24, 39, 0.34);
+  background: rgba(17, 24, 39, 0.05);
+}
+
+.home-field select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px 16px;
+  background: var(--surface-soft);
+  color: var(--text);
+  outline: none;
+}
+
 .home-field {
   display: flex;
   flex-direction: column;
@@ -308,6 +350,68 @@
   margin-top: 10px;
 }
 
+.home-result-layout {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 20px;
+}
+
+.home-result-main,
+.home-result-side {
+  min-height: 0;
+}
+
+.home-result-history {
+  display: grid;
+  gap: 14px;
+}
+
+.home-result-lists {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.home-result-list {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.home-result-list h4 {
+  margin-bottom: 10px;
+}
+
+.home-result-list ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.home-result-history h4,
+.home-result-profile p {
+  margin: 0;
+}
+
+.home-history-item {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.home-history-item + .home-history-item {
+  margin-top: 0;
+}
+
+.home-result-profile {
+  display: grid;
+  gap: 12px;
+  color: var(--text);
+}
+
 .home-analysis-card h4,
 .home-summary-card h4 {
   margin-bottom: 10px;
@@ -363,7 +467,10 @@
 
   .home-grid-interview,
   .home-setup-grid,
-  .home-score-grid {
+  .home-score-grid,
+  .home-track-grid,
+  .home-result-lists,
+  .home-result-layout {
     grid-template-columns: 1fr;
   }
 

@@ -23,11 +23,24 @@ export function AuthProvider({ children }) {
         .catch(() => {
           sessionStorage.removeItem("token");
           sessionStorage.removeItem("user");
+          setUser(null);
         })
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
+  }, []);
+
+  useEffect(() => {
+    const handleSessionExpired = () => {
+      setUser(null);
+    };
+
+    window.addEventListener("auth:session-expired", handleSessionExpired);
+
+    return () => {
+      window.removeEventListener("auth:session-expired", handleSessionExpired);
+    };
   }, []);
 
   const login = (token, userData) => {
