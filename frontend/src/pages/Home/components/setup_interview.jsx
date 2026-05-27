@@ -39,7 +39,12 @@ function InterviewSetup({
             key={track.value}
             type="button"
             className={`home-track-card ${setup.track === track.value ? "is-active" : ""}`}
-            onClick={() => onTrackChange(track.value)}
+            onClick={() =>
+              onTrackChange(
+                track.value,
+                console.log("Track change:", track.value),
+              )
+            }
           >
             <strong>{track.label}</strong>
             <span>{track.description}</span>
@@ -55,7 +60,11 @@ function InterviewSetup({
           <select
             value={setup.durationMinutes}
             onChange={(event) =>
-              onChange("durationMinutes", event.target.value)
+              onChange(
+                "durationMinutes",
+                event.target.value,
+                console.log("Duration change:", event.target.value),
+              )
             }
             required
           >
@@ -76,16 +85,70 @@ function InterviewSetup({
             {field.type === "select" ? (
               <select
                 value={setup[field.name]}
-                onChange={(event) => onChange(field.name, event.target.value)}
+                onChange={(event) => {
+                  onChange(field.name, event.target.value);
+
+                  console.log(
+                    `Field ${field.name} change:`,
+                    event.target.value,
+                  );
+                }}
                 required={field.required}
               >
                 <option value="">Select one</option>
+
                 {(field.options || interviewLevelOptions).map((option) => (
                   <option key={option} value={option}>
                     {option}
                   </option>
                 ))}
               </select>
+            ) : field.type === "multiselect" ? (
+              <div className="multi-select-container">
+                <div className="selected-tags">
+                  {(setup[field.name] || []).map((item) => (
+                    <div key={item} className="tag">
+                      {item}
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const updated = setup[field.name].filter(
+                            (value) => value !== item,
+                          );
+
+                          onChange(field.name, updated);
+                        }}
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                <select
+                  value=""
+                  onChange={(event) => {
+                    const value = event.target.value;
+
+                    if (!value) return;
+
+                    const currentValues = setup[field.name] || [];
+
+                    if (!currentValues.includes(value)) {
+                      onChange(field.name, [...currentValues, value]);
+                    }
+                  }}
+                >
+                  <option value="">Select technologies</option>
+
+                  {field.suggestions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </div>
             ) : field.type === "textarea" ? (
               <textarea
                 value={setup[field.name]}

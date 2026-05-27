@@ -28,7 +28,7 @@ groqRouter.post("/groq/reply", protect, async (req, res) => {
           {
             role: "system",
             content:
-              "You are an interview assistant. Reply clearly, helpfully, and concisely.",
+              "You are an interview assistant. Reply clearly, helpfully, and concisely. ",
           },
           {
             role: "user",

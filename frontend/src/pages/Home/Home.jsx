@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useInterview } from "./hooks/useInterview";
-import InterviewSetup from "./components/InterviewSetup";
+import InterviewSetup from "./components/setup_interview";
 import InterviewPanel from "./components/InterviewPanel";
 import InterviewResult from "./components/InterviewResult";
 import "./styles/HomePage.css";
@@ -42,7 +42,7 @@ function HomePage() {
         </button>
       </div>
 
-      <div className="home-status-strip">
+      {/* <div className="home-status-strip">
         <div className="home-status-card">
           <span>Current track</span>
           <strong>{currentTrack}</strong>
@@ -61,10 +61,11 @@ function HomePage() {
                 : "Setup"}
           </strong>
         </div>
-      </div>
+      </div> */}
 
       {!interview.interviewStarted ? (
         <InterviewSetup
+          style={{ backgroundColor: "yellow" }}
           setup={interview.setup}
           onChange={interview.updateSetupField}
           onTrackChange={interview.updateTrack}
@@ -74,6 +75,7 @@ function HomePage() {
         />
       ) : interview.interviewFinished ? (
         <InterviewResult
+          style={{ backgroundColor: "red" }}
           setup={interview.resultData?.setup || interview.setup}
           history={interview.resultData?.history || interview.history}
           scores={interview.resultData?.scores || interview.scores}

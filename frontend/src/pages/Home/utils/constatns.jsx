@@ -1,9 +1,9 @@
 export const defaultSetup = {
   track: "internship",
   role: "",
-  skills: "",
+  subjects: "",
   projects: "",
-  techStack: "",
+  techStack: [],
   experience: "",
   previousInternships: "",
   language: "",
@@ -36,18 +36,13 @@ export const roleOptions = [
 ];
 
 export const skillOptions = [
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Node.js",
+  "OOPs",
+  "System Design",
+  "Computer Networking",
+  "DBMS",
   "Python",
   "SQL",
-  "HTML/CSS",
-  "Communication",
-  "Problem Solving",
-  "System Design",
-  "Data Structures",
-  "Leadership",
+  "Operating Systems",
 ];
 
 export const techStackOptions = [
@@ -102,15 +97,16 @@ export const setupFields = [
   {
     name: "role",
     label: "Role",
-    placeholder: "Enter the role you want to be interviewed for",
+    placeholder: "Describe the role you have held or are interested in",
     required: true,
     suggestions: roleOptions,
     tracks: ["internship", "job"],
   },
   {
-    name: "skills",
-    label: "Skills",
-    placeholder: "React, Node.js, SQL, communication, problem solving",
+    name: "subjects",
+    label: "Topics/Subjects",
+    placeholder:
+      "Operating System, OOPs, DSA, Computer Networking, or any specific topics",
     required: true,
     suggestions: skillOptions,
     tracks: ["internship", "job"],
@@ -124,9 +120,10 @@ export const setupFields = [
   },
   {
     name: "techStack",
-    label: "Tech stack",
-    placeholder: "Frontend, backend, database, tools, or frameworks",
+    label: "Tech Stack",
+    placeholder: "Select technologies",
     required: true,
+    type: "multiselect",
     suggestions: techStackOptions,
     tracks: ["internship", "job"],
   },
@@ -235,8 +232,9 @@ export const isValidInterviewSetup = (setup) => {
   } else {
     if (
       !normalize(setup?.role) ||
-      !normalize(setup?.skills) ||
-      !normalize(setup?.techStack)
+      !normalize(setup?.subjects) ||
+      !Array.isArray(setup?.techStack) ||
+      setup.techStack.length === 0
     ) {
       return false;
     }
@@ -273,11 +271,11 @@ export const getSetupValidationMessage = (setup) => {
       return "Please choose a role first.";
     }
 
-    if (!normalize(setup?.skills)) {
-      return "Please add your skills first.";
+    if (!Array.isArray(setup?.techStack) || setup.techStack.length === 0) {
+      return "Please add your subjects first.";
     }
 
-    if (!normalize(setup?.techStack)) {
+    if (!Array.isArray(setup?.techStack) || setup.techStack.length === 0) {
       return "Please add your tech stack first.";
     }
   }
@@ -302,7 +300,7 @@ export const getTrackSummary = (setup) => {
 
   return [
     `Role: ${setup.role || "Not set"}`,
-    `Skills: ${setup.skills || "Not set"}`,
+    `Subjects: ${setup.subjects || "Not set"}`,
   ];
 };
 
