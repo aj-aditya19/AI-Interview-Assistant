@@ -96,10 +96,16 @@ function InterviewResult({
               >
                 <p>
                   <strong>Q{index + 1}:</strong> {item.question}
+                  {item.attemptNumber ? ` (Attempt ${item.attemptNumber})` : ""}
                 </p>
                 <p>
                   <strong>A:</strong> {item.answer}
                 </p>
+                {item.improvedAnswer ? (
+                  <p className="home-summary-focus">
+                    Improved answer: {item.improvedAnswer}
+                  </p>
+                ) : null}
                 {item.summary ? (
                   <p className="home-summary-focus">AI note: {item.summary}</p>
                 ) : null}

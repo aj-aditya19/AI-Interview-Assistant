@@ -6,7 +6,7 @@ function AnswerInput({ value, onChange }) {
       className="home-answer-input"
       value={value}
       onChange={(event) => onChange(event.target.value)}
-      placeholder="Speak or type your answer here..."
+      placeholder="Type your answer here, or use voice input to dictate it..."
       rows="10"
     />
   );

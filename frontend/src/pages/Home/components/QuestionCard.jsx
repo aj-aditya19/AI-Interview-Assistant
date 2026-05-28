@@ -8,8 +8,8 @@ function QuestionCard({ question, setup }) {
     <>
       <div className="home-box-head">
         <div>
-          <label>Question</label>
-          <p>The AI asks one question at a time based on your profile.</p>
+          <label>Question screen</label>
+          <p>The AI asks one question at a time and always starts with you.</p>
         </div>
         <span className="home-badge">Live</span>
       </div>
@@ -19,6 +19,7 @@ function QuestionCard({ question, setup }) {
       </div>
 
       <div className="home-question-meta">
+        <span>Focus: introduce yourself first</span>
         <span>Track: {trackLabel}</span>
         <span>
           {setup.track === "language"

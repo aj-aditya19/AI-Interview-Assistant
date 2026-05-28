@@ -13,15 +13,30 @@ import { useSpeechSynthesis } from "./useSpeechSynthesis.jsx";
 
 const toText = (value) => String(value || "").trim();
 
+const formatDuration = (totalSeconds) => {
+  const safeSeconds = Math.max(0, Math.floor(Number(totalSeconds) || 0));
+  const minutes = Math.floor(safeSeconds / 60);
+  const seconds = safeSeconds % 60;
+
+  return `${minutes}m ${String(seconds).padStart(2, "0")}s`;
+};
+
+const buildEmptyReview = () => ({
+  analysisPoints: [],
+  scores: defaultScores,
+  summaryText: "",
+  improvedAnswer: "",
+  nextQuestion: "",
+  attemptNumber: 0,
+  shouldRetry: false,
+  statusText: "",
+});
+
 export function useInterview() {
   const [setup, setSetup] = useState(defaultSetup);
   const [interviewPhase, setInterviewPhase] = useState("setup");
   const [currentQuestion, setCurrentQuestion] = useState("");
-  const [analysisPoints, setAnalysisPoints] = useState([]);
-  const [scores, setScores] = useState(defaultScores);
-  const [summaryText, setSummaryText] = useState("");
-  const [followUpQuestion, setFollowUpQuestion] = useState("");
-  const [focusText, setFocusText] = useState("");
+  const [reviewData, setReviewData] = useState(buildEmptyReview());
   const [history, setHistory] = useState([]);
   const [startingInterview, setStartingInterview] = useState(false);
   const [loadingReview, setLoadingReview] = useState(false);
@@ -31,6 +46,10 @@ export function useInterview() {
   const [autoSpeakReply, setAutoSpeakReply] = useState(true);
   const [autoSubmitSilence, setAutoSubmitSilence] = useState(true);
   const [resultData, setResultData] = useState(null);
+  const [sessionId, setSessionId] = useState("");
+  const [sessionStartedAt, setSessionStartedAt] = useState(0);
+  const [timeRemainingSeconds, setTimeRemainingSeconds] = useState(0);
+  const [timeElapsedSeconds, setTimeElapsedSeconds] = useState(0);
 
   const setupRef = useRef(defaultSetup);
   const currentQuestionRef = useRef("");
@@ -40,9 +59,13 @@ export function useInterview() {
   const finishingRef = useRef(false);
   const finishTimerRef = useRef(null);
   const submitAnswerRef = useRef(() => {});
+  const sessionIdRef = useRef("");
+  const sessionStartedAtRef = useRef(0);
+  const durationMinutesRef = useRef(Number(defaultSetup.durationMinutes) || 3);
 
   useEffect(() => {
     setupRef.current = setup;
+    durationMinutesRef.current = Number(setup.durationMinutes) || 3;
   }, [setup]);
 
   useEffect(() => {
@@ -58,30 +81,45 @@ export function useInterview() {
   }, [loadingReview]);
 
   useEffect(() => {
-    if (interviewPhase !== "live") {
+    sessionIdRef.current = sessionId;
+  }, [sessionId]);
+
+  useEffect(() => {
+    sessionStartedAtRef.current = sessionStartedAt;
+  }, [sessionStartedAt]);
+
+  useEffect(() => {
+    if (interviewPhase !== "live" || !sessionStartedAtRef.current) {
       return undefined;
     }
 
-    const durationMinutes = Number(setupRef.current.durationMinutes) || 3;
+    const totalSeconds = durationMinutesRef.current * 60;
 
-    finishTimerRef.current = window.setTimeout(
-      () => {
+    const updateTimer = () => {
+      const elapsed = Math.max(
+        0,
+        Math.floor((Date.now() - sessionStartedAtRef.current) / 1000),
+      );
+      const remaining = Math.max(0, totalSeconds - elapsed);
+
+      setTimeElapsedSeconds(Math.min(elapsed, totalSeconds));
+      setTimeRemainingSeconds(remaining);
+
+      if (remaining === 0 && interviewPhase === "live") {
         void finishInterview("time-limit");
-      },
-      durationMinutes * 60 * 1000,
-    );
+      }
+    };
+
+    updateTimer();
+    finishTimerRef.current = window.setInterval(updateTimer, 1000);
 
     return () => {
       if (finishTimerRef.current) {
-        clearTimeout(finishTimerRef.current);
+        clearInterval(finishTimerRef.current);
         finishTimerRef.current = null;
       }
     };
-  }, [interviewPhase]);
-
-  const { speakReply, stopPlayback } = useSpeechSynthesis({
-    setSpeechError: setError,
-  });
+  }, [interviewPhase, sessionStartedAt]);
 
   const {
     answerText,
@@ -98,6 +136,39 @@ export function useInterview() {
     onAutoSubmit: (text, fromAuto) => submitAnswerRef.current(text, fromAuto),
     autoSubmitSilence,
     isBusy: loadingReview || startingInterview,
+  });
+
+  const { speakReply, stopPlayback } = useSpeechSynthesis({
+    setSpeechError,
+  });
+
+  const updateSetupField = (fieldName, value) => {
+    setSetup((previous) => ({
+      ...previous,
+      [fieldName]: value,
+    }));
+  };
+
+  const updateTrack = (track) => {
+    setSetup((previous) => ({
+      ...defaultSetup,
+      ...previous,
+      track,
+    }));
+  };
+
+  const buildFinalResult = () => ({
+    trackLabel: getTrackLabel(setupRef.current.track),
+    setup: setupRef.current,
+    history: historyRef.current,
+    scores: reviewData.scores,
+    analysisPoints: reviewData.analysisPoints,
+    summaryText: reviewData.summaryText,
+    focusText: reviewData.statusText,
+    followUpQuestion: reviewData.nextQuestion,
+    improvedAnswer: reviewData.improvedAnswer,
+    timeRemainingLabel: formatDuration(timeRemainingSeconds),
+    timeElapsedLabel: formatDuration(timeElapsedSeconds),
   });
 
   const submitAnswer = async (submittedAnswer, fromAuto = false) => {
@@ -131,6 +202,7 @@ export function useInterview() {
 
       const response = await interviewAPI.review({
         setup: setupRef.current,
+        sessionId: sessionIdRef.current,
         question: currentQuestionRef.current,
         answer: trimmedAnswer,
         history: historyRef.current,
@@ -139,18 +211,27 @@ export function useInterview() {
       const nextAnalysis = Array.isArray(response.data.analysis)
         ? response.data.analysis
         : [];
+      const nextScores = {
+        ...defaultScores,
+        ...response.data.scores,
+      };
+      const nextQuestion =
+        response.data.nextQuestion || currentQuestionRef.current;
 
-      setAnalysisPoints(nextAnalysis);
-      setScores({
-        accuracy: response.data.scores?.accuracy || 0,
-        confidence: response.data.scores?.confidence || 0,
-        vocabulary: response.data.scores?.vocabulary || 0,
-        english: response.data.scores?.english || 0,
-        overall: response.data.scores?.overall || 0,
+      setReviewData({
+        analysisPoints: nextAnalysis,
+        scores: nextScores,
+        summaryText: response.data.summary || "",
+        improvedAnswer: response.data.improvedAnswer || "",
+        nextQuestion,
+        attemptNumber: response.data.attemptNumber || 1,
+        shouldRetry: Boolean(response.data.shouldRetry),
+        statusText: response.data.shouldRetry
+          ? response.data.retryQuestion || "Try the answer once more."
+          : response.data.sessionState === "advance"
+            ? "Moving to the next interview question."
+            : "Interview feedback updated.",
       });
-      setSummaryText(response.data.summary || "");
-      setFocusText(response.data.strengthFocus || "");
-      setFollowUpQuestion(response.data.nextQuestion || "");
 
       setHistory((previous) => {
         const nextHistory = [
@@ -158,7 +239,13 @@ export function useInterview() {
           {
             question: currentQuestionRef.current,
             answer: trimmedAnswer,
+            analysis: nextAnalysis,
+            scores: nextScores,
             summary: response.data.summary || "",
+            improvedAnswer: response.data.improvedAnswer || "",
+            nextQuestion,
+            attemptNumber: response.data.attemptNumber || 1,
+            shouldRetry: Boolean(response.data.shouldRetry),
           },
         ];
 
@@ -166,14 +253,12 @@ export function useInterview() {
         return nextHistory;
       });
 
-      const nextQuestion =
-        response.data.nextQuestion || currentQuestionRef.current;
       currentQuestionRef.current = nextQuestion;
       setCurrentQuestion(nextQuestion);
 
       if (autoSpeakReply) {
         await speakReply(
-          [response.data.summary, response.data.nextQuestion]
+          [response.data.summary, response.data.improvedAnswer, nextQuestion]
             .filter(Boolean)
             .join("\n\n"),
         );
@@ -198,32 +283,6 @@ export function useInterview() {
     submitAnswerRef.current = submitAnswer;
   }, [submitAnswer]);
 
-  const updateSetupField = (fieldName, value) => {
-    setSetup((previous) => ({
-      ...previous,
-      [fieldName]: value,
-    }));
-  };
-
-  const updateTrack = (track) => {
-    setSetup((previous) => ({
-      ...defaultSetup,
-      ...previous,
-      track,
-    }));
-  };
-
-  const buildFinalResult = () => ({
-    trackLabel: getTrackLabel(setupRef.current.track),
-    setup: setupRef.current,
-    history: historyRef.current,
-    scores,
-    analysisPoints,
-    summaryText,
-    focusText,
-    followUpQuestion,
-  });
-
   const finishInterview = async (reason = "manual") => {
     if (finishingRef.current || interviewPhase !== "live") {
       return;
@@ -235,13 +294,14 @@ export function useInterview() {
     stopPlayback();
 
     if (finishTimerRef.current) {
-      clearTimeout(finishTimerRef.current);
+      clearInterval(finishTimerRef.current);
       finishTimerRef.current = null;
     }
 
     try {
       const response = await interviewAPI.finish({
         setup: setupRef.current,
+        sessionId: sessionIdRef.current,
         history: historyRef.current,
         currentQuestion: currentQuestionRef.current,
         reason,
@@ -258,30 +318,6 @@ export function useInterview() {
       setFinishingInterview(false);
       finishingRef.current = false;
     }
-  };
-
-  const restartInterview = () => {
-    if (finishTimerRef.current) {
-      clearTimeout(finishTimerRef.current);
-      finishTimerRef.current = null;
-    }
-
-    setInterviewPhase("setup");
-    setResultData(null);
-    setCurrentQuestion("");
-    setAnalysisPoints([]);
-    setScores(defaultScores);
-    setSummaryText("");
-    setFollowUpQuestion("");
-    setFocusText("");
-    setHistory([]);
-    historyRef.current = [];
-    setError("");
-    setSetupError("");
-    setAnswerText("");
-    setVoiceHint("Interview reset. Choose a new track to begin again.");
-    stopListening();
-    stopPlayback();
   };
 
   const startInterview = async (event) => {
@@ -310,9 +346,9 @@ export function useInterview() {
       }
     } else if (
       !setupRef.current.role.trim() ||
-      !setupRef.current.skills.trim()
+      !setupRef.current.subjects.trim()
     ) {
-      setSetupError("Role and skills are required to start the interview.");
+      setSetupError("Role and subjects are required to start the interview.");
       return;
     }
 
@@ -321,11 +357,7 @@ export function useInterview() {
       setSetupError("");
       setError("");
       setResultData(null);
-      setAnalysisPoints([]);
-      setScores(defaultScores);
-      setSummaryText("");
-      setFollowUpQuestion("");
-      setFocusText("");
+      setReviewData(buildEmptyReview());
       setHistory([]);
       historyRef.current = [];
       setAnswerText("");
@@ -333,6 +365,19 @@ export function useInterview() {
 
       const response = await interviewAPI.start(setupRef.current);
       const firstQuestion = response.data.question || "Tell me about yourself.";
+
+      const nextSessionId = response.data.sessionId || "";
+      const nextStartedAt = response.data.startedAt || Date.now();
+      const nextDurationMinutes =
+        Number(response.data.durationMinutes) ||
+        Number(setupRef.current.durationMinutes) ||
+        3;
+
+      setSessionId(nextSessionId);
+      setSessionStartedAt(nextStartedAt);
+      durationMinutesRef.current = nextDurationMinutes;
+      sessionIdRef.current = nextSessionId;
+      sessionStartedAtRef.current = nextStartedAt;
 
       currentQuestionRef.current = firstQuestion;
       setCurrentQuestion(firstQuestion);
@@ -350,9 +395,39 @@ export function useInterview() {
     }
   };
 
+  const restartInterview = () => {
+    if (finishTimerRef.current) {
+      clearInterval(finishTimerRef.current);
+      finishTimerRef.current = null;
+    }
+
+    setInterviewPhase("setup");
+    setResultData(null);
+    setSessionId("");
+    setSessionStartedAt(0);
+    setTimeRemainingSeconds(0);
+    setTimeElapsedSeconds(0);
+    setCurrentQuestion("");
+    setReviewData(buildEmptyReview());
+    setHistory([]);
+    historyRef.current = [];
+    setError("");
+    setSetupError("");
+    setAnswerText("");
+    setVoiceHint("Interview reset. Choose a new track to begin again.");
+    stopListening();
+    stopPlayback();
+  };
+
   const replayFeedback = () => {
     void speakReply(
-      [summaryText, followUpQuestion].filter(Boolean).join("\n\n"),
+      [
+        reviewData.summaryText,
+        reviewData.improvedAnswer,
+        reviewData.nextQuestion,
+      ]
+        .filter(Boolean)
+        .join("\n\n"),
     );
   };
 
@@ -363,11 +438,13 @@ export function useInterview() {
     interviewStarted: interviewPhase === "live",
     interviewFinished: interviewPhase === "result",
     currentQuestion,
-    analysisPoints,
-    scores,
-    summaryText,
-    followUpQuestion,
-    focusText,
+    analysisPoints: reviewData.analysisPoints,
+    scores: reviewData.scores,
+    summaryText: reviewData.summaryText,
+    followUpQuestion: reviewData.nextQuestion,
+    focusText: reviewData.statusText,
+    improvedAnswer: reviewData.improvedAnswer,
+    reviewData,
     history,
     startingInterview,
     loadingReview,
@@ -397,5 +474,9 @@ export function useInterview() {
     finishingInterview,
     resultData,
     restartInterview,
+    sessionId,
+    timeRemainingLabel: formatDuration(timeRemainingSeconds),
+    timeElapsedLabel: formatDuration(timeElapsedSeconds),
+    totalTimeLabel: `${durationMinutesRef.current} minutes`,
   };
 }

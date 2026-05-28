@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useInterview } from "./hooks/useInterview";
+import Appbar from "./components/Appbar";
+import InterviewDetails from "./components/InterviewDetails";
 import InterviewSetup from "./components/setup_interview";
 import InterviewPanel from "./components/InterviewPanel";
 import InterviewResult from "./components/InterviewResult";
@@ -10,12 +12,6 @@ function HomePage() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const interview = useInterview();
-  const currentTrack =
-    interview.setup.track === "language"
-      ? "Language learning"
-      : interview.setup.track === "job"
-        ? "Job readiness"
-        : "Internship readiness";
 
   if (!user) {
     return <p className="home-loading">Loading user info...</p>;
@@ -23,14 +19,9 @@ function HomePage() {
 
   return (
     <div className="home-page">
-      <div className="home-header">
-        <div>
-          <h2>Interview Assistant</h2>
-          <p>
-            Hello, <strong>{user.name}</strong>. Build your interview profile,
-            answer by voice or text, and get scored by the AI interviewer.
-          </p>
-        </div>
+      <Appbar />
+
+      <div className="home-page-actions">
         <button
           className="home-logout"
           onClick={() => {
@@ -42,40 +33,28 @@ function HomePage() {
         </button>
       </div>
 
-      {/* <div className="home-status-strip">
-        <div className="home-status-card">
-          <span>Current track</span>
-          <strong>{currentTrack}</strong>
-        </div>
-        <div className="home-status-card">
-          <span>Interview length</span>
-          <strong>{interview.setup.durationMinutes || 3} minutes</strong>
-        </div>
-        <div className="home-status-card">
-          <span>Session mode</span>
-          <strong>
-            {interview.interviewFinished
-              ? "Review"
-              : interview.interviewStarted
-                ? "Live"
-                : "Setup"}
-          </strong>
-        </div>
-      </div> */}
+      {interview.interviewStarted || interview.interviewFinished ? (
+        <InterviewDetails
+          setup={interview.setup}
+          timeRemainingLabel={interview.timeRemainingLabel}
+          totalTimeLabel={interview.totalTimeLabel}
+          sessionState={interview.sessionState}
+        />
+      ) : null}
 
       {!interview.interviewStarted ? (
-        <InterviewSetup
-          style={{ backgroundColor: "yellow" }}
-          setup={interview.setup}
-          onChange={interview.updateSetupField}
-          onTrackChange={interview.updateTrack}
-          onSubmit={interview.startInterview}
-          startingInterview={interview.startingInterview}
-          setupError={interview.setupError}
-        />
+        <div className="home-setup-shell">
+          <InterviewSetup
+            setup={interview.setup}
+            onChange={interview.updateSetupField}
+            onTrackChange={interview.updateTrack}
+            onSubmit={interview.startInterview}
+            startingInterview={interview.startingInterview}
+            setupError={interview.setupError}
+          />
+        </div>
       ) : interview.interviewFinished ? (
         <InterviewResult
-          style={{ backgroundColor: "red" }}
           setup={interview.resultData?.setup || interview.setup}
           history={interview.resultData?.history || interview.history}
           scores={interview.resultData?.scores || interview.scores}
@@ -103,11 +82,7 @@ function HomePage() {
         <InterviewPanel
           setup={interview.setup}
           currentQuestion={interview.currentQuestion}
-          analysisPoints={interview.analysisPoints}
-          scores={interview.scores}
-          summaryText={interview.summaryText}
-          focusText={interview.focusText}
-          followUpQuestion={interview.followUpQuestion}
+          reviewData={interview.reviewData}
           answerText={interview.answerText}
           onAnswerChange={interview.setAnswerText}
           onReplayFeedback={interview.replayFeedback}
@@ -123,7 +98,8 @@ function HomePage() {
           speechError={interview.speechError}
           voiceHint={interview.voiceHint}
           error={interview.error}
-          timeLimitLabel={`${interview.setup.durationMinutes || 3} minutes`}
+          timeLimitLabel={interview.totalTimeLabel}
+          timeRemainingLabel={interview.timeRemainingLabel}
           onEndInterview={() => interview.finishInterview("manual")}
         />
       )}

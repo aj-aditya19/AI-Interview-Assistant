@@ -14,7 +14,7 @@ function ScoreCard({ scores }) {
       {scoreItems.map(([label, key]) => (
         <div className="home-score-chip" key={label}>
           <span>{label}</span>
-          <strong>{scores[key]}/10</strong>
+          <strong>{Number(scores?.[key] || 0)}/10</strong>
         </div>
       ))}
     </div>

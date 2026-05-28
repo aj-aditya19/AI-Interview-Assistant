@@ -2,8 +2,7 @@
 
 ## Project Duration
 
-**Start Date:** 12 May 2026
-**End Date:** 20 May 2026
+**Host Date:** 31 May 2026
 
 ---
 
