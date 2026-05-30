@@ -46,6 +46,8 @@ export const interviewAPI = {
     api.post("/interview/session", { action: "review", ...payload }),
   finish: (payload) =>
     api.post("/interview/session", { action: "finish", ...payload }),
+  clear: (sessionId) =>
+    api.delete(`/interview/session/${encodeURIComponent(sessionId)}`),
 };
 
 export const speechAPI = {

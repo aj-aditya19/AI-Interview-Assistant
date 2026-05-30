@@ -101,6 +101,17 @@ function InterviewResult({
                 <p>
                   <strong>A:</strong> {item.answer}
                 </p>
+                {item.rate !== undefined || item.result !== undefined ? (
+                  <p className="home-summary-focus">
+                    Score: {Number(item.rate ?? item.result ?? 0)}/
+                    {Number(item.total || 10)}
+                  </p>
+                ) : null}
+                {item.improvedQuestion ? (
+                  <p className="home-summary-focus">
+                    Improved question: {item.improvedQuestion}
+                  </p>
+                ) : null}
                 {item.improvedAnswer ? (
                   <p className="home-summary-focus">
                     Improved answer: {item.improvedAnswer}

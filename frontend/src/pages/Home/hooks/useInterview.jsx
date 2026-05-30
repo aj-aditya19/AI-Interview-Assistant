@@ -26,10 +26,14 @@ const buildEmptyReview = () => ({
   scores: defaultScores,
   summaryText: "",
   improvedAnswer: "",
+  improvedQuestion: "",
   nextQuestion: "",
   attemptNumber: 0,
   shouldRetry: false,
   statusText: "",
+  rate: 0,
+  result: 0,
+  total: 10,
 });
 
 export function useInterview() {
@@ -102,10 +106,25 @@ export function useInterview() {
       );
       const remaining = Math.max(0, totalSeconds - elapsed);
 
+      try {
+        // debug timer values
+        // eslint-disable-next-line no-console
+        console.debug(
+          "[timer] elapsed=",
+          elapsed,
+          "remaining=",
+          remaining,
+          "phase=",
+          interviewPhase,
+        );
+      } catch (e) {}
+
       setTimeElapsedSeconds(Math.min(elapsed, totalSeconds));
       setTimeRemainingSeconds(remaining);
 
-      if (remaining === 0 && interviewPhase === "live") {
+      if (remaining <= 0 && interviewPhase === "live") {
+        // eslint-disable-next-line no-console
+        console.debug("[timer] time expired, calling finishInterview");
         void finishInterview("time-limit");
       }
     };
@@ -223,9 +242,19 @@ export function useInterview() {
         scores: nextScores,
         summaryText: response.data.summary || "",
         improvedAnswer: response.data.improvedAnswer || "",
+        improvedQuestion: response.data.improvedQuestion || "",
         nextQuestion,
         attemptNumber: response.data.attemptNumber || 1,
         shouldRetry: Boolean(response.data.shouldRetry),
+        rate:
+          Number(
+            response.data.rate ?? response.data.result ?? nextScores.overall,
+          ) || 0,
+        result:
+          Number(
+            response.data.result ?? response.data.rate ?? nextScores.overall,
+          ) || 0,
+        total: Number(response.data.total || 10) || 10,
         statusText: response.data.shouldRetry
           ? response.data.retryQuestion || "Try the answer once more."
           : response.data.sessionState === "advance"
@@ -243,9 +272,23 @@ export function useInterview() {
             scores: nextScores,
             summary: response.data.summary || "",
             improvedAnswer: response.data.improvedAnswer || "",
+            improvedQuestion: response.data.improvedQuestion || "",
             nextQuestion,
             attemptNumber: response.data.attemptNumber || 1,
             shouldRetry: Boolean(response.data.shouldRetry),
+            rate:
+              Number(
+                response.data.rate ??
+                  response.data.result ??
+                  nextScores.overall,
+              ) || 0,
+            result:
+              Number(
+                response.data.result ??
+                  response.data.rate ??
+                  nextScores.overall,
+              ) || 0,
+            total: Number(response.data.total || 10) || 10,
           },
         ];
 
@@ -290,6 +333,11 @@ export function useInterview() {
 
     finishingRef.current = true;
     setFinishingInterview(true);
+    // eslint-disable-next-line no-console
+    console.debug("[finishInterview] start", {
+      reason,
+      sessionId: sessionIdRef.current,
+    });
     stopListening();
     stopPlayback();
 
@@ -307,16 +355,42 @@ export function useInterview() {
         reason,
       });
 
+      // eslint-disable-next-line no-console
+      console.debug("[finishInterview] finish response", response?.data);
       setResultData({
         ...buildFinalResult(),
         ...response.data,
       });
     } catch {
+      // eslint-disable-next-line no-console
+      console.error("[finishInterview] error finishing interview");
       setResultData(buildFinalResult());
     } finally {
       setInterviewPhase("result");
       setFinishingInterview(false);
       finishingRef.current = false;
+      // try to clear session state on server and reset local sessionId
+      try {
+        if (sessionIdRef.current) {
+          // eslint-disable-next-line no-console
+          console.debug(
+            "[finishInterview] clearing server session",
+            sessionIdRef.current,
+          );
+          void interviewAPI.clear(sessionIdRef.current).catch((err) => {
+            // eslint-disable-next-line no-console
+            console.warn("[finishInterview] clear failed", err?.message || err);
+          });
+        }
+      } catch (clearErr) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          "[finishInterview] clear attempt error",
+          clearErr?.message || clearErr,
+        );
+      }
+      sessionIdRef.current = "";
+      setSessionId("");
     }
   };
 
@@ -364,7 +438,8 @@ export function useInterview() {
       stopPlayback();
 
       const response = await interviewAPI.start(setupRef.current);
-      const firstQuestion = response.data.question || "Tell me about yourself.";
+      const firstQuestion =
+        response.data.question || "Please introduce yourself.";
 
       const nextSessionId = response.data.sessionId || "";
       const nextStartedAt = response.data.startedAt || Date.now();
