@@ -2,12 +2,14 @@
   width: 100%;
   flex: 1;
   resize: vertical;
-  min-height: 320px;
+  min-height: 120px;
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 16px;
+  padding: 10px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 249, 255, 0.92));
   color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.35;
   outline: none;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }

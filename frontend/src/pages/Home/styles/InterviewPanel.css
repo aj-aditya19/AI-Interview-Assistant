@@ -1,8 +1,20 @@
 .home-interview-grid {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 18px;
+	gap: 8px;
 	align-items: start;
+}
+
+.home-interview-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 0;
+}
+
+.home-interview-stack-left,
+.home-interview-stack-right {
+	justify-content: flex-start;
 }
 
 .home-panel {
@@ -10,12 +22,33 @@
 }
 
 .home-question-panel,
+.home-live-score-panel,
 .home-result-panel,
 .home-answer-panel,
 .home-improved-panel {
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: 8px;
+}
+
+.home-live-score-panel .home-score-grid {
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.home-live-score-panel .home-score-chip {
+	padding: 8px 10px;
+}
+
+@media (max-width: 1100px) {
+	.home-live-score-panel .home-score-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 700px) {
+	.home-live-score-panel .home-score-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
 }
 
 .home-box-head label,
@@ -75,6 +108,15 @@
 @media (max-width: 900px) {
 	.home-interview-grid {
 		grid-template-columns: 1fr;
+	}
+
+	.home-interview-stack {
+		gap: 8px;
+	}
+
+	.home-interview-stack-left,
+	.home-interview-stack-right {
+		justify-content: flex-start;
 	}
 
 	.home-result-topline {

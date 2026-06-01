@@ -17,17 +17,6 @@ function QuestionCard({ question, setup }) {
       <div className="home-question-card">
         <p>{question || "Your first question will appear here."}</p>
       </div>
-
-      <div className="home-question-meta">
-        <span>Focus: introduce yourself first</span>
-        <span>Track: {trackLabel}</span>
-        <span>
-          {setup.track === "language"
-            ? `Language: ${setup.language || "Not set"}`
-            : `Role: ${setup.role || "Not set"}`}
-        </span>
-        <span>Level: {setup.interviewLevel || "Not set"}</span>
-      </div>
     </>
   );
 }

@@ -1,9 +1,9 @@
 import QuestionCard from "./QuestionCard.jsx";
 import ScoreCard from "./ScoreCard.jsx";
-import AnalysisPanel from "./AnalysisPanel.jsx";
 import Feedback from "./Feedback.jsx";
 import AnswerInput from "./AnswerInput.jsx";
 import VoiceControls from "./VoiceControls.jsx";
+import { defaultScores } from "../utils/constatns.jsx";
 import "../styles/InterviewPanel.css";
 
 function InterviewPanel({
@@ -27,10 +27,8 @@ function InterviewPanel({
   error,
   timeLimitLabel,
   timeRemainingLabel,
-  onEndInterview,
 }) {
-  const analysisPoints = reviewData?.analysisPoints || [];
-  const scores = reviewData?.scores || {};
+  const scores = reviewData?.scores || defaultScores;
   const summaryText = reviewData?.summaryText || "";
   const improvedAnswer = reviewData?.improvedAnswer || "";
   const followUpQuestion = reviewData?.nextQuestion || "";
@@ -42,88 +40,77 @@ function InterviewPanel({
 
   return (
     <div className="home-interview-grid">
-      <section className="home-box home-panel home-question-panel">
-        <QuestionCard question={currentQuestion} setup={setup} />
-      </section>
+      <div className="home-interview-stack home-interview-stack-left">
+        <section className="home-box home-panel home-question-panel">
+          <QuestionCard question={currentQuestion} setup={setup} />
+        </section>
 
-      <section className="home-box home-panel home-result-panel">
-        <div className="home-box-head">
-          <div>
-            <label>Result screen</label>
-            <p>
-              {timeLimitLabel} total, {timeRemainingLabel} remaining.
-            </p>
+        <section className="home-box home-panel home-answer-panel">
+          <div className="home-box-head">
+            <div>
+              <label>Answer screen</label>
+              <p>
+                Speak clearly or type your response. Silence still submits after
+                a short pause.
+              </p>
+            </div>
+            <span className="home-badge">Step 3</span>
           </div>
-          <span className="home-badge">Step 2</span>
-        </div>
 
-        {statusText ? <p className="home-result-state">{statusText}</p> : null}
-        <ScoreCard scores={scores} />
-        <AnalysisPanel
-          analysisPoints={analysisPoints.slice(0, 3)}
-          scores={scores}
-          summaryText={summaryText}
-          statusText={statusText}
-        />
+          <AnswerInput value={answerText} onChange={onAnswerChange} />
 
-        <button
-          type="button"
-          className="home-secondary-button"
-          onClick={onEndInterview}
-        >
-          End interview
-        </button>
-      </section>
+          <VoiceControls
+            isListening={isListening}
+            speechSupported={speechSupported}
+            autoSubmitSilence={autoSubmitSilence}
+            onToggleAutoSubmit={onToggleAutoSubmit}
+            autoSpeakReply={autoSpeakReply}
+            onToggleAutoSpeak={onToggleAutoSpeak}
+            onToggleListening={onToggleListening}
+            onReplayFeedback={onReplayFeedback}
+            onSendAnswer={onSendAnswer}
+            loadingReview={loadingReview}
+            voiceHint={voiceHint}
+            speechError={speechError}
+            hasFeedback={hasFeedback}
+          />
 
-      <section className="home-box home-panel home-answer-panel">
-        <div className="home-box-head">
-          <div>
-            <label>Answer screen</label>
-            <p>
-              Speak clearly or type your response. Silence still submits after a
-              short pause.
-            </p>
+          {error ? <p className="home-error">{error}</p> : null}
+        </section>
+      </div>
+
+      <div className="home-interview-stack home-interview-stack-right">
+        <section className="home-box home-panel home-live-score-panel">
+          <div className="home-box-head">
+            <div>
+              <label>Live scores</label>
+              <p>The AI updates these while the interview is running.</p>
+            </div>
+            <span className="home-badge">Live</span>
           </div>
-          <span className="home-badge">Step 3</span>
-        </div>
 
-        <AnswerInput value={answerText} onChange={onAnswerChange} />
+          <ScoreCard scores={scores} />
+        </section>
 
-        <VoiceControls
-          isListening={isListening}
-          speechSupported={speechSupported}
-          autoSubmitSilence={autoSubmitSilence}
-          onToggleAutoSubmit={onToggleAutoSubmit}
-          autoSpeakReply={autoSpeakReply}
-          onToggleAutoSpeak={onToggleAutoSpeak}
-          onToggleListening={onToggleListening}
-          onReplayFeedback={onReplayFeedback}
-          onSendAnswer={onSendAnswer}
-          loadingReview={loadingReview}
-          voiceHint={voiceHint}
-          speechError={speechError}
-          hasFeedback={hasFeedback}
-        />
-
-        {error ? <p className="home-error">{error}</p> : null}
-      </section>
-
-      <section className="home-box home-panel home-improved-panel">
-        <div className="home-box-head">
-          <div>
-            <label>Improved answer screen</label>
-            <p>AI rewrites your answer into a cleaner interview response.</p>
+        <section className="home-box home-panel home-improved-panel">
+          <div className="home-box-head">
+            <div>
+              <label>Improved answer screen</label>
+              <p>AI rewrites your answer into a cleaner interview response.</p>
+            </div>
+            <span className="home-badge">Step 4</span>
           </div>
-          <span className="home-badge">Step 4</span>
-        </div>
 
-        <Feedback
-          summaryText={summaryText}
-          focusText={statusText}
-          followUpQuestion={followUpQuestion}
-          improvedAnswer={improvedAnswer}
-        />
-      </section>
+          <Feedback
+            summaryText={summaryText}
+            focusText={statusText}
+            followUpQuestion={followUpQuestion}
+            improvedAnswer={improvedAnswer}
+          />
+
+          {/* Manual end removed: interview ends automatically on time expiry */}
+        </section>
+      </div>
     </div>
   );
 }

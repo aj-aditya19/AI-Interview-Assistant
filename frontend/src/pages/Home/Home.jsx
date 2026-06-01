@@ -18,20 +18,19 @@ function HomePage() {
   }
 
   return (
-    <div className="home-page">
-      <Appbar />
-
-      <div className="home-page-actions">
-        <button
-          className="home-logout"
-          onClick={() => {
-            logout();
-            navigate("/auth");
-          }}
-        >
-          Logout
-        </button>
-      </div>
+    <div
+      className={`home-page ${
+        interview.interviewStarted && !interview.interviewFinished
+          ? "home-live-mode"
+          : ""
+      }`}
+    >
+      <Appbar
+        onLogout={() => {
+          logout();
+          navigate("/auth");
+        }}
+      />
 
       {interview.interviewStarted || interview.interviewFinished ? (
         <InterviewDetails
@@ -100,7 +99,6 @@ function HomePage() {
           error={interview.error}
           timeLimitLabel={interview.totalTimeLabel}
           timeRemainingLabel={interview.timeRemainingLabel}
-          onEndInterview={() => interview.finishInterview("manual")}
         />
       )}
     </div>

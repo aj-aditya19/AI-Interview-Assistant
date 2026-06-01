@@ -92,6 +92,27 @@ export function useInterview() {
     sessionStartedAtRef.current = sessionStartedAt;
   }, [sessionStartedAt]);
 
+  // on mount: if a previous interview was in progress and the user reloaded,
+  // restart the interview from zero using the saved setup
+  useEffect(() => {
+    try {
+      const inProgress = localStorage.getItem("aiInterview.inProgress");
+      const saved = localStorage.getItem("aiInterview.setup");
+
+      if (inProgress === "1" && saved) {
+        const parsed = JSON.parse(saved);
+        // restore setup state then start interview automatically
+        setSetup((prev) => ({ ...prev, ...parsed }));
+        // small timeout to allow refs/state to settle
+        setTimeout(() => {
+          void internalStartInterview(parsed);
+        }, 50);
+      }
+    } catch (e) {}
+    // run only once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     if (interviewPhase !== "live" || !sessionStartedAtRef.current) {
       return undefined;
@@ -366,6 +387,11 @@ export function useInterview() {
       console.error("[finishInterview] error finishing interview");
       setResultData(buildFinalResult());
     } finally {
+      // clear local restart marker so reloads don't auto-restart
+      try {
+        localStorage.removeItem("aiInterview.inProgress");
+        localStorage.removeItem("aiInterview.setup");
+      } catch (e) {}
       setInterviewPhase("result");
       setFinishingInterview(false);
       finishingRef.current = false;
@@ -395,33 +421,34 @@ export function useInterview() {
   };
 
   const startInterview = async (event) => {
-    event.preventDefault();
+    if (event && typeof event.preventDefault === "function") {
+      event.preventDefault();
+    }
 
-    const validationMessage = getSetupValidationMessage(setupRef.current);
+    // delegate to internalStartInterview which accepts a setup object
+    await internalStartInterview(setupRef.current);
+  };
 
-    if (!isValidInterviewSetup(setupRef.current)) {
+  const internalStartInterview = async (setupObj) => {
+    const validationMessage = getSetupValidationMessage(setupObj);
+
+    if (!isValidInterviewSetup(setupObj)) {
       setSetupError(
         validationMessage || "Please complete the interview setup.",
       );
       return;
     }
 
-    const track = setupRef.current.track;
+    const track = setupObj.track;
 
     if (track === "language") {
-      if (
-        !setupRef.current.language.trim() ||
-        !setupRef.current.languageLevel.trim()
-      ) {
+      if (!setupObj.language.trim() || !setupObj.languageLevel.trim()) {
         setSetupError(
           "Language and level are required to start the interview.",
         );
         return;
       }
-    } else if (
-      !setupRef.current.role.trim() ||
-      !setupRef.current.subjects.trim()
-    ) {
+    } else if (!setupObj.role.trim() || !setupObj.subjects.trim()) {
       setSetupError("Role and subjects are required to start the interview.");
       return;
     }
@@ -437,15 +464,19 @@ export function useInterview() {
       setAnswerText("");
       stopPlayback();
 
-      const response = await interviewAPI.start(setupRef.current);
+      const response = await interviewAPI.start(setupObj);
       const firstQuestion =
         response.data.question || "Please introduce yourself.";
 
       const nextSessionId = response.data.sessionId || "";
-      const nextStartedAt = response.data.startedAt || Date.now();
+      const rawStartedAt = response.data.startedAt || Date.now();
+      const nextStartedAt =
+        typeof rawStartedAt === "number"
+          ? rawStartedAt
+          : Number(new Date(rawStartedAt)) || Date.now();
       const nextDurationMinutes =
         Number(response.data.durationMinutes) ||
-        Number(setupRef.current.durationMinutes) ||
+        Number(setupObj.durationMinutes) ||
         3;
 
       setSessionId(nextSessionId);
@@ -457,6 +488,12 @@ export function useInterview() {
       currentQuestionRef.current = firstQuestion;
       setCurrentQuestion(firstQuestion);
       setInterviewPhase("live");
+
+      // mark in localStorage so reloads auto-restart
+      try {
+        localStorage.setItem("aiInterview.inProgress", "1");
+        localStorage.setItem("aiInterview.setup", JSON.stringify(setupObj));
+      } catch (e) {}
 
       if (response.data.intro) {
         setVoiceHint(response.data.intro);
@@ -492,6 +529,10 @@ export function useInterview() {
     setVoiceHint("Interview reset. Choose a new track to begin again.");
     stopListening();
     stopPlayback();
+    try {
+      localStorage.removeItem("aiInterview.inProgress");
+      localStorage.removeItem("aiInterview.setup");
+    } catch (e) {}
   };
 
   const replayFeedback = () => {

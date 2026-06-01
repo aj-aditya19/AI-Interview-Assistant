@@ -2,28 +2,29 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 12px;
+	gap: 8px;
 	flex-wrap: wrap;
 }
 
 .home-voice-row {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 12px;
+	gap: 8px;
 }
 
 .home-toggle {
 	display: inline-flex;
 	align-items: center;
-	gap: 10px;
+	gap: 8px;
 	margin: 0;
 	font-weight: 600;
 	color: var(--muted);
+	font-size: 0.82rem;
 }
 
 .home-toggle input {
-	width: 18px;
-	height: 18px;
+	width: 16px;
+	height: 16px;
 	accent-color: var(--primary-strong);
 }
 
@@ -31,13 +32,14 @@
 .home-secondary-button {
 	border: 1px solid var(--border);
 	border-radius: 14px;
-	padding: 10px 14px;
+	padding: 8px 10px;
 	background: rgba(255, 255, 255, 0.9);
 	color: var(--text);
 	cursor: pointer;
 	display: inline-flex;
 	align-items: center;
-	gap: 8px;
+	gap: 6px;
+	font-size: 0.82rem;
 	box-shadow: 0 10px 24px rgba(20, 32, 51, 0.04);
 }
 
@@ -60,6 +62,6 @@
 .home-support-note {
 	margin: 0;
 	color: var(--muted);
-	font-size: 0.95rem;
+	font-size: 0.82rem;
 }
 
