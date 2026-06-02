@@ -107,8 +107,6 @@ function InterviewPanel({
             followUpQuestion={followUpQuestion}
             improvedAnswer={improvedAnswer}
           />
-
-          {/* Manual end removed: interview ends automatically on time expiry */}
         </section>
       </div>
     </div>

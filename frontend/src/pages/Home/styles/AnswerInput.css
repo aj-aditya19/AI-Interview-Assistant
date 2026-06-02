@@ -6,7 +6,7 @@
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 10px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 249, 255, 0.92));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 247, 242, 0.94));
   color: var(--text);
   font-size: 0.9rem;
   line-height: 1.35;
@@ -15,6 +15,6 @@
 }
 
 .home-answer-input:focus {
-  border-color: rgba(111, 124, 255, 0.42);
-  box-shadow: 0 0 0 4px rgba(111, 124, 255, 0.12);
+  border-color: rgba(15, 118, 110, 0.42);
+  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
 }

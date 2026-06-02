@@ -1,9 +1,6 @@
-import { getTrackLabel } from "../utils/constatns.jsx";
 import "../styles/QuestionCard.css";
 
-function QuestionCard({ question, setup }) {
-  const trackLabel = getTrackLabel(setup.track);
-
+function QuestionCard({ question }) {
   return (
     <>
       <div className="home-box-head">

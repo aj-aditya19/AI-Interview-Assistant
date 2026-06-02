@@ -1,7 +1,7 @@
 .home-interview-grid {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 8px;
+	gap: 12px;
 	align-items: start;
 }
 
@@ -82,7 +82,7 @@
 .home-result-score strong {
 	font-size: 1.9rem;
 	line-height: 1;
-	font-family: "Syne", sans-serif;
+	font-family: "Sora", sans-serif;
 }
 
 .home-result-score span {
@@ -100,9 +100,9 @@
 	margin: 0;
 	padding: 10px 12px;
 	border-radius: 12px;
-	background: rgba(111, 124, 255, 0.08);
+	background: rgba(15, 118, 110, 0.08);
 	color: var(--text);
-	border: 1px solid rgba(111, 124, 255, 0.12);
+	border: 1px solid rgba(15, 118, 110, 0.14);
 }
 
 @media (max-width: 900px) {

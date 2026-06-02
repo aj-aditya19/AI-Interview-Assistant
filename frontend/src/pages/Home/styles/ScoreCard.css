@@ -8,11 +8,11 @@
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 8px 10px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(241, 246, 255, 0.92));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 247, 242, 0.94));
   display: flex;
   flex-direction: column;
   gap: 4px;
-  box-shadow: 0 10px 24px rgba(20, 32, 51, 0.04);
+  box-shadow: var(--shadow-sm);
 }
 
 .home-score-chip span {

@@ -9,6 +9,14 @@
   margin-bottom: 10px;
 }
 
+.home-result-list,
+.home-history-item {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
 .home-result-list ul {
   margin: 0;
   padding-left: 18px;
@@ -30,6 +38,16 @@
 
 .home-result-profile p {
   margin: 0;
+}
+
+.home-result-main,
+.home-result-side {
+  display: grid;
+  gap: 16px;
+}
+
+.home-result-main .home-primary-button {
+  margin-top: 4px;
 }
 
 @media (max-width: 900px) {

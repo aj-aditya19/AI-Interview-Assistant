@@ -27,7 +27,8 @@
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 12px 18px;
-  background: var(--surface);
+  background: var(--primary);
+  color: #fff;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }

@@ -39,12 +39,7 @@ function InterviewSetup({
             key={track.value}
             type="button"
             className={`home-track-card ${setup.track === track.value ? "is-active" : ""}`}
-            onClick={() =>
-              onTrackChange(
-                track.value,
-                console.log("Track change:", track.value),
-              )
-            }
+            onClick={() => onTrackChange(track.value)}
           >
             <strong>{track.label}</strong>
             <span>{track.description}</span>
@@ -60,11 +55,7 @@ function InterviewSetup({
           <select
             value={setup.durationMinutes}
             onChange={(event) =>
-              onChange(
-                "durationMinutes",
-                event.target.value,
-                console.log("Duration change:", event.target.value),
-              )
+              onChange("durationMinutes", event.target.value)
             }
             required
           >
@@ -85,14 +76,7 @@ function InterviewSetup({
             {field.type === "select" ? (
               <select
                 value={setup[field.name]}
-                onChange={(event) => {
-                  onChange(field.name, event.target.value);
-
-                  console.log(
-                    `Field ${field.name} change:`,
-                    event.target.value,
-                  );
-                }}
+                onChange={(event) => onChange(field.name, event.target.value)}
                 required={field.required}
               >
                 <option value="">Select one</option>
