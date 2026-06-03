@@ -1,20 +1,21 @@
-.home-answer-input {
+.home-answer-display {
   width: 100%;
-  flex: 1;
-  resize: vertical;
-  min-height: 120px;
+  min-height: 20px;
+  padding: 5px;
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 10px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(250, 247, 242, 0.94));
-  color: var(--text);
-  font-size: 0.9rem;
-  line-height: 1.35;
-  outline: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
-}
 
-.home-answer-input:focus {
-  border-color: rgba(15, 118, 110, 0.42);
-  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.96),
+    rgba(250, 247, 242, 0.94)
+  );
+
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 2;
+  white-space: pre-wrap;
+  overflow-y: auto;
+
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }

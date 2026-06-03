@@ -44,17 +44,28 @@ function InterviewPanel({
         <section className="home-box home-panel home-question-panel">
           <QuestionCard question={currentQuestion} setup={setup} />
         </section>
+        <section className="home-box home-panel home-improved-panel">
+          <div className="home-box-head">
+            <div>
+              <label>Improved answer screen</label>
+            </div>
+          </div>
 
+          <Feedback
+            summaryText={summaryText}
+            focusText={statusText}
+            followUpQuestion={followUpQuestion}
+            improvedAnswer={improvedAnswer}
+          />
+        </section>
+      </div>
+
+      <div className="home-interview-stack home-interview-stack-right">
         <section className="home-box home-panel home-answer-panel">
           <div className="home-box-head">
             <div>
               <label>Answer screen</label>
-              <p>
-                Speak clearly or type your response. Silence still submits after
-                a short pause.
-              </p>
             </div>
-            <span className="home-badge">Step 3</span>
           </div>
 
           <AnswerInput value={answerText} onChange={onAnswerChange} />
@@ -77,36 +88,16 @@ function InterviewPanel({
 
           {error ? <p className="home-error">{error}</p> : null}
         </section>
-      </div>
 
-      <div className="home-interview-stack home-interview-stack-right">
         <section className="home-box home-panel home-live-score-panel">
           <div className="home-box-head">
             <div>
               <label>Live scores</label>
-              <p>The AI updates these while the interview is running.</p>
             </div>
             <span className="home-badge">Live</span>
           </div>
 
           <ScoreCard scores={scores} />
-        </section>
-
-        <section className="home-box home-panel home-improved-panel">
-          <div className="home-box-head">
-            <div>
-              <label>Improved answer screen</label>
-              <p>AI rewrites your answer into a cleaner interview response.</p>
-            </div>
-            <span className="home-badge">Step 4</span>
-          </div>
-
-          <Feedback
-            summaryText={summaryText}
-            focusText={statusText}
-            followUpQuestion={followUpQuestion}
-            improvedAnswer={improvedAnswer}
-          />
         </section>
       </div>
     </div>

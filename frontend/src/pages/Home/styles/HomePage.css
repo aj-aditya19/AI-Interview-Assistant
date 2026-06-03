@@ -245,12 +245,12 @@
 @media (min-width: 901px) {
 	.home-page.home-live-mode {
 		height: 100dvh;
-		overflow: hidden;
+		overflow-y: hidden;
 		padding: 12px;
 	}
 
 	.home-page.home-live-mode .home-interview-grid {
-		height: calc(100dvh - 164px);
+		height: calc(100dvh - 184px);
 		align-items: stretch;
 	}
 

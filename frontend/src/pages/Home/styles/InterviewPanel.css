@@ -1,8 +1,14 @@
+html,
+body {
+	overflow-y: auto;
+}
+
 .home-interview-grid {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 12px;
 	align-items: start;
+	height: auto;
 }
 
 .home-interview-stack {
@@ -107,29 +113,52 @@
 
 @media (max-width: 900px) {
 	.home-interview-grid {
-		grid-template-columns: 1fr;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-areas:
+			"feedback feedback"
+			"interview interview"
+			"answer improved";
+		gap: 10px;
 	}
 
 	.home-interview-stack {
-		gap: 8px;
+		display: contents;
 	}
 
-	.home-interview-stack-left,
-	.home-interview-stack-right {
-		justify-content: flex-start;
+	.home-live-score-panel {
+		grid-area: feedback;
 	}
 
-	.home-result-topline {
-		flex-direction: column;
+	.home-question-panel {
+		grid-area: interview;
 	}
 
-	.home-result-score {
-		justify-items: start;
+	.home-answer-panel {
+		grid-area: answer;
 	}
 
-	.home-result-panel .home-secondary-button {
-		width: 100%;
-		justify-content: center;
-		align-self: stretch;
+	.home-improved-panel {
+		grid-area: improved;
+	}
+
+	.home-question-card {
+		height: clamp(220px, 58vw, 300px);
+	}
+
+	.question-overlay {
+		left: 12px;
+		right: 12px;
+		bottom: 12px;
+		padding: 12px;
+	}
+
+	.home-answer-display {
+		min-height: 150px;
+		padding: 14px;
+	}
+
+	.home-live-score-panel .home-score-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 }

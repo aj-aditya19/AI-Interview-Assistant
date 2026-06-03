@@ -62,37 +62,6 @@ function AuthPage() {
   return (
     <div className="auth-page">
       <div className="auth-shell">
-        <section className="auth-copy-panel">
-          <p className="auth-eyebrow">Private workspace</p>
-          <h2 className="auth-title">
-            {isLogin ? "Welcome back" : "Create your profile"}
-          </h2>
-          <p className="auth-subtitle">
-            {isLogin
-              ? "Continue your tracked interview sessions with a clean, distraction-free interface."
-              : "Set up your account once, then start interviews for internship, job, or language practice."}
-          </p>
-
-          <div className="auth-points">
-            <div className="auth-point">
-              <strong>Fast entry</strong>
-              <span>Email and password login with instant access.</span>
-            </div>
-            <div className="auth-point">
-              <strong>Track aware</strong>
-              <span>
-                Internship, job, and language flows live in one place.
-              </span>
-            </div>
-            <div className="auth-point">
-              <strong>Clean review</strong>
-              <span>
-                Clear scores, feedback, and final results after each session.
-              </span>
-            </div>
-          </div>
-        </section>
-
         <section className="auth-card">
           <div className="auth-card-top">
             <span className="auth-card-chip">
@@ -138,6 +107,36 @@ function AuthPage() {
               {isLogin ? "Login" : "Register"}
             </button>
           </form>
+        </section>
+        <section className="auth-copy-panel">
+          <p className="auth-eyebrow">Private workspace</p>
+          <h2 className="auth-title">
+            {isLogin ? "Welcome back" : "Create your profile"}
+          </h2>
+          <p className="auth-subtitle">
+            {isLogin
+              ? "Continue your tracked interview sessions with a clean, distraction-free interface."
+              : "Set up your account once, then start interviews for internship, job, or language practice."}
+          </p>
+
+          <div className="auth-points">
+            <div className="auth-point">
+              <strong>Fast entry</strong>
+              <span>Email and password login with instant access.</span>
+            </div>
+            <div className="auth-point">
+              <strong>Track aware</strong>
+              <span>
+                Internship, job, and language flows live in one place.
+              </span>
+            </div>
+            <div className="auth-point">
+              <strong>Clean review</strong>
+              <span>
+                Clear scores, feedback, and final results after each session.
+              </span>
+            </div>
+          </div>
         </section>
       </div>
     </div>

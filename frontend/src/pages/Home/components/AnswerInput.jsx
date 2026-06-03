@@ -1,14 +1,12 @@
 import "../styles/AnswerInput.css";
 
-function AnswerInput({ value, onChange }) {
+function AnswerInput({ value, isListening }) {
   return (
-    <textarea
-      className="home-answer-input"
-      value={value}
-      onChange={(event) => onChange(event.target.value)}
-      placeholder="Type your answer here, or use voice input to dictate it..."
-      rows="10"
-    />
+    <div className="home-answer-display">
+      {isListening && <div className="live-indicator">🎤 Listening...</div>}
+
+      {value || "Start speaking... your answer will appear here."}
+    </div>
   );
 }
 
