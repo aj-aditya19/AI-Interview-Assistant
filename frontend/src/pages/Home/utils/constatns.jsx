@@ -271,7 +271,7 @@ export const getSetupValidationMessage = (setup) => {
       return "Please choose a role first.";
     }
 
-    if (!Array.isArray(setup?.techStack) || setup.techStack.length === 0) {
+    if (!normalize(setup?.subjects)) {
       return "Please add your subjects first.";
     }
 

@@ -170,6 +170,7 @@ export function useInterview() {
     setSpeechError,
     voiceHint,
     setVoiceHint,
+    startListening,
     toggleListening,
     stopListening,
   } = useSpeechRecognition({
@@ -325,6 +326,9 @@ export function useInterview() {
           [response.data.summary, response.data.improvedAnswer, nextQuestion]
             .filter(Boolean)
             .join("\n\n"),
+          () => {
+            startListening();
+          },
         );
       }
     } catch (err) {
@@ -489,6 +493,9 @@ export function useInterview() {
       setCurrentQuestion(firstQuestion);
       setInterviewPhase("live");
 
+      setTimeout(() => {
+        startListening();
+      }, 1000);
       // mark in localStorage so reloads auto-restart
       try {
         localStorage.setItem("aiInterview.inProgress", "1");
