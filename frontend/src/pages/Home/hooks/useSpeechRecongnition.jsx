@@ -60,7 +60,7 @@ export function useSpeechRecognition({
       if (trimmed && isListeningRef.current && !busyRef.current) {
         onAutoSubmitRef.current?.(trimmed, true);
       }
-    }, 3500);
+    }, 6000);
   };
 
   useEffect(() => {
@@ -79,26 +79,27 @@ export function useSpeechRecognition({
     recognition.continuous = true;
 
     recognition.onresult = (event) => {
-      let transcript = "";
+      let finalTranscript = "";
+      let interimTranscript = "";
 
-      for (
-        let index = event.resultIndex;
-        index < event.results.length;
-        index += 1
-      ) {
-        transcript += event.results[index][0].transcript;
+      for (let i = 0; i < event.results.length; i++) {
+        const transcript = event.results[i][0].transcript;
+
+        if (event.results[i].isFinal) {
+          finalTranscript += transcript + " ";
+        } else {
+          interimTranscript += transcript;
+        }
       }
 
-      const nextText = transcript.trim();
+      const nextText = (finalTranscript + interimTranscript).trim();
+
       setAnswerText(nextText);
+
       setSpeechError("");
       setVoiceHint("Listening... pause to submit automatically.");
 
       if (nextText) {
-        scheduleAutoSubmit(nextText);
-      }
-
-      if (event.results[event.results.length - 1]?.isFinal) {
         scheduleAutoSubmit(nextText);
       }
     };
@@ -111,11 +112,16 @@ export function useSpeechRecognition({
     };
 
     recognition.onend = () => {
+      if (isListeningRef.current) {
+        try {
+          recognition.start();
+          return;
+        } catch {}
+      }
+
       setIsListening(false);
       clearSilenceTimer();
-      setVoiceHint("Pause detected or listening stopped.");
     };
-
     recognitionRef.current = recognition;
 
     return () => {

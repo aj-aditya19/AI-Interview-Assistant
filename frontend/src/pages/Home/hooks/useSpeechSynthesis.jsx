@@ -19,7 +19,7 @@ export function useSpeechSynthesis({ setSpeechError }) {
 
   useEffect(() => stopPlayback, []);
 
-  const speakReply = async (text) => {
+  const speakReply = async (text, onFinish) => {
     const trimmedText = String(text || "").trim();
 
     if (!trimmedText) {
@@ -41,6 +41,10 @@ export function useSpeechSynthesis({ setSpeechError }) {
         if (audioUrlRef.current === audioUrl) {
           URL.revokeObjectURL(audioUrl);
           audioUrlRef.current = null;
+        }
+
+        if (onFinish) {
+          onFinish();
         }
       };
 

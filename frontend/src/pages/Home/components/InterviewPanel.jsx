@@ -15,6 +15,7 @@ function InterviewPanel({
   onReplayFeedback,
   onSendAnswer,
   onToggleListening,
+  onFinishInterview,
   isListening,
   speechSupported,
   autoSubmitSilence,
@@ -22,6 +23,7 @@ function InterviewPanel({
   autoSpeakReply,
   onToggleAutoSpeak,
   loadingReview,
+  finishingInterview,
   speechError,
   voiceHint,
   error,
@@ -81,6 +83,8 @@ function InterviewPanel({
             onReplayFeedback={onReplayFeedback}
             onSendAnswer={onSendAnswer}
             loadingReview={loadingReview}
+            finishingInterview={finishingInterview}
+            onFinishInterview={onFinishInterview}
             voiceHint={voiceHint}
             speechError={speechError}
             hasFeedback={hasFeedback}

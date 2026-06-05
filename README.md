@@ -1,8 +1,8 @@
-# AI Interview Preparation System
+# **AI Interview Preparation System**
 
-## Project Duration
+## Full project host on:
 
-**Host Date:** 31 May 2026
+10 June 2026
 
 ---
 
@@ -38,7 +38,7 @@ This system provides:
 
 ---
 
-## ⚙️ Key Features
+## Key Features
 
 ### Role-Based Interview Simulation
 
@@ -163,7 +163,15 @@ npm run dev
 
 ## Status
 
-🚧 In Development
+In Development
+
+---
+
+## Prototype Link:
+
+**https://ai-interview-assistant-ecru-gamma.vercel.app/**
+
+Go for this, rate and contribuate for improvement.
 
 ---
 

@@ -7,6 +7,7 @@ import { protect } from "../middleware/auth.js";
 const auth_router = express.Router();
 
 auth_router.post("/register", async (req, res) => {
+  console.log("Received registration request:", req.body);
   try {
     const { email, password, name } = req.body;
 
@@ -46,6 +47,7 @@ auth_router.post("/register", async (req, res) => {
 });
 
 auth_router.post("/login", async (req, res) => {
+  console.log("Received login request");
   try {
     const { email, password } = req.body;
 

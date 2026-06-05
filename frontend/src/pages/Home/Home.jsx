@@ -87,6 +87,7 @@ function HomePage() {
           onReplayFeedback={interview.replayFeedback}
           onSendAnswer={interview.sendAnswer}
           onToggleListening={interview.toggleListening}
+          onFinishInterview={interview.finishInterview}
           isListening={interview.isListening}
           speechSupported={interview.speechSupported}
           autoSubmitSilence={interview.autoSubmitSilence}
@@ -94,6 +95,7 @@ function HomePage() {
           autoSpeakReply={interview.autoSpeakReply}
           onToggleAutoSpeak={interview.setAutoSpeakReply}
           loadingReview={interview.loadingReview}
+          finishingInterview={interview.finishingInterview}
           speechError={interview.speechError}
           voiceHint={interview.voiceHint}
           error={interview.error}
