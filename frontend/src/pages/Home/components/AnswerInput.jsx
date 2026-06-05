@@ -2,10 +2,16 @@ import "../styles/AnswerInput.css";
 
 function AnswerInput({ value, isListening }) {
   return (
-    <div className="home-answer-display">
-      {isListening && <div className="live-indicator">Listening...</div>}
+    <div className="camera-container">
+      <img
+        src="http://localhost:5001/video_feed"
+        alt="Camera Feed"
+        className="camera-feed"
+      />
 
-      {value || "Start speaking... your answer will appear here."}
+      <div className="subtitle-box">{value || "Start speaking..."}</div>
+
+      {isListening && <div className="live-indicator">Listening...</div>}
     </div>
   );
 }
