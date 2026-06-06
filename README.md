@@ -126,6 +126,8 @@ This system provides:
 
 - Voice-based interview responses
 - Real-time speech analysis
+- Resume based information gathering
+- User moment detection
 - Emotion detection (experimental)
 - Personalized learning paths
 - Industry/company-specific interview sets
@@ -144,19 +146,42 @@ This system provides:
 
 ```bash id="run-ai-interview"
 # Clone the repository
-git clone <your-repo-link>
+git clone https://github.com/aj-aditya19/AI-Interview-Assistant
 
 # Navigate to project directory
 cd project-folder
 
-# Install dependencies
+#Terminal 1 : Open Frontend folder
+cd frontend
+#Install dependencies
 npm install
-
-# Start backend server
-npm start
-
-# Start frontend
+#Run frontend
 npm run dev
+
+#Terminal 2 : Open Backend folder
+cd backend
+#Install dependencies
+npm install
+# Run backend
+npm run dev
+```
+
+---
+
+## Env files
+
+```bash id="run-ai-interview"
+# For Backend
+PORT=5000
+MONGO_URI= your mongodb URL
+NODE_ENV=development
+JWT_SECRET= any secret { hint: crush name }
+CLIENT_URL=http://localhost:3000 or your backend url like: https://webe-iou-am.render.ass
+groq_api_key= Grok key - dont public it, if public can cause money loss by high and unwanted bills
+PYTHON_BINARY=python
+
+# For Frontend
+VITE_API_URL=http://localhost:5000/api/ or your frontend url like: https://ai-inxxew-ant-eu-gaa.vel.app/
 ```
 
 ---
@@ -164,6 +189,14 @@ npm run dev
 ## Status
 
 In Development
+
+---
+
+## For demo use
+
+Email: ajaditya1908@gmail.com
+
+Password: 1907
 
 ---
 
