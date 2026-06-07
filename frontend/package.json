@@ -3,15 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1",
+    "@pixiv/three-vrm": "^3.5.3",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
     "axios": "^1.6.2",
     "framer-motion": "^10.18.0",
+    "lucide-react": "^0.303.0",
+    "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",
-    "recharts": "^2.10.3",
+    "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
-    "lucide-react": "^0.303.0"
+    "react-router-dom": "^6.21.1",
+    "recharts": "^2.10.3",
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",

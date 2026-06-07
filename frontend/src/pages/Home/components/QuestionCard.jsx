@@ -1,5 +1,6 @@
 import interviewAvatar from "../assets/interview-avator.jpg";
 import "../styles/QuestionCard.css";
+import AvatarCanvas from "./AvatarCanvas";
 
 function QuestionCard({ question }) {
   return (
@@ -12,11 +13,9 @@ function QuestionCard({ question }) {
       </div>
 
       <div className="home-question-card">
-        <img
-          src={interviewAvatar}
-          alt="Interview Avatar"
-          className="question-image"
-        />
+        <div className="question-avatar-container">
+          <AvatarCanvas />
+        </div>
 
         <div className="question-overlay">
           <p>{question || "Your first question will appear here."}</p>
