@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { interviewAPI } from "../../../utils/api";
+import { interviewAPI, avatarAPI } from "../../../utils/api";
 import {
   defaultScores,
   defaultSetup,
@@ -37,6 +37,8 @@ const buildEmptyReview = () => ({
 });
 
 export function useInterview() {
+  const [videoUrl, setVideoUrl] = useState("");
+  const [timeElapsedSeconds, setTimeElapsedSeconds] = useState(0);
   const [setup, setSetup] = useState(defaultSetup);
   const [interviewPhase, setInterviewPhase] = useState("setup");
   const [currentQuestion, setCurrentQuestion] = useState("");
@@ -53,8 +55,6 @@ export function useInterview() {
   const [sessionId, setSessionId] = useState("");
   const [sessionStartedAt, setSessionStartedAt] = useState(0);
   const [timeRemainingSeconds, setTimeRemainingSeconds] = useState(0);
-  const [timeElapsedSeconds, setTimeElapsedSeconds] = useState(0);
-
   const setupRef = useRef(defaultSetup);
   const currentQuestionRef = useRef("");
   const historyRef = useRef([]);
@@ -211,7 +211,41 @@ export function useInterview() {
     timeRemainingLabel: formatDuration(timeRemainingSeconds),
     timeElapsedLabel: formatDuration(timeElapsedSeconds),
   });
+  const playAvatar = async (text) => {
+    try {
+      const avatar = await avatarAPI.speak(text);
 
+      const talkId = avatar.data.id;
+
+      return new Promise((resolve, reject) => {
+        const pollInterval = setInterval(async () => {
+          try {
+            const result = await avatarAPI.status(talkId);
+
+            if (result.data.status === "done") {
+              clearInterval(pollInterval);
+
+              setVideoUrl(result.data.result_url);
+
+              resolve(result.data.result_url);
+            }
+
+            if (result.data.status === "failed") {
+              clearInterval(pollInterval);
+
+              reject(new Error("Avatar generation failed"));
+            }
+          } catch (err) {
+            clearInterval(pollInterval);
+
+            reject(err);
+          }
+        }, 3000);
+      });
+    } catch (err) {
+      console.error("Avatar error", err);
+    }
+  };
   const submitAnswer = async (submittedAnswer, fromAuto = false) => {
     if (interviewPhase !== "live") {
       return;
@@ -320,7 +354,7 @@ export function useInterview() {
 
       currentQuestionRef.current = nextQuestion;
       setCurrentQuestion(nextQuestion);
-
+      await playAvatar(nextQuestion);
       if (autoSpeakReply) {
         await speakReply(
           [response.data.summary, response.data.improvedAnswer, nextQuestion]
@@ -469,9 +503,9 @@ export function useInterview() {
       stopPlayback();
 
       const response = await interviewAPI.start(setupObj);
+
       const firstQuestion =
         response.data.question || "Please introduce yourself.";
-
       const nextSessionId = response.data.sessionId || "";
       const rawStartedAt = response.data.startedAt || Date.now();
       const nextStartedAt =
@@ -492,7 +526,7 @@ export function useInterview() {
       currentQuestionRef.current = firstQuestion;
       setCurrentQuestion(firstQuestion);
       setInterviewPhase("live");
-
+      await playAvatar(firstQuestion);
       setTimeout(() => {
         startListening();
       }, 1000);
@@ -524,6 +558,8 @@ export function useInterview() {
     setResultData(null);
     setSessionId("");
     setSessionStartedAt(0);
+    sessionIdRef.current = "";
+    sessionStartedAtRef.current = 0;
     setTimeRemainingSeconds(0);
     setTimeElapsedSeconds(0);
     setCurrentQuestion("");
@@ -598,6 +634,7 @@ export function useInterview() {
     resultData,
     restartInterview,
     sessionId,
+    videoUrl,
     timeRemainingLabel: formatDuration(timeRemainingSeconds),
     timeElapsedLabel: formatDuration(timeElapsedSeconds),
     totalTimeLabel: `${durationMinutesRef.current} minutes`,

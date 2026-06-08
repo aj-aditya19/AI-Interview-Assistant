@@ -3,7 +3,7 @@ import "../styles/Api.css";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
-  timeout: 5000,
+  timeout: 30000,
 });
 
 api.interceptors.request.use((config) => {
@@ -53,6 +53,12 @@ export const interviewAPI = {
 export const speechAPI = {
   speak: (text) =>
     api.post("/speech/speak", { text }, { responseType: "arraybuffer" }),
+};
+
+export const avatarAPI = {
+  speak: (text) => api.post("/avatar/speak", { text }),
+
+  status: (id) => api.get(`/avatar/status/${id}`),
 };
 
 export default api;

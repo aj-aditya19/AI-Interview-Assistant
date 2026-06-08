@@ -79,6 +79,7 @@ function HomePage() {
         />
       ) : (
         <InterviewPanel
+          videoUrl={interview.videoUrl}
           setup={interview.setup}
           currentQuestion={interview.currentQuestion}
           reviewData={interview.reviewData}

@@ -2,7 +2,7 @@ import interviewAvatar from "../assets/interview-avator.jpg";
 import "../styles/QuestionCard.css";
 import AvatarCanvas from "./AvatarCanvas";
 
-function QuestionCard({ question }) {
+function QuestionCard({ question, videoUrl }) {
   return (
     <>
       <div className="home-box-head">
@@ -14,7 +14,7 @@ function QuestionCard({ question }) {
 
       <div className="home-question-card">
         <div className="question-avatar-container">
-          <AvatarCanvas />
+          <AvatarCanvas videoUrl={videoUrl} />
         </div>
 
         <div className="question-overlay">

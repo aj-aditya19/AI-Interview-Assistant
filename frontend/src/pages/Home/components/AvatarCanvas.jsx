@@ -1,19 +1,33 @@
-import { Canvas } from "@react-three/fiber";
+import { useState } from "react";
 
-export default function AvatarCanvas() {
+export default function AvatarCanvas({ videoUrl }) {
+  if (!videoUrl) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "grid",
+          placeItems: "center",
+        }}
+      >
+        Loading Avatar...
+      </div>
+    );
+  }
+
   return (
-    <Canvas
-      camera={{
-        position: [0, 1.4, 2],
-        fov: 30,
-      }}
+    <video
+      src={videoUrl}
+      autoPlay
+      playsInline
+      controls={false}
       style={{
         width: "100%",
         height: "100%",
+        objectFit: "cover",
+        borderRadius: "12px",
       }}
-    >
-      <ambientLight intensity={2} />
-      <directionalLight position={[2, 2, 2]} />
-    </Canvas>
+    />
   );
 }
