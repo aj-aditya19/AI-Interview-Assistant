@@ -120,7 +120,19 @@ function HomePage() {
       )}
       {isDone && (
         <InterviewResult
-          resultData={iv.resultData}
+          setup={iv.resultData?.setup || iv.setup}
+          history={iv.resultData?.history || iv.history || []}
+          scores={iv.resultData?.scores || iv.scores}
+          analysisPoints={
+            iv.resultData?.analysisPoints || iv.analysisPoints || []
+          }
+          finalSummary={iv.resultData?.finalSummary}
+          closingMessage={iv.resultData?.closingMessage}
+          readinessLabel={iv.resultData?.readinessLabel}
+          strengths={iv.resultData?.strengths || []}
+          improvements={iv.resultData?.improvements || []}
+          nextSteps={iv.resultData?.nextSteps || []}
+          overallScore={iv.resultData?.overallScore}
           onRestart={iv.restartInterview}
         />
       )}
