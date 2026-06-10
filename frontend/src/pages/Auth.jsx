@@ -1,142 +1,157 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../global/toastContext";
-
 import { authAPI } from "../utils/api";
-
 import "../styles/Auth.css";
+
+const POINTS = [
+  {
+    icon: "🎯",
+    cls: "v",
+    title: "Personalized Questions",
+    desc: "Tailored to your role, stack and experience level",
+  },
+  {
+    icon: "🎤",
+    cls: "g",
+    title: "Voice-First Practice",
+    desc: "Speak your answers — just like the real interview",
+  },
+  {
+    icon: "📊",
+    cls: "o",
+    title: "Instant AI Scoring",
+    desc: "Accuracy, confidence, vocabulary scored live",
+  },
+  {
+    icon: "🏆",
+    cls: "y",
+    title: "Full Result Report",
+    desc: "Strengths, gaps and next steps after every session",
+  },
+];
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
-
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
-
   const { login } = useAuth();
-
   const { showError, showSuccess } = useToast();
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       if (isLogin) {
-        const res = await authAPI.login({
+        const r = await authAPI.login({
           email: form.email,
           password: form.password,
         });
-
-        login(res.data.token, res.data.user);
-
-        showSuccess("Login successful");
-
+        login(r.data.token, r.data.user);
+        showSuccess("Welcome back! 🎉");
         navigate("/home");
       } else {
-        const res = await authAPI.register(form);
-
-        login(res.data.token, res.data.user);
-
-        showSuccess("Registration successful");
-
+        const r = await authAPI.register(form);
+        login(r.data.token, r.data.user);
+        showSuccess("Account created! Let's ace those interviews 🚀");
         navigate("/home");
       }
     } catch (err) {
       showError(err.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="auth-page">
       <div className="auth-shell">
+        <section className="auth-copy">
+          <span className="auth-eyebrow">⚡ AI-Powered Interview Prep</span>
+          <h2>
+            Land your dream <span>internship</span> or job
+          </h2>
+          <p>
+            Practice with a real AI interviewer, get instant feedback, and
+            improve fast.
+          </p>
+          <div className="auth-points">
+            {POINTS.map((p) => (
+              <div key={p.title} className="auth-point">
+                <div className={`auth-pt-icon ${p.cls}`}>{p.icon}</div>
+                <div>
+                  <strong>{p.title}</strong>
+                  <span>{p.desc}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="auth-card">
           <div className="auth-card-top">
-            <span className="auth-card-chip">
+            <span className="auth-chip">
               {isLogin ? "Sign in" : "Join now"}
             </span>
             <button
               className="auth-switch"
               onClick={() => setIsLogin(!isLogin)}
             >
-              {isLogin ? "Need an account?" : "Already have an account?"}
+              {isLogin ? "Need an account?" : "Have one already?"}
             </button>
           </div>
 
-          <h3 className="auth-form-title">{isLogin ? "Login" : "Register"}</h3>
+          <h3 className="auth-title">
+            {isLogin ? "Welcome back 👋" : "Get started free"}
+          </h3>
 
-          <form className="auth-form" onSubmit={handleSubmit}>
+          <form className="auth-form" onSubmit={onSubmit}>
             {!isLogin && (
+              <div className="auth-group">
+                <label>Full name</label>
+                <input
+                  name="name"
+                  placeholder="Your name"
+                  value={form.name}
+                  onChange={onChange}
+                  required
+                />
+              </div>
+            )}
+            <div className="auth-group">
+              <label>Email</label>
               <input
-                name="name"
-                placeholder="Name"
-                onChange={handleChange}
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                value={form.email}
+                onChange={onChange}
                 required
               />
-            )}
-
-            <input
-              name="email"
-              type="email"
-              placeholder="Email"
-              onChange={handleChange}
-              required
-            />
-
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              onChange={handleChange}
-              required
-            />
-
-            <button type="submit" className="auth-submit">
-              {isLogin ? "Login" : "Register"}
+            </div>
+            <div className="auth-group">
+              <label>Password</label>
+              <input
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                value={form.password}
+                onChange={onChange}
+                required
+              />
+            </div>
+            <button className="auth-submit" type="submit" disabled={loading}>
+              {loading
+                ? "Please wait…"
+                : isLogin
+                  ? "Sign In →"
+                  : "Create Account →"}
             </button>
           </form>
-        </section>
-        <section className="auth-copy-panel">
-          <p className="auth-eyebrow">Private workspace</p>
-          <h2 className="auth-title">
-            {isLogin ? "Welcome back" : "Create your profile"}
-          </h2>
-          <p className="auth-subtitle">
-            {isLogin
-              ? "Continue your tracked interview sessions with a clean, distraction-free interface."
-              : "Set up your account once, then start interviews for internship, job, or language practice."}
-          </p>
-
-          <div className="auth-points">
-            <div className="auth-point">
-              <strong>Fast entry</strong>
-              <span>Email and password login with instant access.</span>
-            </div>
-            <div className="auth-point">
-              <strong>Track aware</strong>
-              <span>
-                Internship, job, and language flows live in one place.
-              </span>
-            </div>
-            <div className="auth-point">
-              <strong>Clean review</strong>
-              <span>
-                Clear scores, feedback, and final results after each session.
-              </span>
-            </div>
-          </div>
         </section>
       </div>
     </div>

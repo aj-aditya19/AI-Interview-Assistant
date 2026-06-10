@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+// import { interviewAPI, avatarAPI } from "../../../utils/api";
 import { interviewAPI } from "../../../utils/api";
 import {
   defaultScores,
@@ -37,6 +38,8 @@ const buildEmptyReview = () => ({
 });
 
 export function useInterview() {
+  // const [videoUrl, setVideoUrl] = useState("");
+  const [timeElapsedSeconds, setTimeElapsedSeconds] = useState(0);
   const [setup, setSetup] = useState(defaultSetup);
   const [interviewPhase, setInterviewPhase] = useState("setup");
   const [currentQuestion, setCurrentQuestion] = useState("");
@@ -53,8 +56,6 @@ export function useInterview() {
   const [sessionId, setSessionId] = useState("");
   const [sessionStartedAt, setSessionStartedAt] = useState(0);
   const [timeRemainingSeconds, setTimeRemainingSeconds] = useState(0);
-  const [timeElapsedSeconds, setTimeElapsedSeconds] = useState(0);
-
   const setupRef = useRef(defaultSetup);
   const currentQuestionRef = useRef("");
   const historyRef = useRef([]);
@@ -94,25 +95,51 @@ export function useInterview() {
 
   // on mount: if a previous interview was in progress and the user reloaded,
   // restart the interview from zero using the saved setup
+  // useEffect(() => {
+  //   try {
+  //     const inProgress = localStorage.getItem("aiInterview.inProgress");
+  //     const saved = localStorage.getItem("aiInterview.setup");
+
+  //     if (inProgress === "1" && saved) {
+  //       const parsed = JSON.parse(saved);
+  //       // restore setup state then start interview automatically
+  //       setSetup((prev) => ({ ...prev, ...parsed }));
+  //       // small timeout to allow refs/state to settle
+  //       setTimeout(() => {
+  //         void internalStartInterview(parsed);
+  //       }, 50);
+  //     }
+  //   } catch (e) {}
+  //   // run only once on mount
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   useEffect(() => {
-    try {
-      const inProgress = localStorage.getItem("aiInterview.inProgress");
-      const saved = localStorage.getItem("aiInterview.setup");
+    const handleUnload = () => {
+      try {
+        if (sessionIdRef.current) {
+          fetch(
+            `${import.meta.env.VITE_API_URL || "http://localhost:5000/api"}/interview/session/${sessionIdRef.current}`,
+            {
+              method: "DELETE",
+              keepalive: true,
+              headers: {
+                Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+              },
+            },
+          );
+        }
 
-      if (inProgress === "1" && saved) {
-        const parsed = JSON.parse(saved);
-        // restore setup state then start interview automatically
-        setSetup((prev) => ({ ...prev, ...parsed }));
-        // small timeout to allow refs/state to settle
-        setTimeout(() => {
-          void internalStartInterview(parsed);
-        }, 50);
-      }
-    } catch (e) {}
-    // run only once on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        localStorage.removeItem("aiInterview.inProgress");
+        localStorage.removeItem("aiInterview.setup");
+      } catch (e) {}
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
   }, []);
-
   useEffect(() => {
     if (interviewPhase !== "live" || !sessionStartedAtRef.current) {
       return undefined;
@@ -211,7 +238,41 @@ export function useInterview() {
     timeRemainingLabel: formatDuration(timeRemainingSeconds),
     timeElapsedLabel: formatDuration(timeElapsedSeconds),
   });
+  // const playAvatar = async (text) => {
+  //   try {
+  //     const avatar = await avatarAPI.speak(text);
 
+  //     const talkId = avatar.data.id;
+
+  //     return new Promise((resolve, reject) => {
+  //       const pollInterval = setInterval(async () => {
+  //         try {
+  //           const result = await avatarAPI.status(talkId);
+
+  //           if (result.data.status === "done") {
+  //             clearInterval(pollInterval);
+
+  //             setVideoUrl(result.data.result_url);
+
+  //             resolve(result.data.result_url);
+  //           }
+
+  //           if (result.data.status === "failed") {
+  //             clearInterval(pollInterval);
+
+  //             reject(new Error("Avatar generation failed"));
+  //           }
+  //         } catch (err) {
+  //           clearInterval(pollInterval);
+
+  //           reject(err);
+  //         }
+  //       }, 3000);
+  //     });
+  //   } catch (err) {
+  //     console.error("Avatar error", err);
+  //   }
+  // };
   const submitAnswer = async (submittedAnswer, fromAuto = false) => {
     if (interviewPhase !== "live") {
       return;
@@ -320,7 +381,7 @@ export function useInterview() {
 
       currentQuestionRef.current = nextQuestion;
       setCurrentQuestion(nextQuestion);
-
+      // await playAvatar(nextQuestion);
       if (autoSpeakReply) {
         await speakReply(
           [response.data.summary, response.data.improvedAnswer, nextQuestion]
@@ -469,9 +530,9 @@ export function useInterview() {
       stopPlayback();
 
       const response = await interviewAPI.start(setupObj);
+
       const firstQuestion =
         response.data.question || "Please introduce yourself.";
-
       const nextSessionId = response.data.sessionId || "";
       const rawStartedAt = response.data.startedAt || Date.now();
       const nextStartedAt =
@@ -492,15 +553,15 @@ export function useInterview() {
       currentQuestionRef.current = firstQuestion;
       setCurrentQuestion(firstQuestion);
       setInterviewPhase("live");
-
+      // await playAvatar(firstQuestion);
       setTimeout(() => {
         startListening();
       }, 1000);
       // mark in localStorage so reloads auto-restart
-      try {
-        localStorage.setItem("aiInterview.inProgress", "1");
-        localStorage.setItem("aiInterview.setup", JSON.stringify(setupObj));
-      } catch (e) {}
+      // try {
+      //   localStorage.setItem("aiInterview.inProgress", "1");
+      //   localStorage.setItem("aiInterview.setup", JSON.stringify(setupObj));
+      // } catch (e) {}
 
       if (response.data.intro) {
         setVoiceHint(response.data.intro);
@@ -524,6 +585,8 @@ export function useInterview() {
     setResultData(null);
     setSessionId("");
     setSessionStartedAt(0);
+    sessionIdRef.current = "";
+    sessionStartedAtRef.current = 0;
     setTimeRemainingSeconds(0);
     setTimeElapsedSeconds(0);
     setCurrentQuestion("");
@@ -598,6 +661,7 @@ export function useInterview() {
     resultData,
     restartInterview,
     sessionId,
+    // videoUrl,
     timeRemainingLabel: formatDuration(timeRemainingSeconds),
     timeElapsedLabel: formatDuration(timeElapsedSeconds),
     totalTimeLabel: `${durationMinutesRef.current} minutes`,

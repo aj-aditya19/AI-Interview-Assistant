@@ -60,10 +60,10 @@ function LandingPage() {
                   Experience, previous internships, and deeper role questions.
                 </p>
               </article>
-              <article className="feature-card">
+              {/* <article className="feature-card">
                 <h3>Language mode</h3>
                 <p>Target language, current level, and speaking confidence.</p>
-              </article>
+              </article> */}
             </div>
           </aside>
         </section>

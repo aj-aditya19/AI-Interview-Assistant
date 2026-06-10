@@ -7,9 +7,10 @@ import authRouter from "./routes/auth.route.js";
 import groqRouter from "./routes/groq.route.js";
 import speechRouter from "./routes/speech.route.js";
 import interviewRouter from "./routes/interview.route.js";
-import { spawn } from "child_process";
+// import { spawn } from "child_process";
 import path from "path";
 import { fileURLToPath } from "url";
+// import avatarRouter from "./routes/avatar.route.js";
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use("/api", authRouter);
 app.use("/api", groqRouter);
 app.use("/api", speechRouter);
 app.use("/api", interviewRouter);
+// app.use("/api", avatarRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
@@ -46,16 +48,16 @@ app.use((err, req, res, next) => {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-let cameraProcess;
+// let cameraProcess;
 
 const startServer = async () => {
   await connectDb();
 
-  const cameraScript = path.join(__dirname, "python", "interview", "camera.py");
+  // const cameraScript = path.join(__dirname, "python", "interview", "camera.py");
 
-  cameraProcess = spawn("python", [cameraScript], {
-    stdio: "inherit",
-  });
+  // cameraProcess = spawn("python", [cameraScript], {
+  //   stdio: "inherit",
+  // });
 
   app.listen(port, () => {
     console.log(`Server running on port ${port}`);

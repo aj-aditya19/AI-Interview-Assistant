@@ -1,0 +1,67 @@
+.home-voice-options {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.home-voice-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.home-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0;
+	font-weight: 600;
+	color: var(--muted);
+	font-size: 0.82rem;
+}
+
+.home-toggle input {
+	width: 16px;
+	height: 16px;
+	accent-color: var(--primary);
+}
+
+.home-voice-button,
+.home-secondary-button {
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	padding: 8px 10px;
+	background: rgba(255, 255, 255, 0.9);
+	color: var(--text);
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 0.82rem;
+	box-shadow: var(--shadow-sm);
+}
+
+.home-voice-button:hover:not(:disabled),
+.home-secondary-button:hover:not(:disabled) {
+	box-shadow: var(--shadow-md);
+}
+
+.home-voice-button.is-listening {
+	background: rgba(15, 118, 110, 0.1);
+	border-color: rgba(15, 118, 110, 0.24);
+}
+
+.home-voice-button:disabled,
+.home-secondary-button:disabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+
+.home-support-note {
+	margin: 0;
+	color: var(--muted);
+	font-size: 0.82rem;
+}
+

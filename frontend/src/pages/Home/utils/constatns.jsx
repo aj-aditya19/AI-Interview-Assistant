@@ -189,12 +189,12 @@ export const trackOptions = [
     description:
       "Covers role fit plus experience, previous internships, and stronger depth.",
   },
-  {
-    value: "language",
-    label: "Want to learn language",
-    description:
-      "Focuses on the language you want to learn and your current level.",
-  },
+  // {
+  //   value: "language",
+  //   label: "Want to learn language",
+  //   description:
+  //     "Focuses on the language you want to learn and your current level.",
+  // },
 ];
 
 export const getSetupFields = (track) =>
@@ -230,12 +230,10 @@ export const isValidInterviewSetup = (setup) => {
       return false;
     }
   } else {
-    if (
-      !normalize(setup?.role) ||
-      !normalize(setup?.subjects) ||
-      !Array.isArray(setup?.techStack) ||
-      setup.techStack.length === 0
-    ) {
+    if (!normalize(setup?.role)) {
+      return false;
+    }
+    if (!normalize(setup?.subjects)) {
       return false;
     }
   }

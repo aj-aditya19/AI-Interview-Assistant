@@ -163,7 +163,7 @@ const getReviewPrompt = (setup, currentQuestion) => {
   if (track === "language") {
     return {
       system:
-        "You are an AI language coach in a live interview chat. Evaluate the learner's answer to the current question. If the answer is weak or off-topic on the first attempt, ask one simple retry question. If the second attempt is still weak, move on with a low score and a short correction. Return only JSON with keys: analysis (array of 3-5 short bullet strings), scores (object with accuracy, confidence, vocabulary, grammar, overall numbers from 0 to 10), summary (1-2 short sentences), improvedAnswer (one rewritten answer), improvedQuestion (one rewritten answer), shouldRetry (boolean), retryQuestion (one short follow-up question), nextQuestion (one concise next question), rate (number from 0 to 10), result (number from 0 to 10), total (number). No markdown, no extra text.",
+        "You are an AI language coach in a live interview chat. Evaluate the learner's answer to the current question. If the answer is weak or off-topic on the first attempt, ask one simple retry question. If the second attempt is still weak, move on with a low score and a short correction. Return only JSON with keys: analysis (array of 3-5 short bullet strings), scores (object with accuracy, confidence, vocabulary, grammar, overall numbers from 0 to 10), summary (1-2 short sentences), improvedAnswer (one rewritten answer), improvedQuestion = better version of interview question, shouldRetry (boolean), retryQuestion (one short follow-up question), nextQuestion (one concise next question), rate (number from 0 to 10), result (number from 0 to 10), total (number). No markdown, no extra text.",
       retryQuestion,
       nextQuestion: `What is one hobby or interest you can describe in ${toText(setup?.language) || "the target language"}?`,
     };
@@ -172,7 +172,7 @@ const getReviewPrompt = (setup, currentQuestion) => {
   if (track === "job") {
     return {
       system:
-        "You are an AI job interview coach in a live chat session. Evaluate the candidate's answer to the current question. If the answer does not actually introduce the candidate or does not answer the question well on the first attempt, ask a simple retry question. If the second attempt is still weak, move on with a low score and a short correction. Return only JSON with keys: analysis (array of 3-5 short bullet strings), scores (object with accuracy, confidence, vocabulary, english, overall numbers from 0 to 10), summary (1-2 short sentences), improvedAnswer (one rewritten answer), improvedQuestion (one rewritten answer), shouldRetry (boolean), retryQuestion (one short follow-up question), nextQuestion (one concise next question), rate (number from 0 to 10), result (number from 0 to 10), total (number). Keep the feedback direct, fair, and practical.",
+        "You are an AI job interview coach in a live chat session. Evaluate the candidate's answer to the current question. If the answer does not actually introduce the candidate or does not answer the question well on the first attempt, ask a simple retry question. If the second attempt is still weak, move on with a low score and a short correction. Return only JSON with keys: analysis (array of 3-5 short bullet strings), scores (object with accuracy, confidence, vocabulary, english, overall numbers from 0 to 10), summary (1-2 short sentences), improvedAnswer = better version of user's answer, improvedQuestion = better version of interview question, shouldRetry (boolean), retryQuestion (one short follow-up question), nextQuestion (one concise next question), rate (number from 0 to 10), result (number from 0 to 10), total (number). Keep the feedback direct, fair, and practical.",
       retryQuestion,
       nextQuestion: getFallbackNextQuestion(setup, currentQuestion),
     };
@@ -180,7 +180,7 @@ const getReviewPrompt = (setup, currentQuestion) => {
 
   return {
     system:
-      "You are an AI internship interview coach in a live chat session. Evaluate the candidate's answer to the current question. If the answer does not actually introduce the candidate or is too weak on the first attempt, ask a simple retry question. If the second attempt is still weak, move on with a low score and a short correction. Return only JSON with keys: analysis (array of 3-5 short bullet strings), scores (object with accuracy, confidence, vocabulary, english, overall numbers from 0 to 10), summary (1-2 short sentences), improvedAnswer (one rewritten answer), improvedQuestion (one rewritten answer), shouldRetry (boolean), retryQuestion (one short follow-up question), nextQuestion (one concise next question), rate (number from 0 to 10), result (number from 0 to 10), total (number). Keep the feedback direct, fair, and practical.",
+      "You are an AI internship interview coach in a live chat session. Evaluate the candidate's answer to the current question. If the answer does not actually introduce the candidate or is too weak on the first attempt, ask a simple retry question. If the second attempt is still weak, move on with a low score and a short correction. Return only JSON with keys: analysis (array of 3-5 short bullet strings), scores (object with accuracy, confidence, vocabulary, english, overall numbers from 0 to 10), summary (1-2 short sentences), improvedAnswer = better version of user's answer, improvedQuestion = better version of interview question, shouldRetry (boolean), retryQuestion (one short follow-up question), nextQuestion (one concise next question), rate (number from 0 to 10), result (number from 0 to 10), total (number). Keep the feedback direct, fair, and practical.",
     retryQuestion,
     nextQuestion: getFallbackNextQuestion(setup, currentQuestion),
   };
@@ -312,6 +312,10 @@ router.post("/interview/session", protect, async (req, res) => {
     const action = String(req.body?.action || "start").trim();
 
     if (action === "start") {
+      await ChatSession.deleteMany({
+        userId: req.user._id,
+      });
+
       const setup = req.body?.setup || {};
       const setupError = validateSetup(setup);
 
@@ -392,29 +396,22 @@ router.post("/interview/session", protect, async (req, res) => {
           )
         : 0;
 
-      session.status = "completed";
-      session.completedAt = new Date();
-      session.finalSummary = summary.finalSummary;
-      session.strengths = summary.strengths;
-      session.improvements = summary.improvements;
-      session.nextSteps = summary.nextSteps;
-      session.readinessLabel = summary.readinessLabel;
-      session.closingMessage = summary.closingMessage;
-      session.overallScore = overallScore;
-      session.expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
-
-      await session.save();
-      console.log("[chat.route] session saved", {
-        sessionId: session.sessionId,
-        overallScore: session.overallScore,
-        turns: session.turns.length,
-      });
-
-      return res.json({
+      const responseData = {
         ...summary,
         history: session.turns,
         overallScore,
         sessionId: session.sessionId,
+      };
+
+      await ChatSession.deleteOne({
+        _id: session._id,
+      });
+
+      return res.json(responseData);
+      console.log("[chat.route] session saved", {
+        sessionId: session.sessionId,
+        overallScore: session.overallScore,
+        turns: session.turns.length,
       });
     }
 
@@ -549,6 +546,22 @@ router.post("/interview/session", protect, async (req, res) => {
   }
 });
 
+router.post("/interview/clear/:sessionId", protect, async (req, res) => {
+  try {
+    await ChatSession.deleteOne({
+      userId: req.user._id,
+      sessionId: req.params.sessionId,
+    });
+    return res.json({
+      success: true,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+});
+
 router.delete("/interview/session/:sessionId", protect, async (req, res) => {
   try {
     console.log("[chat.route] delete session", {
@@ -558,6 +571,7 @@ router.delete("/interview/session/:sessionId", protect, async (req, res) => {
     await ChatSession.deleteOne({
       userId: req.user._id,
       sessionId: req.params.sessionId,
+      status: "active",
     });
 
     return res.json({ message: "Chat session cleared" });

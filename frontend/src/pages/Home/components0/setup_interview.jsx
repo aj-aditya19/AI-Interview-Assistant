@@ -5,8 +5,7 @@ import {
 } from "../utils/constatns.jsx";
 import "../styles/InterviewSetup.css";
 
-const TRACK_ICONS = { internship: "🎓", job: "💼" };
-// const TRACK_ICONS = { internship: "🎓", job: "💼", language: "🌍" };
+const TRACK_ICONS = { internship: "🎓", job: "💼", language: "🌍" };
 
 function InterviewSetup({
   setup,
