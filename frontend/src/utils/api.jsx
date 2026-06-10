@@ -55,10 +55,10 @@ export const speechAPI = {
     api.post("/speech/speak", { text }, { responseType: "arraybuffer" }),
 };
 
-export const avatarAPI = {
-  speak: (text) => api.post("/avatar/speak", { text }),
+// export const avatarAPI = {
+//   speak: (text) => api.post("/avatar/speak", { text }),
 
-  status: (id) => api.get(`/avatar/status/${id}`),
-};
+//   status: (id) => api.get(`/avatar/status/${id}`),
+// };
 
 export default api;

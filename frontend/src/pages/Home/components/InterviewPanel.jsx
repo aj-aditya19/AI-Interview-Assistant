@@ -29,7 +29,7 @@ function InterviewPanel({
   error,
   timeLimitLabel,
   timeRemainingLabel,
-  videoUrl,
+  // videoUrl,
 }) {
   const scores = reviewData?.scores || defaultScores;
   const summaryText = reviewData?.summaryText || "";
@@ -47,7 +47,7 @@ function InterviewPanel({
         <section className="home-box home-panel home-question-panel">
           <QuestionCard
             question={currentQuestion}
-            videoUrl={videoUrl}
+            // videoUrl={videoUrl}
             setup={setup}
           />
         </section>

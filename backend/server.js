@@ -10,7 +10,7 @@ import interviewRouter from "./routes/interview.route.js";
 import { spawn } from "child_process";
 import path from "path";
 import { fileURLToPath } from "url";
-import avatarRouter from "./routes/avatar.route.js";
+// import avatarRouter from "./routes/avatar.route.js";
 
 dotenv.config();
 
@@ -34,7 +34,7 @@ app.use("/api", authRouter);
 app.use("/api", groqRouter);
 app.use("/api", speechRouter);
 app.use("/api", interviewRouter);
-app.use("/api", avatarRouter);
+// app.use("/api", avatarRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });

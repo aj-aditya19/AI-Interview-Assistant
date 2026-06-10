@@ -4,7 +4,7 @@ import LandingPage from "./pages/Landing";
 import AuthPage from "./pages/Auth";
 import HomePage from "./pages/Home";
 import "./styles/App.css";
-
+import InterviewResult from "./pages/Home/components/InterviewResult";
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
@@ -50,6 +50,14 @@ function App() {
         element={
           <ProtectedRoute>
             <HomePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/result"
+        element={
+          <ProtectedRoute>
+            <InterviewResult />
           </ProtectedRoute>
         }
       />

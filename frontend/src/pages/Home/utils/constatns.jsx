@@ -230,12 +230,10 @@ export const isValidInterviewSetup = (setup) => {
       return false;
     }
   } else {
-    if (
-      !normalize(setup?.role) ||
-      !normalize(setup?.subjects) ||
-      !Array.isArray(setup?.techStack) ||
-      setup.techStack.length === 0
-    ) {
+    if (!normalize(setup?.role)) {
+      return false;
+    }
+    if (!normalize(setup?.subjects)) {
       return false;
     }
   }
