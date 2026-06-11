@@ -2,74 +2,106 @@ import { useEffect, useRef } from "react";
 import { speechAPI } from "../../../utils/api";
 
 export function useSpeechSynthesis({ setSpeechError }) {
-  const audioRef = useRef(null);
-  const audioUrlRef = useRef(null);
+  // const audioRef = useRef(null);
+  // const audioUrlRef = useRef(null);
+
+  // const stopPlayback = () => {
+  //   if (audioRef.current) {
+  //     audioRef.current.pause();
+  //     audioRef.current = null;
+  //   }
+
+  //   if (audioUrlRef.current) {
+  //     URL.revokeObjectURL(audioUrlRef.current);
+  //     audioUrlRef.current = null;
+  //   }
+  // };
 
   const stopPlayback = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current = null;
-    }
-
-    if (audioUrlRef.current) {
-      URL.revokeObjectURL(audioUrlRef.current);
-      audioUrlRef.current = null;
-    }
+    window.speechSynthesis.cancel();
   };
 
   useEffect(() => stopPlayback, []);
 
+  //   const speakReply = async (text, onFinish) => {
+  //   const trimmedText = String(text || "").trim();
+
+  //   if (!trimmedText) {
+  //     return;
+  //   }
+
+  //   try {
+  //     stopPlayback();
+
+  //     const response = await speechAPI.speak(trimmedText);
+  //     const audioBlob = new Blob([response.data], { type: "audio/wav" });
+  //     const audioUrl = URL.createObjectURL(audioBlob);
+  //     audioUrlRef.current = audioUrl;
+
+  //     const audio = new Audio(audioUrl);
+  //     audioRef.current = audio;
+
+  //     audio.onended = () => {
+  //       if (audioUrlRef.current === audioUrl) {
+  //         URL.revokeObjectURL(audioUrl);
+  //         audioUrlRef.current = null;
+  //       }
+
+  //       if (onFinish) {
+  //         onFinish();
+  //       }
+  //     };
+
+  //     audio.onerror = () => {
+  //       if (audioUrlRef.current === audioUrl) {
+  //         URL.revokeObjectURL(audioUrl);
+  //         audioUrlRef.current = null;
+  //       }
+
+  //       setSpeechError("The Python speaker service could not play the audio.");
+  //     };
+
+  //     audio.play().catch((voiceError) => {
+  //       setSpeechError(
+  //         voiceError?.response?.data?.message ||
+  //           voiceError.message ||
+  //           "Could not generate spoken audio.",
+  //       );
+  //     });
+  //   } catch (voiceError) {
+  //     setSpeechError(
+  //       voiceError?.response?.data?.message ||
+  //         voiceError.message ||
+  //         "Could not generate spoken audio.",
+  //     );
+  //   }
+  // };
+
   const speakReply = async (text, onFinish) => {
     const trimmedText = String(text || "").trim();
 
-    if (!trimmedText) {
-      return;
-    }
+    if (!trimmedText) return;
 
     try {
-      stopPlayback();
+      window.speechSynthesis.cancel();
 
-      const response = await speechAPI.speak(trimmedText);
-      const audioBlob = new Blob([response.data], { type: "audio/wav" });
-      const audioUrl = URL.createObjectURL(audioBlob);
-      audioUrlRef.current = audioUrl;
+      const utterance = new SpeechSynthesisUtterance(trimmedText);
 
-      const audio = new Audio(audioUrl);
-      audioRef.current = audio;
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      utterance.volume = 1;
 
-      audio.onended = () => {
-        if (audioUrlRef.current === audioUrl) {
-          URL.revokeObjectURL(audioUrl);
-          audioUrlRef.current = null;
-        }
-
-        if (onFinish) {
-          onFinish();
-        }
+      utterance.onend = () => {
+        if (onFinish) onFinish();
       };
 
-      audio.onerror = () => {
-        if (audioUrlRef.current === audioUrl) {
-          URL.revokeObjectURL(audioUrl);
-          audioUrlRef.current = null;
-        }
-
-        setSpeechError("The Python speaker service could not play the audio.");
+      utterance.onerror = () => {
+        setSpeechError("Speech synthesis failed.");
       };
 
-      audio.play().catch((voiceError) => {
-        setSpeechError(
-          voiceError?.response?.data?.message ||
-            voiceError.message ||
-            "Could not generate spoken audio.",
-        );
-      });
-    } catch (voiceError) {
-      setSpeechError(
-        voiceError?.response?.data?.message ||
-          voiceError.message ||
-          "Could not generate spoken audio.",
-      );
+      window.speechSynthesis.speak(utterance);
+    } catch (error) {
+      setSpeechError(error.message || "Speech synthesis failed.");
     }
   };
 
