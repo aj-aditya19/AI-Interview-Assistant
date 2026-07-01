@@ -1,0 +1,53 @@
+{
+  "setup": {
+    "heading": "PPDT Practice",
+    "subheading": "SSB-style image perception and description test",
+    "difficultyLabel": "Choose difficulty",
+    "startButton": "Start session",
+    "howItWorks": {
+      "title": "How it works",
+      "steps": [
+        "An image is shown for a fixed time — observe every detail.",
+        "The image disappears. Narrate a story based on what you saw.",
+        "Your response is evaluated for observation, imagination, and communication."
+      ]
+    }
+  },
+  "live": {
+    "viewingHeading": "Observe the image carefully",
+    "viewingSubtext": "The image will disappear when the timer ends",
+    "hiddenHeading": "Now describe what you saw",
+    "hiddenSubtext": "Narrate a story based on the image. Speak clearly.",
+    "timerLabel": "Time remaining",
+    "submitButton": "Submit response",
+    "listeningLabel": "Listening...",
+    "responseLabel": "Your response"
+  },
+  "result": {
+    "heading": "PPDT result",
+    "subheading": "Here's how your story was evaluated",
+    "overallScore": "Overall score",
+    "breakdown": "Score breakdown",
+    "scoreLabels": {
+      "observation": "Observation",
+      "imagination": "Imagination",
+      "communication": "Communication",
+      "confidence": "Confidence",
+      "storyStructure": "Story structure",
+      "officerLikeQualities": "Officer-like qualities"
+    },
+    "yourResponse": "Your response",
+    "referenceDescription": "Reference description",
+    "recommendations": "Suggestions to improve",
+    "buttons": {
+      "tryAgain": "Try another image",
+      "viewHistory": "View past sessions",
+      "goHome": "Back to dashboard"
+    }
+  },
+  "difficultyOptions": [
+    { "value": "Beginner", "label": "Beginner", "hint": "30s to observe, 3 min to respond" },
+    { "value": "Intermediate", "label": "Intermediate", "hint": "30s to observe, 4 min to respond" },
+    { "value": "Advanced", "label": "Advanced", "hint": "30s to observe, 5 min to respond" }
+  ]
+}

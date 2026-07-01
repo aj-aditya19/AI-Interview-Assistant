@@ -1,0 +1,138 @@
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Left branding panel */
+.auth-left {
+  width: 420px;
+  flex-shrink: 0;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 56px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.auth-logo {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.auth-brand-name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.auth-tagline {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.auth-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-features li {
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.82);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.auth-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+}
+
+/* Right form panel */
+.auth-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: var(--color-bg);
+}
+
+.auth-form-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-heading {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.auth-subheading {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  margin-top: 6px;
+  margin-bottom: 28px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.auth-forgot {
+  font-size: 0.8125rem;
+  color: var(--color-primary);
+}
+.auth-forgot:hover { text-decoration: underline; }
+
+.auth-switch {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.auth-switch-btn {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .auth-left { display: none; }
+  .auth-right { padding: 32px 20px; }
+}

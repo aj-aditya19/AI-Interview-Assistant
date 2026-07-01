@@ -1,0 +1,41 @@
+{
+  "roundLabels": {
+    "hr": "HR Round",
+    "technical": "Technical Round",
+    "other": "Other Round"
+  },
+  "status": {
+    "aiSpeaking": "AI is speaking...",
+    "listening": "Listening to you...",
+    "processing": "Processing your answer...",
+    "waitingForAnswer": "Your turn to answer",
+    "roundComplete": "Round complete",
+    "interviewComplete": "Interview complete"
+  },
+  "conversationLabels": {
+    "aiLabel": "InterviewIQ",
+    "youLabel": "You"
+  },
+  "controls": {
+    "startAnswering": "Start answering",
+    "stopAnswering": "Done answering",
+    "submitAnswer": "Submit answer",
+    "nextRound": "Next round",
+    "finishInterview": "Finish interview",
+    "skipQuestion": "Skip question"
+  },
+  "hints": {
+    "voiceHint": "Speak clearly — your answer is being transcribed in real time",
+    "roundTransition": "Moving to the next round...",
+    "retryHint": "That answer was brief. Try to elaborate more.",
+    "timerWarning": "10 minutes — round will wrap up shortly"
+  },
+  "timer": {
+    "elapsed": "Elapsed",
+    "roundTime": "Round time"
+  },
+  "avatarAlt": "AI Interviewer",
+  "cameraLabel": "Your camera",
+  "cameraError": "Camera not available",
+  "micError": "Microphone access is needed to answer questions"
+}

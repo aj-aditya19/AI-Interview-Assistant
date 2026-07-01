@@ -1,0 +1,15 @@
+{
+  "communication": {
+    "title": "Communication module",
+    "description": "Practice real conversations with AI personas tuned to different scenarios — interviews, presentations, conflict resolution.",
+    "eta": "Launching soon"
+  },
+  "ats": {
+    "title": "ATS Resume Scorer",
+    "description": "Upload your resume and see exactly how it scores against a job description. Get line-by-line suggestions to beat the ATS.",
+    "eta": "Launching soon"
+  },
+  "notifyButton": "Notify me when it's ready",
+  "notifySuccess": "You're on the list! We'll email you when this launches.",
+  "notifyAlready": "You're already on the waitlist for this feature."
+}

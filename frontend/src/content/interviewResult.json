@@ -1,0 +1,45 @@
+{
+  "heading": "Interview complete",
+  "subheading": "Here's how you performed across all rounds",
+  "sections": {
+    "overallScore": "Overall score",
+    "readiness": "Interview readiness",
+    "breakdown": "Score breakdown",
+    "roundWise": "Round-wise performance",
+    "strengths": "What you did well",
+    "weaknesses": "Areas to improve",
+    "recommendations": "Action plan",
+    "summary": "Final assessment"
+  },
+  "scoreLabels": {
+    "communication": "Communication",
+    "confidence": "Confidence",
+    "technical": "Technical depth",
+    "fluency": "Fluency",
+    "vocabulary": "Vocabulary",
+    "grammar": "Grammar",
+    "clarity": "Clarity"
+  },
+  "roundLabels": {
+    "hr": "HR Round",
+    "technical": "Technical Round",
+    "other": "Other Round"
+  },
+  "readinessLabels": {
+    "Interview Ready": "Interview Ready",
+    "Needs Improvement": "Needs Improvement",
+    "Promising": "Promising",
+    "Keep Practicing": "Keep Practicing"
+  },
+  "buttons": {
+    "tryAgain": "Practice again",
+    "viewHistory": "View all interviews",
+    "goHome": "Back to dashboard"
+  },
+  "turnLabels": {
+    "question": "Question",
+    "yourAnswer": "Your answer",
+    "betterAnswer": "Suggested answer",
+    "scores": "Scores"
+  }
+}

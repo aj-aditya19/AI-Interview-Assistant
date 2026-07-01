@@ -1,0 +1,33 @@
+{
+  "images": [
+    {
+      "id": "ppdt_001",
+      "difficulty": "Beginner",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 180,
+      "imageUrl": "/assets/ppdt/image_001.jpg",
+      "referenceDescription": "A group of people gathered near a riverside village, one person pointing toward the water while others look concerned, suggesting a rescue or community response scene."
+    },
+    {
+      "id": "ppdt_002",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "/assets/ppdt/image_002.jpg",
+      "referenceDescription": "A young person standing at a crossroads near a damaged signpost, with a vehicle stopped in the distance, suggesting a decision-making or navigation scenario."
+    },
+    {
+      "id": "ppdt_003",
+      "difficulty": "Advanced",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 300,
+      "imageUrl": "/assets/ppdt/image_003.jpg",
+      "referenceDescription": "A team working together to move equipment across uneven terrain during what appears to be a field exercise, indicating teamwork and problem-solving under pressure."
+    }
+  ],
+  "labels": {
+    "viewingHeading": "Observe the image carefully",
+    "hiddenHeading": "Now describe what you saw",
+    "submitButton": "Submit response"
+  }
+}

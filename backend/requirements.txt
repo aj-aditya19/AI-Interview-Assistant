@@ -1,5 +1,0 @@
-pyttsx3==2.98
-opencv-python==4.11.0.86
-sounddevice==0.5.1
-soundfile==0.13.1
-numpy==2.2.6

@@ -1,221 +1,167 @@
-# **AI Interview Preparation System**
+# AI Interview Assistant
 
-## Full project host on:
+> An AI-powered career preparation platform — practice real interviews and SSB-style PPDT tests with instant, structured feedback.
 
-10 June 2026
+**Status:** In Development
+**Target Deployment Date:** **20 July 2026** (estimate — see Roadmap & Timeline below)
 
 ---
 
 ## Overview
 
-This project is an **AI-powered interview preparation platform** designed to help users practice and improve their interview skills.
+AI Interview Assistant helps students and freshers practice for real interviews and defense-exam (NDA/SSB) style assessments through realistic, AI-driven simulations — not generic question banks.
 
-It simulates real interview scenarios by generating role-specific questions and evaluating user responses using AI, providing **structured feedback and performance analysis**.
+The platform has **4 modules**, built and rolled out in phases:
 
----
-
-## Problem Statement
-
-Many students and freshers face difficulties in interviews due to:
-
-- Lack of real interview practice
-- Poor answer structuring
-- Weak communication skills
-- No personalized feedback
-
-Existing platforms often provide generic feedback or are not tailored for beginners.
-
----
-
-## Solution
-
-This system provides:
-
-- AI-generated interview questions based on selected roles
-- Answer evaluation using intelligent analysis
-- Detailed feedback with improvement suggestions
-- Performance scoring across multiple parameters
+| Module | Status | Description |
+|---|---|---|
+| AI Interview | **Live** | Multi-round mock interview (HR, Technical, Other) with an AI interviewer, scored question-by-question |
+| PPDT | **Live** | Picture Perception & Discussion Test practice — view an image, then describe and analyze it under time pressure |
+| Communication | Coming Soon | Practice conversations (chat / voice / video) with AI personas in a topic or role of your choice |
+| ATS Resume Score | Coming Soon | Upload your resume and get an ATS match score against your target role and company |
 
 ---
 
 ## Key Features
 
-### Role-Based Interview Simulation
+### AI Interview
+- Choose your interview reason (Internship / Placement / Other), target role, target company, skills, and experience
+- Multi-round format in a single continuous session: HR → Technical → Other
+- Per-question score breakdown (accuracy, confidence, vocabulary, English, overall) shown right after each answer
+- Full session summary at the end: strengths, weaknesses, recommendations, and a readiness label
+- AI interviewer avatar with a speaking animation (lightweight — no heavy video generation)
 
-- Select job role (e.g., Software Engineer, HR, etc.)
-- Receive relevant, structured interview questions
+### PPDT (Picture Perception & Discussion Test)
+- Image is shown for a fixed duration based on difficulty (chosen at interview setup)
+- Image is then hidden; user describes and analyzes what they saw, within a timed window
+- Scored on observation, imagination, communication, confidence, story structure, and officer-like qualities
 
----
-
-### AI-Based Answer Evaluation
-
-- Analyze user responses (text-based initially)
-- Evaluate based on:
-  - Relevance
-  - Clarity
-  - Completeness
-
-- Provide meaningful feedback instead of generic scores
-
----
-
-### Performance Scoring System
-
-- Communication score
-- Answer quality score
-- Overall rating (out of 10)
-
----
-
-### Detailed Feedback
-
-- Identify weak areas
-- Suggest improvements
-- Provide better sample answers
-
----
-
-### Interview Report
-
-- Summary of performance
-- Strengths and weaknesses
-- Suggestions for improvement
+### Coming Soon — Communication & ATS Score
+- Shown as disabled tiles on the dashboard with a "Notify me" option — used purely to gauge interest before building
 
 ---
 
 ## Tech Stack
 
-### Frontend
-
-- React.js
-
-### Backend
-
-- Node.js
-- Express.js
-
-### AI / NLP
-
-- LLM API (for question generation and evaluation)
-- Natural Language Processing concepts
-
-### Optional Enhancements
-
-- OpenCV (for basic emotion detection - optional)
+**Frontend:** React + Vite
+**Backend:** Node.js + Express.js
+**Database:** MongoDB (Mongoose)
+**AI / NLP:** Groq API (LLM-based question generation, answer evaluation, and summarization)
+**Speech:** Browser-native Web Speech API (recognition + synthesis) — no paid voice/video services
+**Auth:** JWT-based, with email-based forgot/reset password flow
 
 ---
 
-## System Design Highlights
+## UI Theme
 
-- Modular architecture (question generation, evaluation, scoring)
-- API-based AI integration
-- Scalable backend for handling multiple users
-- Separation of logic for evaluation and feedback
+Light theme only — clean, minimal, premium educational SaaS look.
 
----
+| Token | Color | Hex |
+|---|---|---|
+| Primary | Royal Emerald Green | `#157A6E` |
+| Secondary | Royal Gold | `#D4A017` |
+| Background | Warm Ivory | `#FAF9F6` |
+| Cards | Pure White | `#FFFFFF` |
+| Primary Text | Charcoal | `#2D2D2D` |
+| Secondary Text | Soft Gray | `#6B7280` |
 
-## Privacy & Data Handling
-
-- No permanent storage of sensitive user responses (optional design)
-- Secure API handling
-- User-controlled session data
-
----
-
-## Future Improvements
-
-- Voice-based interview responses
-- Real-time speech analysis
-- Resume based information gathering
-- User moment detection
-- Emotion detection (experimental)
-- Personalized learning paths
-- Industry/company-specific interview sets
+Design rules: rounded corners, spacious layout, no gradients, no shadows, no blur/glassmorphism, no animations beyond a basic hover (background/border change only). Fully responsive.
 
 ---
 
-## Project Goals
+## Project Structure
 
-- Build a **real-world AI application**
-- Strengthen understanding of NLP and AI integration
-- Create a **resume-level advanced project**
+```
+AI-Interview-Assistant/
+├── backend/
+│   ├── config/         # DB connection
+│   ├── middleware/      # auth, isAdmin
+│   ├── models/          # Mongoose schemas
+│   ├── routes/           # auth, interview, ppdt, admin
+│   ├── services/         # groq.service.js, mail.service.js
+│   └── server.js
+├── frontend/
+│   ├── src/
+│   │   ├── content/      # JSON files — all on-screen text lives here
+│   │   ├── pages/
+│   │   ├── components/
+│   │   └── utils/
+└── README.md
+```
 
 ---
 
 ## How to Run Locally
 
-```bash id="run-ai-interview"
+```bash
 # Clone the repository
 git clone https://github.com/aj-aditya19/AI-Interview-Assistant
+cd AI-Interview-Assistant
 
-# Navigate to project directory
-cd project-folder
-
-#Terminal 1 : Open Frontend folder
-cd frontend
-#Install dependencies
-npm install
-#Run frontend
-npm run dev
-
-#Terminal 2 : Open Backend folder
+# Terminal 1: Backend
 cd backend
-#Install dependencies
 npm install
-# Run backend
+npm run dev
+
+# Terminal 2: Frontend
+cd frontend
+npm install
 npm run dev
 ```
 
----
+### Environment Variables
 
-## Env files
-
-```bash id="run-ai-interview"
-# For Backend
+```env
+# backend/.env
 PORT=5000
-MONGO_URI= your mongodb URL
-NODE_ENV=development
-JWT_SECRET= any secret { hint: crush name }
-CLIENT_URL=http://localhost:3000 or your backend url like: https://webe-iou-am.render.ass
-groq_api_key= Grok key - dont public it, if public can cause money loss by high and unwanted bills
-PYTHON_BINARY=python
+MONGO_URI=your_mongodb_url
+JWT_SECRET=your_jwt_secret
+CLIENT_URL=http://localhost:3000
+GROQ_API_KEY=your_groq_key
+MAIL_USER=your_gmail_address
+MAIL_PASS=your_gmail_app_password
 
-# For Frontend
-VITE_API_URL=http://localhost:5000/api/ or your frontend url like: https://ai-inxxew-ant-eu-gaa.vel.app/
+# frontend/.env
+VITE_API_URL=http://localhost:5000/api
 ```
 
 ---
 
-## Status
+## Demo Credentials
 
-In Development
+| Role | Email | Password |
+|---|---|---|
+| Regular User | ajaditya1908@gmail.com | AkiJ1907 |
+| Admin (`/admin/login`) | ajaditya1908@gmail.com | AkiJ1907 |
 
----
-
-## For demo use
-
-Email: ajaditya1908@gmail.com
-
-Password: 1907
+> Note: these are demo credentials for evaluators/recruiters. Don't reuse this password on any real account.
 
 ---
 
-## Prototype Link:
+## Roadmap & Timeline
 
-**https://ai-interview-assistant-ecru-gamma.vercel.app/**
+| Phase | Work | Estimated Duration |
+|---|---|---|
+| 1 | Database schema migration + permanent interview records + multi-round (HR/Technical/Other) logic | ~1 week |
+| 2 | PPDT module (JSON image bank, timer flow, scoring) | ~1 week |
+| 3 | UI redesign (new theme, JSON content system, admin portal, forgot-password flow) | ~1.5 weeks |
+| 4 | Testing, deployment, polish | ~4 days |
 
-Go for this, rate and contribuate for improvement.
+**Estimated deployment window: 15–25 July 2026.** This assumes consistent part-time work as a solo student developer; college schedule may shift this by a few days.
 
----
-
-## Contribution
-
-Suggestions and improvements are welcome.
+### Future (v2 and beyond)
+- Communication module (chat / voice / video roleplay)
+- ATS resume scoring
+- Real face/eye-contact proctoring during interviews (ML-based)
+- Filler-word (umm/ahh) detection in voice answers
+- Leaderboard and ranking system
 
 ---
 
 ## Author
 
-**Aditya Jaiswal**
+**Aditya Jaiswal** ([@aj-aditya19](https://github.com/aj-aditya19))
 
----
+## Contribution
+
+Suggestions and improvements are welcome.

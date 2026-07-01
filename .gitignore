@@ -15,3 +15,4 @@ venv.bak/
 backend/node_modules/
 frontend/node_modules/
 backend/dist/
+PROJECT_INSTRUCTIONS.md
