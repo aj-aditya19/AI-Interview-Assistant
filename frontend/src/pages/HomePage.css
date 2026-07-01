@@ -1,0 +1,115 @@
+.home-container {
+  padding-top: 40px;
+  padding-bottom: 60px;
+}
+
+.home-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+/* Stats row */
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.stat-label {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+/* Module tiles */
+.home-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.module-tile {
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  transition: border-color 0.15s;
+}
+
+.module-tile:hover {
+  border-color: var(--color-primary);
+}
+
+.tile-disabled {
+  opacity: 0.72;
+}
+
+.tile-disabled:hover {
+  border-color: var(--color-border);
+}
+
+.tile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.tile-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.tile-icon-primary { background: #e8f5f3; }
+.tile-icon-secondary { background: #fdf3dc; }
+.tile-icon-muted { background: #f3f4f6; }
+
+.tile-title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+}
+
+.tile-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.home-quick {
+  display: flex;
+  gap: 12px;
+}
+
+@media (max-width: 1024px) {
+  .home-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .home-container { padding-top: 24px; }
+  .home-tiles { grid-template-columns: 1fr; }
+  .home-stats { grid-template-columns: repeat(2, 1fr); }
+}

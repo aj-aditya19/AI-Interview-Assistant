@@ -1,29 +1,20 @@
 {
-  "name": "ai-interview-prep-frontend",
+  "name": "interviewiq-frontend",
   "version": "1.0.0",
-  "private": true,
-  "dependencies": {
-    "@pixiv/three-vrm": "^3.5.3",
-    "@react-three/drei": "^9.122.0",
-    "@react-three/fiber": "^8.17.10",
-    "axios": "^1.6.2",
-    "framer-motion": "^10.18.0",
-    "lucide-react": "^0.303.0",
-    "react": "^18.2.0",
-    "react-circular-progressbar": "^2.1.0",
-    "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.4.1",
-    "react-router-dom": "^6.21.1",
-    "recharts": "^2.10.3",
-    "three": "^0.184.0"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.2.1",
-    "vite": "^5.0.8"
-  },
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.24.0",
+    "axios": "^1.7.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.3.1"
   }
 }

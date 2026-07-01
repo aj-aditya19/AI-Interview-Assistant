@@ -1,0 +1,38 @@
+{
+  "greeting": "Good to see you",
+  "subtitle": "Pick a module and start practicing",
+  "tiles": {
+    "interview": {
+      "title": "AI Interview",
+      "description": "Full mock interview with HR, Technical, and other rounds. Real-time feedback after every answer.",
+      "buttonText": "Start interview",
+      "tag": "Live"
+    },
+    "ppdt": {
+      "title": "PPDT Practice",
+      "description": "SSB-style perception and description test. Observe an image, then narrate your story under time pressure.",
+      "buttonText": "Start PPDT",
+      "tag": "Live"
+    },
+    "communication": {
+      "title": "Communication",
+      "description": "Practice real conversations with AI personas. Improve your spoken and written expression.",
+      "badge": "Coming soon",
+      "buttonText": "Notify me"
+    },
+    "ats": {
+      "title": "ATS Resume Score",
+      "description": "See how your resume scores against your target role and get actionable suggestions.",
+      "badge": "Coming soon",
+      "buttonText": "Notify me"
+    }
+  },
+  "stats": {
+    "interviews": "Interviews done",
+    "ppdt": "PPDT sessions",
+    "avgScore": "Avg. score",
+    "bestScore": "Best score"
+  },
+  "notifySuccess": "You're on the waitlist! We'll let you know when it launches.",
+  "notifyAlready": "You're already on the waitlist for this."
+}

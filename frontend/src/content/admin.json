@@ -1,0 +1,45 @@
+{
+  "login": {
+    "heading": "Admin sign in",
+    "subheading": "InterviewIQ admin portal",
+    "emailLabel": "Admin email",
+    "emailPlaceholder": "admin@interviewiq.in",
+    "passwordLabel": "Password",
+    "submitButton": "Sign in to admin",
+    "notAdmin": "This account does not have admin access."
+  },
+  "dashboard": {
+    "heading": "Admin dashboard",
+    "tabs": {
+      "overview": "Overview",
+      "users": "Users",
+      "interviews": "Interviews",
+      "ppdt": "PPDT"
+    },
+    "stats": {
+      "totalUsers": "Total users",
+      "totalInterviews": "Interviews completed",
+      "totalPPDT": "PPDT sessions",
+      "avgScore": "Avg. interview score",
+      "recentSignups": "New this week"
+    },
+    "tables": {
+      "users": {
+        "columns": ["Name", "Email", "Role", "Interviews", "Avg. score", "Joined"]
+      },
+      "interviews": {
+        "columns": ["User", "Role", "Type", "Difficulty", "Score", "Date"]
+      },
+      "ppdt": {
+        "columns": ["User", "Image", "Difficulty", "Score", "Date"]
+      }
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "showing": "Showing"
+    },
+    "emptyState": "No records found.",
+    "logout": "Sign out"
+  }
+}

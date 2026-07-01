@@ -1,0 +1,66 @@
+{
+  "heading": "Set up your interview",
+  "subheading": "Tell us about the role you're targeting",
+  "steps": {
+    "profile": "Profile",
+    "rounds": "Rounds",
+    "review": "Review"
+  },
+  "labels": {
+    "profileLabel": "Profile name",
+    "profilePlaceholder": "e.g. Backend Internship at Atlassian",
+    "reason": "I'm preparing for",
+    "targetRole": "Target role",
+    "targetRolePlaceholder": "e.g. Software Engineer",
+    "targetCompany": "Target company",
+    "targetCompanyPlaceholder": "e.g. Google (optional)",
+    "skills": "Your skills",
+    "skillsPlaceholder": "Add a skill and press Enter",
+    "techStack": "Tech stack",
+    "techStackPlaceholder": "Add a technology and press Enter",
+    "projects": "Projects",
+    "projectsPlaceholder": "Add a project name and press Enter",
+    "difficulty": "Difficulty level",
+    "additionalMessage": "Anything else to know?",
+    "additionalMessagePlaceholder": "Share context that might help the AI interviewer (optional)",
+    "rounds": "Interview rounds",
+    "roundsHelp": "Drag to reorder. At least one round required.",
+    "isDefault": "Save as default profile"
+  },
+  "reasonOptions": [
+    { "value": "internship", "label": "An internship" },
+    { "value": "placement", "label": "Campus placement" },
+    { "value": "other", "label": "Something else" }
+  ],
+  "roleOptions": [
+    "Software Engineer",
+    "Frontend Developer",
+    "Backend Developer",
+    "Full Stack Developer",
+    "Data Analyst",
+    "Data Scientist",
+    "Product Manager",
+    "UI/UX Designer",
+    "DevOps Engineer",
+    "Cloud Engineer"
+  ],
+  "difficultyOptions": [
+    { "value": "Beginner", "label": "Beginner", "hint": "Fundamental questions, slower pace" },
+    { "value": "Intermediate", "label": "Intermediate", "hint": "Standard industry-level questions" },
+    { "value": "Advanced", "label": "Advanced", "hint": "Senior-level depth and cross-cutting topics" }
+  ],
+  "roundOptions": [
+    { "value": "hr", "label": "HR Round", "description": "Behavioural and culture-fit questions" },
+    { "value": "technical", "label": "Technical Round", "description": "Coding, system design, domain knowledge" },
+    { "value": "other", "label": "Other Round", "description": "Managerial, case study, or custom" }
+  ],
+  "buttons": {
+    "next": "Continue",
+    "back": "Back",
+    "start": "Start interview",
+    "saveProfile": "Save profile"
+  },
+  "savedProfiles": "Your saved profiles",
+  "noProfiles": "No profiles yet. Create one below.",
+  "useProfile": "Use this profile"
+}
