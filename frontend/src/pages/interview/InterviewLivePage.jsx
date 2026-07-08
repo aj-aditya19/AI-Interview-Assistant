@@ -15,19 +15,26 @@ export default function InterviewLivePage() {
   }, []);
 
   const {
-    sessionId, firstQuestion, currentRound: initialRound,
-    currentRoundIndex: initialRoundIndex, totalRounds,
-    rounds = [], targetRole = "", difficulty = "",
+    sessionId,
+    firstQuestion,
+    currentRound: initialRound,
+    currentRoundIndex: initialRoundIndex,
+    totalRounds,
+    rounds = [],
+    targetRole = "",
+    difficulty = "",
   } = state || {};
 
   // Interview state
   const [currentQuestion, setCurrentQuestion] = useState(firstQuestion || "");
   const [currentRound, setCurrentRound] = useState(initialRound || "hr");
-  const [currentRoundIndex, setCurrentRoundIndex] = useState(initialRoundIndex || 0);
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(
+    initialRoundIndex || 0,
+  );
   const [status, setStatus] = useState("waitingForAnswer"); // aiSpeaking | waitingForAnswer | listening | processing
   const [transcript, setTranscript] = useState("");
   const [conversation, setConversation] = useState([
-    { role: "ai", text: firstQuestion || "" }
+    { role: "ai", text: firstQuestion || "" },
   ]);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [roundSeconds, setRoundSeconds] = useState(0);
@@ -50,19 +57,84 @@ export default function InterviewLivePage() {
   }, []);
 
   useEffect(() => {
-    roundTimerRef.current = setInterval(() => setRoundSeconds((s) => s + 1), 1000);
+    roundTimerRef.current = setInterval(
+      () => setRoundSeconds((s) => s + 1),
+      1000,
+    );
     return () => clearInterval(roundTimerRef.current);
   }, [currentRound]);
 
   // ── Camera ──────────────────────────────────────────────
-  useEffect(() => {
-    navigator.mediaDevices?.getUserMedia({ video: true, audio: false })
-      .then((stream) => { if (videoRef.current) videoRef.current.srcObject = stream; })
-      .catch(() => {});
-    return () => {
-      if (videoRef.current?.srcObject) {
-        videoRef.current.srcObject.getTracks().forEach((t) => t.stop());
+
+  const captureIntervalRef = useRef(null);
+  const canvasRef = useRef(document.createElement("canvas"));
+
+  const sendFrame = async () => {
+    const video = videoRef.current;
+
+    if (!video) return;
+
+    if (video.readyState !== 4) return;
+
+    const canvas = canvasRef.current;
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(video, 0, 0);
+
+    canvas.toBlob(async (blob) => {
+      if (!blob) return;
+
+      try {
+        const formData = new FormData();
+
+        formData.append("image", blob, "frame.jpg");
+
+        const response = await fetch("http://localhost:5000/api/face-detect", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        console.log("Face Detection:", data);
+      } catch (err) {
+        console.error("Face Detect Error:", err);
       }
+    }, "image/jpeg");
+  };
+
+  useEffect(() => {
+    let stream;
+
+    const startCamera = async () => {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: false,
+        });
+
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+
+        captureIntervalRef.current = setInterval(() => {
+          sendFrame();
+        }, 1000);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    startCamera();
+
+    return () => {
+      clearInterval(captureIntervalRef.current);
+
+      stream?.getTracks().forEach((track) => track.stop());
     };
   }, []);
 
@@ -90,7 +162,8 @@ export default function InterviewLivePage() {
 
   // ── Speech recognition (user answers) ───────────────────
   const startListening = () => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
       setError(content.micError);
       return;
@@ -108,7 +181,9 @@ export default function InterviewLivePage() {
         if (e.results[i].isFinal) finalText += e.results[i][0].transcript;
         else interimText += e.results[i][0].transcript;
       }
-      setTranscript((prev) => prev + finalText + (interimText ? ` ${interimText}` : ""));
+      setTranscript(
+        (prev) => prev + finalText + (interimText ? ` ${interimText}` : ""),
+      );
     };
 
     recognition.onerror = (e) => {
@@ -146,18 +221,28 @@ export default function InterviewLivePage() {
         answer,
       });
 
-      const { nextQuestion, interviewComplete, roundComplete, currentRound: newRound, currentRoundIndex: newRoundIndex } = res.data;
+      const {
+        nextQuestion,
+        interviewComplete,
+        roundComplete,
+        currentRound: newRound,
+        currentRoundIndex: newRoundIndex,
+      } = res.data;
 
       if (interviewComplete) {
         setInterviewDone(true);
-        const endMsg = "That concludes our interview. Thank you for your time! I'll now prepare your detailed feedback report.";
+        const endMsg =
+          "That concludes our interview. Thank you for your time! I'll now prepare your detailed feedback report.";
         setConversation((prev) => [...prev, { role: "ai", text: endMsg }]);
         speakText(endMsg);
         setStatus("interviewComplete");
       } else {
         if (roundComplete) {
           const transitionMsg = `Great work on the ${content.roundLabels[currentRound]} round. Let's move on to the ${content.roundLabels[newRound]} round.`;
-          setConversation((prev) => [...prev, { role: "ai", text: transitionMsg }]);
+          setConversation((prev) => [
+            ...prev,
+            { role: "ai", text: transitionMsg },
+          ]);
           setCurrentRound(newRound);
           setCurrentRoundIndex(newRoundIndex);
           setRoundSeconds(0);
@@ -165,12 +250,18 @@ export default function InterviewLivePage() {
           // Small delay before showing next question
           setTimeout(() => {
             setCurrentQuestion(nextQuestion);
-            setConversation((prev) => [...prev, { role: "ai", text: nextQuestion }]);
+            setConversation((prev) => [
+              ...prev,
+              { role: "ai", text: nextQuestion },
+            ]);
             speakText(nextQuestion);
           }, 3000);
         } else {
           setCurrentQuestion(nextQuestion);
-          setConversation((prev) => [...prev, { role: "ai", text: nextQuestion }]);
+          setConversation((prev) => [
+            ...prev,
+            { role: "ai", text: nextQuestion },
+          ]);
           speakText(nextQuestion);
         }
         setStatus("waitingForAnswer");
@@ -205,7 +296,9 @@ export default function InterviewLivePage() {
   const roundWarning = roundSeconds >= 570 && !interviewDone; // 9:30 mark
 
   const formatTime = (secs) => {
-    const m = Math.floor(secs / 60).toString().padStart(2, "0");
+    const m = Math.floor(secs / 60)
+      .toString()
+      .padStart(2, "0");
     const s = (secs % 60).toString().padStart(2, "0");
     return `${m}:${s}`;
   };
@@ -245,15 +338,41 @@ export default function InterviewLivePage() {
             <div className="avatar-wrap">
               <div className="avatar-circle">
                 <span className="avatar-initials">AI</span>
-                {status === "aiSpeaking" && <div className="avatar-speaking-ring" />}
+                {status === "aiSpeaking" && (
+                  <div className="avatar-speaking-ring" />
+                )}
               </div>
-              <div className="avatar-name">{content.conversationLabels.aiLabel}</div>
+              <div className="avatar-name">
+                {content.conversationLabels.aiLabel}
+              </div>
               <div className="avatar-status">
-                {status === "aiSpeaking" && <><span className="pulse-dot" style={{ background: "var(--color-primary)" }} /><span>{content.status.aiSpeaking}</span></>}
-                {status === "listening" && <><span className="pulse-dot" /><span>{content.status.listening}</span></>}
-                {status === "processing" && <><span className="spinner" /><span>{content.status.processing}</span></>}
-                {status === "waitingForAnswer" && <span>{content.status.waitingForAnswer}</span>}
-                {status === "interviewComplete" && <span>{content.status.interviewComplete}</span>}
+                {status === "aiSpeaking" && (
+                  <>
+                    <span
+                      className="pulse-dot"
+                      style={{ background: "var(--color-primary)" }}
+                    />
+                    <span>{content.status.aiSpeaking}</span>
+                  </>
+                )}
+                {status === "listening" && (
+                  <>
+                    <span className="pulse-dot" />
+                    <span>{content.status.listening}</span>
+                  </>
+                )}
+                {status === "processing" && (
+                  <>
+                    <span className="spinner" />
+                    <span>{content.status.processing}</span>
+                  </>
+                )}
+                {status === "waitingForAnswer" && (
+                  <span>{content.status.waitingForAnswer}</span>
+                )}
+                {status === "interviewComplete" && (
+                  <span>{content.status.interviewComplete}</span>
+                )}
               </div>
             </div>
           </div>
@@ -261,8 +380,14 @@ export default function InterviewLivePage() {
           {/* Current question display */}
           <div className="question-card card">
             <div className="question-badge">
-              <span className="badge badge-primary">{content.roundLabels[currentRound]}</span>
-              {roundWarning && <span className="badge badge-secondary">{content.hints.timerWarning}</span>}
+              <span className="badge badge-primary">
+                {content.roundLabels[currentRound]}
+              </span>
+              {roundWarning && (
+                <span className="badge badge-secondary">
+                  {content.hints.timerWarning}
+                </span>
+              )}
             </div>
             <p className="current-question">{currentQuestion}</p>
           </div>
@@ -272,7 +397,10 @@ export default function InterviewLivePage() {
             {!interviewDone ? (
               <>
                 {status === "listening" ? (
-                  <button className="btn btn-danger btn-lg" onClick={stopListening}>
+                  <button
+                    className="btn btn-danger btn-lg"
+                    onClick={stopListening}
+                  >
                     <span className="pulse-dot" />
                     {content.controls.stopAnswering}
                   </button>
@@ -280,7 +408,11 @@ export default function InterviewLivePage() {
                   <button
                     className="btn btn-primary btn-lg"
                     onClick={startListening}
-                    disabled={status === "aiSpeaking" || status === "processing" || loading}
+                    disabled={
+                      status === "aiSpeaking" ||
+                      status === "processing" ||
+                      loading
+                    }
                   >
                     {content.controls.startAnswering}
                   </button>
@@ -291,7 +423,11 @@ export default function InterviewLivePage() {
                     onClick={submitAnswer}
                     disabled={loading}
                   >
-                    {loading ? <span className="spinner" /> : content.controls.submitAnswer}
+                    {loading ? (
+                      <span className="spinner" />
+                    ) : (
+                      content.controls.submitAnswer
+                    )}
                   </button>
                 )}
                 <button
@@ -308,7 +444,14 @@ export default function InterviewLivePage() {
                 onClick={finishInterview}
                 disabled={loading}
               >
-                {loading ? <span className="spinner" style={{ borderTopColor: "#fff" }} /> : "View my results →"}
+                {loading ? (
+                  <span
+                    className="spinner"
+                    style={{ borderTopColor: "#fff" }}
+                  />
+                ) : (
+                  "View my results →"
+                )}
               </button>
             )}
           </div>
@@ -322,7 +465,13 @@ export default function InterviewLivePage() {
           <div className="camera-panel card">
             <div className="camera-label">{content.cameraLabel}</div>
             <div className="camera-wrap">
-              <video ref={videoRef} autoPlay muted playsInline className="camera-video" />
+              <video
+                ref={videoRef}
+                autoPlay
+                muted
+                playsInline
+                className="camera-video"
+              />
             </div>
           </div>
 
@@ -333,7 +482,9 @@ export default function InterviewLivePage() {
               {conversation.map((msg, i) => (
                 <div key={i} className={`convo-msg ${msg.role}`}>
                   <span className="convo-name">
-                    {msg.role === "ai" ? content.conversationLabels.aiLabel : content.conversationLabels.youLabel}
+                    {msg.role === "ai"
+                      ? content.conversationLabels.aiLabel
+                      : content.conversationLabels.youLabel}
                   </span>
                   <p className="convo-text">{msg.text}</p>
                 </div>
@@ -342,7 +493,10 @@ export default function InterviewLivePage() {
               {/* Live transcript */}
               {status === "listening" && transcript && (
                 <div className="convo-msg user live">
-                  <span className="convo-name">{content.conversationLabels.youLabel} <span className="live-dot" /></span>
+                  <span className="convo-name">
+                    {content.conversationLabels.youLabel}{" "}
+                    <span className="live-dot" />
+                  </span>
                   <p className="convo-text">{transcript}</p>
                 </div>
               )}

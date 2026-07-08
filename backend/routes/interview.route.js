@@ -5,13 +5,14 @@ import InterviewRecord from "../models/InterviewRecord.model.js";
 import InterviewProfile from "../models/InterviewProfile.model.js";
 import User from "../models/User.model.js";
 import protect from "../middleware/auth.js";
-import { generateQuestion, evaluateAnswer, generateFinalSummary } from "../services/ai.service.js";
+import {
+  generateQuestion,
+  evaluateAnswer,
+  generateFinalSummary,
+} from "../services/ai.service.js";
 
 const router = express.Router();
 
-// POST /api/interview/session
-// Handles three actions: "start", "answer", "finish"
-// The action is passed in the request body
 router.post("/session", protect, async (req, res) => {
   const { action } = req.body;
 
@@ -22,7 +23,9 @@ router.post("/session", protect, async (req, res) => {
   } else if (action === "finish") {
     return handleFinish(req, res);
   } else {
-    return res.status(400).json({ message: "Invalid action. Use: start, answer, or finish" });
+    return res
+      .status(400)
+      .json({ message: "Invalid action. Use: start, answer, or finish" });
   }
 });
 
@@ -35,7 +38,10 @@ async function handleStart(req, res) {
       return res.status(400).json({ message: "profileId is required" });
     }
 
-    const profile = await InterviewProfile.findOne({ _id: profileId, userId: req.user._id });
+    const profile = await InterviewProfile.findOne({
+      _id: profileId,
+      userId: req.user._id,
+    });
     if (!profile) {
       return res.status(404).json({ message: "Interview profile not found" });
     }
@@ -85,10 +91,15 @@ async function handleAnswer(req, res) {
     const { sessionId, answer } = req.body;
 
     if (!sessionId || !answer) {
-      return res.status(400).json({ message: "sessionId and answer are required" });
+      return res
+        .status(400)
+        .json({ message: "sessionId and answer are required" });
     }
 
-    const session = await InterviewSession.findOne({ sessionId, userId: req.user._id });
+    const session = await InterviewSession.findOne({
+      sessionId,
+      userId: req.user._id,
+    });
     if (!session) {
       return res.status(404).json({ message: "Session not found or expired" });
     }
@@ -118,11 +129,14 @@ async function handleAnswer(req, res) {
     session.turns.push(turn);
 
     // Count how many questions have been asked in the current round
-    const turnsInCurrentRound = session.turns.filter((t) => t.round === currentRound);
+    const turnsInCurrentRound = session.turns.filter(
+      (t) => t.round === currentRound,
+    );
 
     // Each round has a max of 5 questions, or we move on if the AI says to
     const maxQuestionsPerRound = 5;
-    const shouldMoveToNextRound = turnsInCurrentRound.length >= maxQuestionsPerRound;
+    const shouldMoveToNextRound =
+      turnsInCurrentRound.length >= maxQuestionsPerRound;
 
     let nextQuestion = null;
     let roundComplete = false;
@@ -189,9 +203,14 @@ async function handleFinish(req, res) {
       return res.status(400).json({ message: "sessionId is required" });
     }
 
-    const session = await InterviewSession.findOne({ sessionId, userId: req.user._id });
+    const session = await InterviewSession.findOne({
+      sessionId,
+      userId: req.user._id,
+    });
     if (!session) {
-      return res.status(404).json({ message: "Session not found or already finished" });
+      return res
+        .status(404)
+        .json({ message: "Session not found or already finished" });
     }
 
     const profile = await InterviewProfile.findById(session.profileId);
@@ -205,14 +224,24 @@ async function handleFinish(req, res) {
       roundsMap[turn.round].push(turn);
     }
 
-    const roundsForSummary = Object.entries(roundsMap).map(([roundType, turns]) => {
-      const roundScore =
-        turns.reduce((sum, t) => sum + (t.scores?.overall || 0), 0) / (turns.length || 1);
-      return { roundType, turns, roundScore: Math.round(roundScore * 10) / 10 };
-    });
+    const roundsForSummary = Object.entries(roundsMap).map(
+      ([roundType, turns]) => {
+        const roundScore =
+          turns.reduce((sum, t) => sum + (t.scores?.overall || 0), 0) /
+          (turns.length || 1);
+        return {
+          roundType,
+          turns,
+          roundScore: Math.round(roundScore * 10) / 10,
+        };
+      },
+    );
 
     // Ask AI for the final summary
-    const summary = await generateFinalSummary({ rounds: roundsForSummary, profile });
+    const summary = await generateFinalSummary({
+      rounds: roundsForSummary,
+      profile,
+    });
 
     // Determine interview type based on which rounds were done
     const roundTypes = session.rounds;
@@ -306,7 +335,10 @@ router.get("/records", protect, async (req, res) => {
 // GET /api/interview/records/:id — single record with full detail
 router.get("/records/:id", protect, async (req, res) => {
   try {
-    const record = await InterviewRecord.findOne({ _id: req.params.id, userId: req.user._id });
+    const record = await InterviewRecord.findOne({
+      _id: req.params.id,
+      userId: req.user._id,
+    });
     if (!record) {
       return res.status(404).json({ message: "Record not found" });
     }
