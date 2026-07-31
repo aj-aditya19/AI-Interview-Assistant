@@ -1,0 +1,12 @@
+[
+  { "id": "g1", "text": "I have been working on this project since morning.", "tense": "Present Perfect Continuous" },
+  { "id": "g2", "text": "She finished the assignment before the deadline.", "tense": "Simple Past" },
+  { "id": "g3", "text": "By next month, I will have completed my final year project.", "tense": "Future Perfect" },
+  { "id": "g4", "text": "They are currently reviewing the pull request.", "tense": "Present Continuous" },
+  { "id": "g5", "text": "I had already deployed the app before the meeting started.", "tense": "Past Perfect" },
+  { "id": "g6", "text": "We will discuss the results tomorrow morning.", "tense": "Simple Future" },
+  { "id": "g7", "text": "He usually practices interview questions every evening.", "tense": "Simple Present" },
+  { "id": "g8", "text": "I was debugging the API when the server crashed.", "tense": "Past Continuous" },
+  { "id": "g9", "text": "By the time you arrive, I will be presenting my project.", "tense": "Future Continuous" },
+  { "id": "g10", "text": "She has completed three internships so far.", "tense": "Present Perfect" }
+]

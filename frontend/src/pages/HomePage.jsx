@@ -53,10 +53,23 @@ export default function HomePage() {
         {/* Stats row */}
         <div className="home-stats">
           {[
-            { label: content.stats.interviews, value: stats.totalInterviews ?? 0 },
+            {
+              label: content.stats.interviews,
+              value: stats.totalInterviews ?? 0,
+            },
             { label: content.stats.ppdt, value: stats.totalPPDTSessions ?? 0 },
-            { label: content.stats.avgScore, value: stats.averageInterviewScore ? `${stats.averageInterviewScore}/10` : "—" },
-            { label: content.stats.bestScore, value: stats.bestInterviewScore ? `${stats.bestInterviewScore}/10` : "—" },
+            {
+              label: content.stats.avgScore,
+              value: stats.averageInterviewScore
+                ? `${stats.averageInterviewScore}/10`
+                : "—",
+            },
+            {
+              label: content.stats.bestScore,
+              value: stats.bestInterviewScore
+                ? `${stats.bestInterviewScore}/10`
+                : "—",
+            },
           ].map((stat) => (
             <div key={stat.label} className="stat-card card">
               <span className="stat-value">{stat.value}</span>
@@ -76,7 +89,9 @@ export default function HomePage() {
           <div className="module-tile card">
             <div className="tile-header">
               <div className="tile-icon tile-icon-primary">🎙️</div>
-              <span className="badge badge-live">{content.tiles.interview.tag}</span>
+              <span className="badge badge-live">
+                {content.tiles.interview.tag}
+              </span>
             </div>
             <h3 className="tile-title">{content.tiles.interview.title}</h3>
             <p className="tile-desc">{content.tiles.interview.description}</p>
@@ -88,7 +103,6 @@ export default function HomePage() {
             </button>
           </div>
 
-          {/* PPDT */}
           <div className="module-tile card">
             <div className="tile-header">
               <div className="tile-icon tile-icon-secondary">🖼️</div>
@@ -104,30 +118,31 @@ export default function HomePage() {
             </button>
           </div>
 
-          {/* Communication — disabled */}
-          <div className="module-tile card tile-disabled">
+          <div className="module-tile card">
             <div className="tile-header">
-              <div className="tile-icon tile-icon-muted">💬</div>
-              <span className="badge badge-muted">{content.tiles.communication.badge}</span>
+              <div className="tile-icon tile-icon-secondary">💬</div>
+              <span className="badge badge-live">
+                {content.tiles.communication.tag}
+              </span>
             </div>
             <h3 className="tile-title">{content.tiles.communication.title}</h3>
-            <p className="tile-desc">{content.tiles.communication.description}</p>
+            <p className="tile-desc">
+              {content.tiles.communication.description}
+            </p>
             <button
-              className="btn btn-ghost mt-20"
-              onClick={() => handleNotify("communication")}
-              disabled={notifyLoading === "communication"}
+              className="btn btn-primary mt-20"
+              onClick={() => navigate("/communication")}
             >
-              {notifyLoading === "communication"
-                ? <span className="spinner" />
-                : content.tiles.communication.buttonText}
+              {content.tiles.communication.buttonText}
             </button>
           </div>
 
-          {/* ATS Resume — disabled */}
           <div className="module-tile card tile-disabled">
             <div className="tile-header">
               <div className="tile-icon tile-icon-muted">📄</div>
-              <span className="badge badge-muted">{content.tiles.ats.badge}</span>
+              <span className="badge badge-muted">
+                {content.tiles.ats.badge}
+              </span>
             </div>
             <h3 className="tile-title">{content.tiles.ats.title}</h3>
             <p className="tile-desc">{content.tiles.ats.description}</p>
@@ -136,16 +151,21 @@ export default function HomePage() {
               onClick={() => handleNotify("ats")}
               disabled={notifyLoading === "ats"}
             >
-              {notifyLoading === "ats"
-                ? <span className="spinner" />
-                : content.tiles.ats.buttonText}
+              {notifyLoading === "ats" ? (
+                <span className="spinner" />
+              ) : (
+                content.tiles.ats.buttonText
+              )}
             </button>
           </div>
         </div>
 
         {/* Quick access — history link */}
         <div className="home-quick mt-24">
-          <button className="btn btn-ghost btn-sm" onClick={() => navigate("/interview/history")}>
+          <button
+            className="btn btn-ghost btn-sm"
+            onClick={() => navigate("/interview/history")}
+          >
             View past interviews →
           </button>
         </div>

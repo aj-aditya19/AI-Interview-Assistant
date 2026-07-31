@@ -28,7 +28,7 @@
     "voiceHint": "Speak clearly — your answer is being transcribed in real time",
     "roundTransition": "Moving to the next round...",
     "retryHint": "That answer was brief. Try to elaborate more.",
-    "timerWarning": "10 minutes — round will wrap up shortly"
+    "timerWarning": "Round is about to wrap up"
   },
   "timer": {
     "elapsed": "Elapsed",

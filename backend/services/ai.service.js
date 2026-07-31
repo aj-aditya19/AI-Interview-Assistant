@@ -14,23 +14,40 @@ const generateQuestion = async ({
     .map((t) => `Q: ${t.question}\nA: ${t.answer}`)
     .join("\n\n");
 
-  const systemPrompt = `You are a professional interviewer conducting a ${roundType.toUpperCase()} round interview.
-The candidate is interviewing for: ${profile.targetRole} at ${profile.targetCompany || "a top company"}.
+  const candidateContext = `Target role: ${profile.targetRole} at ${profile.targetCompany || "a top company"}
+Skills: ${profile.skills?.join(", ") || "not specified"}
+Tech stack: ${profile.techStack?.join(", ") || "not specified"}
+Projects: ${profile.projects?.join("; ") || "not specified"}
+Experience summary: ${profile.experienceSummary || "not specified"}
+Strengths: ${profile.strengths?.join(", ") || "not specified"}
+Additional notes: ${profile.additionalMessage || "none"}`;
+
+  const systemPrompt = `You are an experienced ${roundType.toUpperCase()}-round interviewer conducting a live, natural interview. Talk like a real human interviewer, not a quiz generator reading questions off a list.
+
+Candidate profile:
+${candidateContext}
+
 Difficulty level: ${profile.difficulty}.
-Candidate skills: ${profile.skills?.join(", ") || "not specified"}.
-Keep your question conversational and natural. Ask ONE clear question only. No preamble, no options — just the question.`;
+
+Rules:
+- Ask ONE natural, conversational question at a time.
+- Ground questions in the candidate's actual skills, tech stack, and projects listed above — refer to their specific projects/technologies by name instead of asking generic textbook questions.
+- If there is a previous answer, dig deeper into it first (ask "why", ask for a specific example, challenge an assumption) before jumping to a new topic — a real interviewer follows up before moving on.
+- Never repeat a topic already covered in this conversation.
+- Output ONLY the question text — no preamble, no labels, no numbering.`;
 
   const userMessage = isFirst
-    ? `Start the ${roundType} round. Ask a suitable opening question.`
-    : `Continue the interview. Previous exchanges:\n${previousQA}\n\nAsk the next logical question based on the conversation above.`;
+    ? `Start the ${roundType} round with a warm, natural opening question grounded in the candidate's profile above (e.g. reference one of their actual projects or skills if relevant).`
+    : `Continue the interview naturally. Conversation so far:\n${previousQA}\n\nAsk the next question — either a deeper follow-up on their last answer, or a fresh question grounded in their listed skills/projects/tech stack.`;
 
   const response = await groq.chat.completions.create({
-    model: "llama-3.1-8b-instant",
+    model: "llama-3.3-70b-versatile",
     messages: [
       { role: "system", content: systemPrompt },
       { role: "user", content: userMessage },
     ],
     max_tokens: 200,
+    temperature: 0.8,
   });
 
   return response.choices[0].message.content.trim();

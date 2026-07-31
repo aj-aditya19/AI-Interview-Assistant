@@ -153,6 +153,28 @@
   margin-top: 2px;
 }
 
+.round-duration-input {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.round-duration-input input {
+  width: 52px;
+  padding: 6px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.round-duration-input span {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
 /* Difficulty */
 .difficulty-options {
   display: flex;

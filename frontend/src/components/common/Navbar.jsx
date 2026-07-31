@@ -18,6 +18,7 @@ export default function Navbar() {
     { label: "Dashboard", path: "/home" },
     { label: "Interview", path: "/interview/setup" },
     { label: "PPDT", path: "/ppdt/setup" },
+    { label: "Communication", path: "/communication" },
     { label: "History", path: "/interview/history" },
   ];
 
@@ -58,8 +59,14 @@ export default function Navbar() {
         </div>
 
         {/* Mobile hamburger */}
-        <button className="navbar-hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
-          <span /><span /><span />
+        <button
+          className="navbar-hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span />
+          <span />
+          <span />
         </button>
       </div>
 
@@ -70,12 +77,19 @@ export default function Navbar() {
             <button
               key={link.path}
               className="mobile-nav-link"
-              onClick={() => { navigate(link.path); setMenuOpen(false); }}
+              onClick={() => {
+                navigate(link.path);
+                setMenuOpen(false);
+              }}
             >
               {link.label}
             </button>
           ))}
-          <button className="mobile-nav-link" style={{ color: "var(--color-error)" }} onClick={handleLogout}>
+          <button
+            className="mobile-nav-link"
+            style={{ color: "var(--color-error)" }}
+            onClick={handleLogout}
+          >
             Sign out
           </button>
         </div>

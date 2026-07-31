@@ -13,6 +13,16 @@ import {
 
 const router = express.Router();
 
+// Old profiles (created before rounds had a duration) stored rounds as plain
+// strings like "hr". Convert those to the current { roundType, durationMinutes }
+// shape on the fly so legacy data doesn't break the interview flow.
+function normalizeRound(r) {
+  if (typeof r === "string") {
+    return { roundType: r, durationMinutes: 5 };
+  }
+  return r;
+}
+
 router.post("/session", protect, async (req, res) => {
   const { action } = req.body;
 
@@ -20,12 +30,14 @@ router.post("/session", protect, async (req, res) => {
     return handleStart(req, res);
   } else if (action === "answer") {
     return handleAnswer(req, res);
+  } else if (action === "timeout") {
+    return handleRoundTimeout(req, res);
   } else if (action === "finish") {
     return handleFinish(req, res);
   } else {
-    return res
-      .status(400)
-      .json({ message: "Invalid action. Use: start, answer, or finish" });
+    return res.status(400).json({
+      message: "Invalid action. Use: start, answer, timeout, or finish",
+    });
   }
 });
 
@@ -51,8 +63,13 @@ async function handleStart(req, res) {
     // TTL: session expires 24 hours from now
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
+    // Normalize in case this is a profile saved before rounds had durations
+    const rounds = (profile.rounds || []).map(normalizeRound);
+    if (rounds.length === 0)
+      rounds.push({ roundType: "hr", durationMinutes: 5 });
+
     // Get the first question for the first round
-    const firstRound = profile.rounds[0] || "hr";
+    const firstRound = rounds[0].roundType;
     const firstQuestion = await generateQuestion({
       roundType: firstRound,
       profile,
@@ -64,8 +81,9 @@ async function handleStart(req, res) {
       userId: req.user._id,
       profileId: profile._id,
       sessionId,
-      rounds: profile.rounds,
+      rounds,
       currentRoundIndex: 0,
+      roundStartedAt: new Date(),
       currentQuestion: firstQuestion,
       turns: [],
       startedAt: new Date(),
@@ -74,9 +92,10 @@ async function handleStart(req, res) {
 
     res.status(201).json({
       sessionId: session.sessionId,
-      currentRound: profile.rounds[0],
+      currentRound: rounds[0].roundType,
       currentRoundIndex: 0,
-      totalRounds: profile.rounds.length,
+      totalRounds: rounds.length,
+      roundDurationMinutes: rounds[0].durationMinutes,
       question: firstQuestion,
     });
   } catch (error) {
@@ -105,19 +124,21 @@ async function handleAnswer(req, res) {
     }
 
     const profile = await InterviewProfile.findById(session.profileId);
-    const currentRound = session.rounds[session.currentRoundIndex];
+    const currentRound = normalizeRound(
+      session.rounds[session.currentRoundIndex],
+    );
 
     // Evaluate the answer using AI
     const evaluation = await evaluateAnswer({
       question: session.currentQuestion,
       answer,
-      roundType: currentRound,
+      roundType: currentRound.roundType,
       profile,
     });
 
     // Save this turn to the session
     const turn = {
-      round: currentRound,
+      round: currentRound.roundType,
       question: session.currentQuestion,
       answer,
       improvedAnswer: evaluation.improvedAnswer,
@@ -130,13 +151,18 @@ async function handleAnswer(req, res) {
 
     // Count how many questions have been asked in the current round
     const turnsInCurrentRound = session.turns.filter(
-      (t) => t.round === currentRound,
+      (t) => t.round === currentRound.roundType,
     );
 
-    // Each round has a max of 5 questions, or we move on if the AI says to
+    // A round ends when either the question cap is hit OR its time is up —
+    // whichever comes first.
     const maxQuestionsPerRound = 5;
+    const roundElapsedMs =
+      Date.now() - new Date(session.roundStartedAt).getTime();
+    const roundTimeUp =
+      roundElapsedMs >= currentRound.durationMinutes * 60 * 1000;
     const shouldMoveToNextRound =
-      turnsInCurrentRound.length >= maxQuestionsPerRound;
+      turnsInCurrentRound.length >= maxQuestionsPerRound || roundTimeUp;
 
     let nextQuestion = null;
     let roundComplete = false;
@@ -148,11 +174,12 @@ async function handleAnswer(req, res) {
       // Check if there is a next round
       if (session.currentRoundIndex + 1 < session.rounds.length) {
         nextRoundIndex = session.currentRoundIndex + 1;
-        nextRound = session.rounds[nextRoundIndex];
+        nextRound = normalizeRound(session.rounds[nextRoundIndex]);
         session.currentRoundIndex = nextRoundIndex;
+        session.roundStartedAt = new Date();
 
         nextQuestion = await generateQuestion({
-          roundType: nextRound,
+          roundType: nextRound.roundType,
           profile,
           previousTurns: [],
           isFirst: true,
@@ -169,7 +196,7 @@ async function handleAnswer(req, res) {
       // Continue with the next question in the same round
       const turnsForContext = turnsInCurrentRound.slice(-3); // pass last 3 for context
       nextQuestion = await generateQuestion({
-        roundType: currentRound,
+        roundType: currentRound.roundType,
         profile,
         previousTurns: turnsForContext,
         isFirst: false,
@@ -184,13 +211,77 @@ async function handleAnswer(req, res) {
       nextQuestion: interviewComplete ? null : nextQuestion,
       roundComplete,
       interviewComplete,
-      currentRound: nextRound,
+      currentRound: nextRound.roundType,
       currentRoundIndex: nextRoundIndex,
       totalRounds: session.rounds.length,
+      roundDurationMinutes: nextRound.durationMinutes,
     });
   } catch (error) {
     console.error("Answer submission error:", error.message);
     res.status(500).json({ message: "Failed to process answer" });
+  }
+}
+
+// Called when the round's timer runs out on the frontend before the
+// candidate submits an answer — skips the current question and moves on.
+async function handleRoundTimeout(req, res) {
+  try {
+    const { sessionId } = req.body;
+
+    if (!sessionId) {
+      return res.status(400).json({ message: "sessionId is required" });
+    }
+
+    const session = await InterviewSession.findOne({
+      sessionId,
+      userId: req.user._id,
+    });
+    if (!session) {
+      return res.status(404).json({ message: "Session not found or expired" });
+    }
+
+    const profile = await InterviewProfile.findById(session.profileId);
+
+    let nextQuestion = null;
+    let roundComplete = false;
+    let interviewComplete = false;
+    let nextRound = normalizeRound(session.rounds[session.currentRoundIndex]);
+    let nextRoundIndex = session.currentRoundIndex;
+
+    if (session.currentRoundIndex + 1 < session.rounds.length) {
+      nextRoundIndex = session.currentRoundIndex + 1;
+      nextRound = normalizeRound(session.rounds[nextRoundIndex]);
+      session.currentRoundIndex = nextRoundIndex;
+      session.roundStartedAt = new Date();
+
+      nextQuestion = await generateQuestion({
+        roundType: nextRound.roundType,
+        profile,
+        previousTurns: [],
+        isFirst: true,
+      });
+
+      session.currentQuestion = nextQuestion;
+      roundComplete = true;
+    } else {
+      interviewComplete = true;
+      session.currentQuestion = null;
+    }
+
+    await session.save();
+
+    res.json({
+      nextQuestion: interviewComplete ? null : nextQuestion,
+      roundComplete,
+      interviewComplete,
+      currentRound: nextRound.roundType,
+      currentRoundIndex: nextRoundIndex,
+      totalRounds: session.rounds.length,
+      roundDurationMinutes: nextRound.durationMinutes,
+    });
+  } catch (error) {
+    console.error("Round timeout error:", error.message);
+    res.status(500).json({ message: "Failed to process round timeout" });
   }
 }
 
@@ -244,7 +335,7 @@ async function handleFinish(req, res) {
     });
 
     // Determine interview type based on which rounds were done
-    const roundTypes = session.rounds;
+    const roundTypes = session.rounds.map((r) => r.roundType);
     let interviewType = "Mixed";
     if (roundTypes.length === 1) {
       if (roundTypes[0] === "hr") interviewType = "HR";

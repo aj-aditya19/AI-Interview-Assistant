@@ -42,9 +42,14 @@ export default function InterviewLivePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Duration (in seconds) allowed for the round currently in progress
+  const roundDurationSeconds = (rounds[currentRoundIndex]?.durationMinutes || 5) * 60;
+  const roundTimeoutFiredRef = useRef(false);
+
   // Refs
   const videoRef = useRef(null);
   const recognitionRef = useRef(null);
+  const finalTranscriptRef = useRef(""); // holds only confirmed (final) speech text across the recording session
   const timerRef = useRef(null);
   const roundTimerRef = useRef(null);
   const synthRef = useRef(window.speechSynthesis);
@@ -174,15 +179,24 @@ export default function InterviewLivePage() {
     recognition.interimResults = true;
     recognition.lang = "en-IN";
 
+    // Accumulate only FINAL text here (in a ref, not state) —
+    // interim text must never be baked into this, or it duplicates on every event.
+    finalTranscriptRef.current = "";
+
     recognition.onresult = (e) => {
-      let finalText = "";
       let interimText = "";
       for (let i = e.resultIndex; i < e.results.length; i++) {
-        if (e.results[i].isFinal) finalText += e.results[i][0].transcript;
-        else interimText += e.results[i][0].transcript;
+        const piece = e.results[i][0].transcript;
+        if (e.results[i].isFinal) {
+          finalTranscriptRef.current += piece + " ";
+        } else {
+          interimText += piece;
+        }
       }
+      // Always REPLACE the displayed transcript — never build on top of
+      // previous state, since interim text is already included in it.
       setTranscript(
-        (prev) => prev + finalText + (interimText ? ` ${interimText}` : ""),
+        (finalTranscriptRef.current + " " + interimText).trim(),
       );
     };
 
@@ -246,6 +260,7 @@ export default function InterviewLivePage() {
           setCurrentRound(newRound);
           setCurrentRoundIndex(newRoundIndex);
           setRoundSeconds(0);
+          roundTimeoutFiredRef.current = false;
           speakText(transitionMsg);
           // Small delay before showing next question
           setTimeout(() => {
@@ -292,8 +307,69 @@ export default function InterviewLivePage() {
     }
   };
 
-  // ── 10-minute round warning ──────────────────────────────
-  const roundWarning = roundSeconds >= 570 && !interviewDone; // 9:30 mark
+  // ── Round timer ran out — move on without waiting for an answer ──
+  const handleRoundTimeout = async () => {
+    if (recognitionRef.current) stopListening();
+    synthRef.current?.cancel();
+    setStatus("processing");
+    setLoading(true);
+
+    try {
+      const res = await api.post("/interview/session", {
+        action: "timeout",
+        sessionId,
+      });
+
+      const {
+        nextQuestion,
+        interviewComplete,
+        roundComplete,
+        currentRound: newRound,
+        currentRoundIndex: newRoundIndex,
+      } = res.data;
+
+      if (interviewComplete) {
+        setInterviewDone(true);
+        const endMsg =
+          "That's time! That concludes our interview. Thank you for your time! I'll now prepare your detailed feedback report.";
+        setConversation((prev) => [...prev, { role: "ai", text: endMsg }]);
+        speakText(endMsg);
+        setStatus("interviewComplete");
+      } else if (roundComplete) {
+        const transitionMsg = `Time's up for the ${content.roundLabels[currentRound]} round. Let's move on to the ${content.roundLabels[newRound]} round.`;
+        setConversation((prev) => [...prev, { role: "ai", text: transitionMsg }]);
+        setCurrentRound(newRound);
+        setCurrentRoundIndex(newRoundIndex);
+        setRoundSeconds(0);
+        roundTimeoutFiredRef.current = false;
+        speakText(transitionMsg);
+        setTimeout(() => {
+          setCurrentQuestion(nextQuestion);
+          setConversation((prev) => [...prev, { role: "ai", text: nextQuestion }]);
+          speakText(nextQuestion);
+        }, 3000);
+        setStatus("waitingForAnswer");
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to move on from round");
+      setStatus("waitingForAnswer");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Watch the round clock and auto-advance once time is up
+  useEffect(() => {
+    if (interviewDone || loading) return;
+    if (roundSeconds >= roundDurationSeconds && !roundTimeoutFiredRef.current) {
+      roundTimeoutFiredRef.current = true;
+      handleRoundTimeout();
+    }
+  }, [roundSeconds, roundDurationSeconds, interviewDone, loading]);
+
+  // ── Round warning (last 30s of the round) ─────────────────
+  const roundWarning =
+    roundSeconds >= roundDurationSeconds - 30 && !interviewDone;
 
   const formatTime = (secs) => {
     const m = Math.floor(secs / 60)
@@ -316,16 +392,22 @@ export default function InterviewLivePage() {
         <div className="live-round-indicator">
           {rounds.map((r, i) => (
             <div
-              key={r}
+              key={r.roundType}
               className={`round-pill ${i === currentRoundIndex ? "active" : ""} ${i < currentRoundIndex ? "done" : ""}`}
             >
-              {content.roundLabels[r]}
+              {content.roundLabels[r.roundType]}
             </div>
           ))}
         </div>
         <div className="live-timer">
           <span className="timer-label">{content.timer.elapsed}</span>
           <span className="timer-value">{formatTime(elapsedSeconds)}</span>
+        </div>
+        <div className="live-timer">
+          <span className="timer-label">{content.timer.roundTime}</span>
+          <span className={`timer-value ${roundWarning ? "timer-warning" : ""}`}>
+            {formatTime(Math.max(0, roundDurationSeconds - roundSeconds))}
+          </span>
         </div>
       </div>
 

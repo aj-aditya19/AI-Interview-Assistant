@@ -15,7 +15,10 @@ const DEFAULT_FORM = {
   techStack: [],
   projects: [],
   difficulty: "Intermediate",
-  rounds: ["hr", "technical"],
+  rounds: [
+    { roundType: "hr", durationMinutes: 5 },
+    { roundType: "technical", durationMinutes: 5 },
+  ],
   additionalMessage: "",
   isDefault: false,
 };
@@ -36,12 +39,23 @@ export default function InterviewSetupPage() {
 
   const toggleRound = (roundValue) => {
     const current = form.rounds;
-    if (current.includes(roundValue)) {
+    const exists = current.some((r) => r.roundType === roundValue);
+    if (exists) {
       if (current.length === 1) return; // must have at least one
-      setField("rounds", current.filter((r) => r !== roundValue));
+      setField("rounds", current.filter((r) => r.roundType !== roundValue));
     } else {
-      setField("rounds", [...current, roundValue]);
+      setField("rounds", [...current, { roundType: roundValue, durationMinutes: 5 }]);
     }
+  };
+
+  const updateRoundDuration = (roundValue, minutes) => {
+    const clamped = Math.min(60, Math.max(1, Number(minutes) || 1));
+    setField(
+      "rounds",
+      form.rounds.map((r) =>
+        r.roundType === roundValue ? { ...r, durationMinutes: clamped } : r,
+      ),
+    );
   };
 
   const useProfile = (profile) => {
@@ -92,6 +106,7 @@ export default function InterviewSetupPage() {
           currentRound: sessionRes.data.currentRound,
           currentRoundIndex: sessionRes.data.currentRoundIndex,
           totalRounds: sessionRes.data.totalRounds,
+          roundDurationMinutes: sessionRes.data.roundDurationMinutes,
           rounds: form.rounds,
           targetRole: form.targetRole,
           targetCompany: form.targetCompany,
@@ -229,22 +244,40 @@ export default function InterviewSetupPage() {
                 <p className="body-text mb-24">{content.labels.roundsHelp}</p>
 
                 <div className="rounds-list">
-                  {content.roundOptions.map((round) => (
-                    <label
-                      key={round.value}
-                      className={`round-option ${form.rounds.includes(round.value) ? "selected" : ""}`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={form.rounds.includes(round.value)}
-                        onChange={() => toggleRound(round.value)}
-                      />
-                      <div>
-                        <div className="round-option-label">{round.label}</div>
-                        <div className="round-option-desc">{round.description}</div>
-                      </div>
-                    </label>
-                  ))}
+                  {content.roundOptions.map((round) => {
+                    const selectedRound = form.rounds.find((r) => r.roundType === round.value);
+                    return (
+                      <label
+                        key={round.value}
+                        className={`round-option ${selectedRound ? "selected" : ""}`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={!!selectedRound}
+                          onChange={() => toggleRound(round.value)}
+                        />
+                        <div>
+                          <div className="round-option-label">{round.label}</div>
+                          <div className="round-option-desc">{round.description}</div>
+                        </div>
+                        {selectedRound && (
+                          <div
+                            className="round-duration-input"
+                            onClick={(e) => e.preventDefault()}
+                          >
+                            <input
+                              type="number"
+                              min={1}
+                              max={60}
+                              value={selectedRound.durationMinutes}
+                              onChange={(e) => updateRoundDuration(round.value, e.target.value)}
+                            />
+                            <span>{content.labels.roundDurationUnit}</span>
+                          </div>
+                        )}
+                      </label>
+                    );
+                  })}
                 </div>
 
                 {/* Difficulty */}
@@ -286,7 +319,15 @@ export default function InterviewSetupPage() {
                   {form.targetCompany && <ReviewRow label="Company" value={form.targetCompany} />}
                   <ReviewRow label="Reason" value={content.reasonOptions.find((r) => r.value === form.reason)?.label} />
                   <ReviewRow label="Difficulty" value={form.difficulty} />
-                  <ReviewRow label="Rounds" value={form.rounds.map((r) => content.roundOptions.find((o) => o.value === r)?.label).join(" → ")} />
+                  <ReviewRow
+                    label="Rounds"
+                    value={form.rounds
+                      .map((r) => {
+                        const roundLabel = content.roundOptions.find((o) => o.value === r.roundType)?.label;
+                        return `${roundLabel} (${r.durationMinutes} min)`;
+                      })
+                      .join(" → ")}
+                  />
                   {form.skills.length > 0 && <ReviewRow label="Skills" value={form.skills.join(", ")} />}
                 </div>
 
