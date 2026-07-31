@@ -1,0 +1,48 @@
+import mongoose from "mongoose";
+
+// Each turn holds one Q&A exchange and its scores
+const turnSchema = new mongoose.Schema({
+  round: { type: String },
+  question: { type: String },
+  answer: { type: String },
+  improvedQuestion: { type: String },
+  improvedAnswer: { type: String },
+  scores: {
+    accuracy: { type: Number },
+    confidence: { type: Number },
+    vocabulary: { type: Number },
+    english: { type: Number },
+    overall: { type: Number },
+  },
+  analysis: [{ type: String }],
+  summary: { type: String },
+  attemptNumber: { type: Number, default: 1 },
+  shouldRetry: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now },
+});
+
+const interviewSessionSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  profileId: { type: mongoose.Schema.Types.ObjectId, ref: "InterviewProfile" },
+  // sessionId is a UUID we generate so the frontend can reference it easily
+  sessionId: { type: String, required: true, unique: true },
+  rounds: [
+    {
+      roundType: { type: String },
+      durationMinutes: { type: Number, default: 5 },
+    },
+  ],
+  currentRoundIndex: { type: Number, default: 0 },
+  // Timestamp of when the current round began — used to enforce durationMinutes
+  roundStartedAt: { type: Date, default: Date.now },
+  currentQuestion: { type: String },
+  retryCount: { type: Number, default: 0 },
+  turns: [turnSchema],
+  durationMinutes: { type: Number },
+  startedAt: { type: Date, default: Date.now },
+  // TTL: MongoDB auto-deletes documents 24 hours after expiresAt
+  expiresAt: { type: Date, required: true, index: { expires: 0 } },
+});
+
+const InterviewSession = mongoose.model("InterviewSession", interviewSessionSchema);
+export default InterviewSession;

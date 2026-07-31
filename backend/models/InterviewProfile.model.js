@@ -2,9 +2,17 @@ import mongoose from "mongoose";
 
 const interviewProfileSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     label: { type: String, required: true },
-    reason: { type: String, enum: ["internship", "placement", "other"], required: true },
+    reason: {
+      type: String,
+      enum: ["internship", "placement", "other"],
+      required: true,
+    },
     targetRole: { type: String, required: true },
     targetCompany: { type: String },
     skills: [{ type: String }],
@@ -18,12 +26,20 @@ const interviewProfileSchema = new mongoose.Schema(
       enum: ["Beginner", "Intermediate", "Advanced"],
       default: "Intermediate",
     },
-    // rounds is an array of round types in order, e.g. ["hr", "technical", "other"]
-    rounds: [{ type: String, enum: ["hr", "technical", "other"] }],
+    // rounds is an ordered array of round configs, each with its own time limit
+    rounds: [
+      {
+        roundType: { type: String, enum: ["hr", "technical", "other"] },
+        durationMinutes: { type: Number, default: 5, min: 1, max: 60 },
+      },
+    ],
     isDefault: { type: Boolean, default: false },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const InterviewProfile = mongoose.model("InterviewProfile", interviewProfileSchema);
+const InterviewProfile = mongoose.model(
+  "InterviewProfile",
+  interviewProfileSchema,
+);
 export default InterviewProfile;

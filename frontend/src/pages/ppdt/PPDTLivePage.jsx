@@ -15,7 +15,12 @@ export default function PPDTLivePage() {
     if (!state?.sessionId) navigate("/ppdt/setup", { replace: true });
   }, []);
 
-  const { sessionId, imageUrl, viewDurationSeconds = 30, responseDurationSeconds = 180 } = state || {};
+  const {
+    sessionId,
+    imageUrl,
+    viewDurationSeconds = 30,
+    responseDurationSeconds = 180,
+  } = state || {};
 
   const [phase, setPhase] = useState(PHASE.VIEWING);
   const [timeLeft, setTimeLeft] = useState(viewDurationSeconds);
@@ -26,6 +31,7 @@ export default function PPDTLivePage() {
   const [elapsedResponse, setElapsedResponse] = useState(0);
 
   const recognitionRef = useRef(null);
+  const finalTranscriptRef = useRef(""); // holds only confirmed (final) speech text across the recording session
   const timerRef = useRef(null);
 
   // ── Viewing phase timer ──────────────────────────────────
@@ -71,22 +77,31 @@ export default function PPDTLivePage() {
   }, [phase]);
 
   const startListening = () => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) { setError(content.live.listeningLabel + " not supported"); return; }
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setError(content.live.listeningLabel + " not supported");
+      return;
+    }
 
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = "en-IN";
 
+    finalTranscriptRef.current = "";
+
     recognition.onresult = (e) => {
-      let finalText = "";
       let interimText = "";
       for (let i = e.resultIndex; i < e.results.length; i++) {
-        if (e.results[i].isFinal) finalText += e.results[i][0].transcript + " ";
-        else interimText += e.results[i][0].transcript;
+        const piece = e.results[i][0].transcript;
+        if (e.results[i].isFinal) {
+          finalTranscriptRef.current += piece + " ";
+        } else {
+          interimText += piece;
+        }
       }
-      setTranscript((prev) => (prev + finalText).trim() + (interimText ? ` ${interimText}` : ""));
+      setTranscript((finalTranscriptRef.current + " " + interimText).trim());
     };
 
     recognition.onerror = () => {};
@@ -103,7 +118,10 @@ export default function PPDTLivePage() {
   const handleSubmit = async () => {
     stopListening();
     clearInterval(timerRef.current);
-    if (!transcript.trim()) { setError("Please describe what you saw before submitting."); return; }
+    if (!transcript.trim()) {
+      setError("Please describe what you saw before submitting.");
+      return;
+    }
     setLoading(true);
     try {
       const res = await api.post("/ppdt/session/submit", {
@@ -120,7 +138,9 @@ export default function PPDTLivePage() {
   };
 
   const formatTime = (secs) => {
-    const m = Math.floor(secs / 60).toString().padStart(2, "0");
+    const m = Math.floor(secs / 60)
+      .toString()
+      .padStart(2, "0");
     const s = (secs % 60).toString().padStart(2, "0");
     return `${m}:${s}`;
   };
@@ -135,7 +155,9 @@ export default function PPDTLivePage() {
       <div className="ppdt-topbar">
         <div className="flex items-center gap-12">
           <div className="live-logo">IQ</div>
-          <span style={{ fontFamily: "var(--font-display)", fontWeight: 700 }}>PPDT Practice</span>
+          <span style={{ fontFamily: "var(--font-display)", fontWeight: 700 }}>
+            PPDT Practice
+          </span>
         </div>
         <div className={`ppdt-timer ${timerUrgent ? "urgent" : ""}`}>
           <span className="timer-label">
@@ -178,11 +200,18 @@ export default function PPDTLivePage() {
           {phase === PHASE.RESPONDING && (
             <div className="ppdt-response-wrap card">
               <div className="ppdt-response-header">
-                <span className="ppdt-response-label">{content.live.responseLabel}</span>
+                <span className="ppdt-response-label">
+                  {content.live.responseLabel}
+                </span>
                 {listening && (
                   <div className="flex items-center gap-8">
                     <span className="pulse-dot" />
-                    <span style={{ fontSize: "0.8125rem", color: "var(--color-error)" }}>
+                    <span
+                      style={{
+                        fontSize: "0.8125rem",
+                        color: "var(--color-error)",
+                      }}
+                    >
                       {content.live.listeningLabel}
                     </span>
                   </div>
@@ -190,25 +219,42 @@ export default function PPDTLivePage() {
               </div>
 
               <div className="ppdt-transcript">
-                {transcript || <span className="ppdt-transcript-placeholder">Start speaking — your words will appear here...</span>}
+                {transcript || (
+                  <span className="ppdt-transcript-placeholder">
+                    Start speaking — your words will appear here...
+                  </span>
+                )}
               </div>
 
               {error && <div className="alert alert-error mt-12">{error}</div>}
 
               <div className="ppdt-controls mt-16">
                 {listening ? (
-                  <button className="btn btn-ghost" onClick={stopListening}>Pause</button>
+                  <button className="btn btn-ghost" onClick={stopListening}>
+                    Pause
+                  </button>
                 ) : (
-                  <button className="btn btn-secondary" onClick={startListening} disabled={loading}>Resume</button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={startListening}
+                    disabled={loading}
+                  >
+                    Resume
+                  </button>
                 )}
                 <button
                   className="btn btn-primary btn-lg"
                   onClick={handleSubmit}
                   disabled={loading || !transcript.trim()}
                 >
-                  {loading
-                    ? <span className="spinner" style={{ borderTopColor: "#fff" }} />
-                    : content.live.submitButton}
+                  {loading ? (
+                    <span
+                      className="spinner"
+                      style={{ borderTopColor: "#fff" }}
+                    />
+                  ) : (
+                    content.live.submitButton
+                  )}
                 </button>
               </div>
             </div>

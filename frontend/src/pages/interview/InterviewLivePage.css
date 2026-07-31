@@ -97,6 +97,10 @@
   font-variant-numeric: tabular-nums;
 }
 
+.timer-value.timer-warning {
+  color: var(--color-error);
+}
+
 /* Main layout */
 .live-main {
   display: grid;

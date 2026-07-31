@@ -25,6 +25,7 @@
     "additionalMessagePlaceholder": "Share context that might help the AI interviewer (optional)",
     "rounds": "Interview rounds",
     "roundsHelp": "Drag to reorder. At least one round required.",
+    "roundDurationUnit": "min",
     "isDefault": "Save as default profile"
   },
   "reasonOptions": [

@@ -1,0 +1,61 @@
+.comm-hub-page {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.comm-hub-main {
+  padding-top: 40px;
+  padding-bottom: 48px;
+  max-width: 900px;
+}
+
+.comm-hub-heading {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+}
+
+.comm-hub-subheading {
+  color: var(--color-text-secondary);
+  margin-bottom: 32px;
+}
+
+.comm-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.comm-hub-card {
+  text-align: left;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  font-family: var(--font-body);
+}
+
+.comm-hub-card:hover {
+  border-color: var(--color-primary);
+}
+
+.comm-hub-card-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--color-text-primary);
+  margin-bottom: 6px;
+}
+
+.comm-hub-card-desc {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 640px) {
+  .comm-hub-grid {
+    grid-template-columns: 1fr;
+  }
+}

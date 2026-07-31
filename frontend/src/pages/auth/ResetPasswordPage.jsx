@@ -14,10 +14,15 @@ export default function ResetPasswordPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!password || password.length < 6) { setError(content.errors.passwordTooShort); return; }
+    if (!password || password.length < 6) {
+      setError(content.errors.passwordTooShort);
+      return;
+    }
     setLoading(true);
     try {
-      await api.post(`/auth/reset-password/${token}`, { newPassword: password });
+      await api.post(`/auth/reset-password/${token}`, {
+        newPassword: password,
+      });
       setDone(true);
       setTimeout(() => navigate("/auth"), 2500);
     } catch (err) {
@@ -28,18 +33,39 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--color-bg)", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px" }}>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "var(--color-bg)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "24px",
+      }}
+    >
       <div style={{ width: "100%", maxWidth: 400 }}>
         <div className="card">
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.375rem", fontWeight: 700, marginBottom: 6 }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "1.375rem",
+              fontWeight: 700,
+              marginBottom: 6,
+            }}
+          >
             {c.heading}
           </h2>
-          <p className="body-text" style={{ marginBottom: 24 }}>{c.subheading}</p>
+          <p className="body-text" style={{ marginBottom: 24 }}>
+            {c.subheading}
+          </p>
 
           {done ? (
             <div className="alert alert-success">{c.successMessage}</div>
           ) : (
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <form
+              onSubmit={handleSubmit}
+              style={{ display: "flex", flexDirection: "column", gap: 16 }}
+            >
               {error && <div className="alert alert-error">{error}</div>}
               <div className="form-group">
                 <label className="form-label">{c.passwordLabel}</label>
@@ -48,12 +74,26 @@ export default function ResetPasswordPage() {
                   type="password"
                   placeholder={c.passwordPlaceholder}
                   value={password}
-                  onChange={(e) => { setPassword(e.target.value); setError(""); }}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setError("");
+                  }}
                   autoComplete="new-password"
                 />
               </div>
-              <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
-                {loading ? <span className="spinner" style={{ borderTopColor: "#fff" }} /> : c.submitButton}
+              <button
+                type="submit"
+                className="btn btn-primary btn-full"
+                disabled={loading}
+              >
+                {loading ? (
+                  <span
+                    className="spinner"
+                    style={{ borderTopColor: "#fff" }}
+                  />
+                ) : (
+                  c.submitButton
+                )}
               </button>
             </form>
           )}

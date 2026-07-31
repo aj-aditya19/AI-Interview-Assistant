@@ -7,9 +7,6 @@ import isAdmin from "../middleware/isAdmin.js";
 
 const router = express.Router();
 
-// All admin routes require both protect (valid JWT) and isAdmin (role check)
-
-// GET /api/admin/users — list all users with basic info
 router.get("/users", protect, isAdmin, async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -47,7 +44,9 @@ router.get("/stats", protect, isAdmin, async (req, res) => {
 
     // Users who joined in the last 7 days
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-    const recentSignups = await User.countDocuments({ createdAt: { $gte: sevenDaysAgo } });
+    const recentSignups = await User.countDocuments({
+      createdAt: { $gte: sevenDaysAgo },
+    });
 
     res.json({
       totalUsers,

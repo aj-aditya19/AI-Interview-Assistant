@@ -17,8 +17,8 @@
     "communication": {
       "title": "Communication",
       "description": "Practice real conversations with AI personas. Improve your spoken and written expression.",
-      "badge": "Coming soon",
-      "buttonText": "Notify me"
+      "buttonText": "Start Communication",
+      "tag": "Live"
     },
     "ats": {
       "title": "ATS Resume Score",

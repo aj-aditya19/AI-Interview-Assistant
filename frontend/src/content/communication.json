@@ -1,0 +1,63 @@
+{
+  "hub": {
+    "heading": "Communication Practice",
+    "subheading": "Improve your spoken English — vocabulary, hard words, tongue twisters, and tenses",
+    "cards": [
+      {
+        "type": "vocab",
+        "title": "Vocabulary Words",
+        "description": "Learn and pronounce common vocabulary words with meanings."
+      },
+      {
+        "type": "hardWords",
+        "title": "Hard Words",
+        "description": "Practice tricky, hard-to-pronounce words."
+      },
+      {
+        "type": "tongueTwisters",
+        "title": "Tongue Twisters",
+        "description": "Sharpen your articulation and speed with classic tongue twisters."
+      },
+      {
+        "type": "tenses",
+        "title": "Tenses & Verb Fluency",
+        "description": "Practice speaking sentences across different tenses fluently."
+      }
+    ]
+  },
+  "practice": {
+    "backButton": "Back",
+    "progressLabel": "Word",
+    "micStart": "Tap to speak",
+    "micListening": "Listening...",
+    "yourSpeechLabel": "You said",
+    "nextButton": "Next",
+    "finishButton": "Finish",
+    "restartButton": "Restart",
+    "completeHeading": "Great job!",
+    "completeSubtext": "You've completed this practice set.",
+    "matchGood": "Nice pronunciation!",
+    "matchOkay": "Good try — keep practicing this one.",
+    "matchLow": "Try again, say it clearly.",
+    "meaningLabel": "Meaning",
+    "exampleLabel": "Example",
+    "typeMeta": {
+      "vocab": {
+        "title": "Vocabulary Words",
+        "instruction": "Read the word aloud, then check its meaning below."
+      },
+      "hardWords": {
+        "title": "Hard Words",
+        "instruction": "These words are tricky — say them slowly and clearly."
+      },
+      "tongueTwisters": {
+        "title": "Tongue Twisters",
+        "instruction": "Say it fast and clean, without stumbling."
+      },
+      "tenses": {
+        "title": "Tenses & Verb Fluency",
+        "instruction": "Read the sentence aloud naturally, like you're speaking it."
+      }
+    }
+  }
+}

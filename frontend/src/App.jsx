@@ -13,6 +13,8 @@ import InterviewHistoryPage from "./pages/interview/InterviewHistoryPage.jsx";
 import PPDTSetupPage from "./pages/ppdt/PPDTSetupPage.jsx";
 import PPDTLivePage from "./pages/ppdt/PPDTLivePage.jsx";
 import PPDTResultPage from "./pages/ppdt/PPDTResultPage.jsx";
+import CommunicationHub from "./pages/communication/CommunicationHub.jsx";
+import CommunicationPracticePage from "./pages/communication/CommunicationPracticePage.jsx";
 import AdminLoginPage from "./pages/admin/AdminLoginPage.jsx";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage.jsx";
 
@@ -128,6 +130,22 @@ function AppRoutes() {
         element={
           <PrivateRoute>
             <PPDTResultPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/communication"
+        element={
+          <PrivateRoute>
+            <CommunicationHub />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/communication/practice/:type"
+        element={
+          <PrivateRoute>
+            <CommunicationPracticePage />
           </PrivateRoute>
         }
       />
