@@ -8,7 +8,6 @@ import tongueTwisters from "../../content/tongueTwisters.json";
 import tensesVerbs from "../../content/tensesVerbs.json";
 import "./CommunicationPracticePage.css";
 
-// Maps the URL :type param to its JSON data set.
 const DATA_BY_TYPE = {
   vocab: vocabWords,
   hardWords: hardWords,
@@ -16,8 +15,6 @@ const DATA_BY_TYPE = {
   tenses: tensesVerbs,
 };
 
-// Simple word-overlap match score between the target text and what the
-// user actually spoke. No AI involved — just plain text comparison.
 function getMatchScore(target, spoken) {
   const clean = (s) =>
     s
@@ -54,7 +51,6 @@ export default function CommunicationPracticePage() {
   const current = items[index];
   const targetText = current?.word || current?.text || "";
 
-  // Stop the mic if the user navigates away mid-recording.
   useEffect(() => {
     return () => recognitionRef.current?.stop();
   }, []);

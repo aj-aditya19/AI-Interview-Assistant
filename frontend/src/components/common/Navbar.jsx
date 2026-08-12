@@ -25,13 +25,11 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="container navbar-inner">
-        {/* Logo */}
         <button className="navbar-logo" onClick={() => navigate("/home")}>
           <span className="logo-icon">IQ</span>
           <span className="logo-text">InterviewIQ</span>
         </button>
 
-        {/* Desktop links */}
         <div className="navbar-links">
           {navLinks.map((link) => (
             <button
@@ -44,7 +42,6 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* User section */}
         <div className="navbar-user">
           <div className="user-avatar" title={user?.fullName}>
             {user?.profilePicture ? (
@@ -58,7 +55,6 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile hamburger */}
         <button
           className="navbar-hamburger"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -69,8 +65,6 @@ export default function Navbar() {
           <span />
         </button>
       </div>
-
-      {/* Mobile menu */}
       {menuOpen && (
         <div className="navbar-mobile-menu">
           {navLinks.map((link) => (

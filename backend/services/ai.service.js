@@ -53,7 +53,6 @@ Rules:
   return response.choices[0].message.content.trim();
 };
 
-// Evaluate a candidate's answer and return scores + feedback
 const evaluateAnswer = async ({ question, answer, roundType, profile }) => {
   const systemPrompt = `You are a strict but fair interview evaluator. 
 Evaluate the following interview answer and return a JSON object only — no explanation outside the JSON.
@@ -89,12 +88,10 @@ Candidate's answer: ${answer}`;
 
   const raw = response.choices[0].message.content.trim();
 
-  // Parse JSON safely — Groq sometimes wraps it in backticks
   try {
     const cleaned = raw.replace(/```json|```/g, "").trim();
     return JSON.parse(cleaned);
   } catch (err) {
-    // If parsing fails, return a fallback so the session doesn't crash
     console.error("Failed to parse AI evaluation JSON:", err.message);
     return {
       scores: {
@@ -112,7 +109,6 @@ Candidate's answer: ${answer}`;
   }
 };
 
-// Generate a final interview summary after all rounds are done
 const generateFinalSummary = async ({ rounds, profile }) => {
   const roundsSummary = rounds
     .map((r) => {
@@ -186,7 +182,6 @@ Round performance:\n${roundsSummary}`;
   }
 };
 
-// Evaluate a PPDT response against the reference description
 const evaluatePPDT = async ({ userAnswer, referenceDescription, imageId }) => {
   const systemPrompt = `You are an SSB/NDA PPDT evaluator. The candidate described what they saw in an image.
 Evaluate their description against the reference and return JSON only:

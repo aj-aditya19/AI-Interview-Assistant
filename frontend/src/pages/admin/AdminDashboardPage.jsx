@@ -60,17 +60,27 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="page-wrapper">
-      {/* Admin navbar */}
       <div className="admin-navbar">
         <div className="container admin-navbar-inner">
           <div className="flex items-center gap-12">
             <div className="admin-logo-icon">IQ</div>
             <div>
-              <span style={{ fontFamily: "var(--font-display)", fontWeight: 700 }}>InterviewIQ</span>
-              <span className="badge badge-secondary" style={{ marginLeft: 10, fontSize: "0.7rem" }}>Admin</span>
+              <span
+                style={{ fontFamily: "var(--font-display)", fontWeight: 700 }}
+              >
+                InterviewIQ
+              </span>
+              <span
+                className="badge badge-secondary"
+                style={{ marginLeft: 10, fontSize: "0.7rem" }}
+              >
+                Admin
+              </span>
             </div>
           </div>
-          <button className="btn btn-ghost btn-sm" onClick={handleLogout}>{c.logout}</button>
+          <button className="btn btn-ghost btn-sm" onClick={handleLogout}>
+            {c.logout}
+          </button>
         </div>
       </div>
 
@@ -78,8 +88,6 @@ export default function AdminDashboardPage() {
         <div className="flex items-center justify-between mb-24">
           <h1 className="display-heading">{c.heading}</h1>
         </div>
-
-        {/* Tabs */}
         <div className="admin-tabs">
           {TABS.map((tab) => (
             <button
@@ -103,9 +111,17 @@ export default function AdminDashboardPage() {
             <div className="admin-stats-grid">
               {[
                 { label: c.stats.totalUsers, value: stats.totalUsers },
-                { label: c.stats.totalInterviews, value: stats.totalInterviews },
+                {
+                  label: c.stats.totalInterviews,
+                  value: stats.totalInterviews,
+                },
                 { label: c.stats.totalPPDT, value: stats.totalPPDT },
-                { label: c.stats.avgScore, value: stats.avgInterviewScore ? `${stats.avgInterviewScore}/10` : "—" },
+                {
+                  label: c.stats.avgScore,
+                  value: stats.avgInterviewScore
+                    ? `${stats.avgInterviewScore}/10`
+                    : "—",
+                },
                 { label: c.stats.recentSignups, value: stats.recentSignups },
               ].map((s) => (
                 <div key={s.label} className="admin-stat-card card">
@@ -130,25 +146,51 @@ export default function AdminDashboardPage() {
                 </thead>
                 <tbody>
                   {users.length === 0 ? (
-                    <tr><td colSpan={6} style={{ textAlign: "center", color: "var(--color-text-muted)", padding: 32 }}>{c.emptyState}</td></tr>
-                  ) : users.map((u) => (
-                    <tr key={u._id}>
-                      <td>
-                        <div style={{ fontWeight: 500 }}>{u.fullName}</div>
-                      </td>
-                      <td style={{ color: "var(--color-text-secondary)" }}>{u.email}</td>
-                      <td>
-                        <span className={`badge ${u.role === "admin" ? "badge-secondary" : "badge-muted"}`}>
-                          {u.role}
-                        </span>
-                      </td>
-                      <td>{u.stats?.totalInterviews ?? 0}</td>
-                      <td>{u.stats?.averageInterviewScore ? `${u.stats.averageInterviewScore}/10` : "—"}</td>
-                      <td style={{ color: "var(--color-text-secondary)", fontSize: "0.8125rem" }}>
-                        {new Date(u.createdAt).toLocaleDateString("en-IN")}
+                    <tr>
+                      <td
+                        colSpan={6}
+                        style={{
+                          textAlign: "center",
+                          color: "var(--color-text-muted)",
+                          padding: 32,
+                        }}
+                      >
+                        {c.emptyState}
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    users.map((u) => (
+                      <tr key={u._id}>
+                        <td>
+                          <div style={{ fontWeight: 500 }}>{u.fullName}</div>
+                        </td>
+                        <td style={{ color: "var(--color-text-secondary)" }}>
+                          {u.email}
+                        </td>
+                        <td>
+                          <span
+                            className={`badge ${u.role === "admin" ? "badge-secondary" : "badge-muted"}`}
+                          >
+                            {u.role}
+                          </span>
+                        </td>
+                        <td>{u.stats?.totalInterviews ?? 0}</td>
+                        <td>
+                          {u.stats?.averageInterviewScore
+                            ? `${u.stats.averageInterviewScore}/10`
+                            : "—"}
+                        </td>
+                        <td
+                          style={{
+                            color: "var(--color-text-secondary)",
+                            fontSize: "0.8125rem",
+                          }}
+                        >
+                          {new Date(u.createdAt).toLocaleDateString("en-IN")}
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
@@ -168,24 +210,60 @@ export default function AdminDashboardPage() {
                 </thead>
                 <tbody>
                   {interviews.length === 0 ? (
-                    <tr><td colSpan={6} style={{ textAlign: "center", color: "var(--color-text-muted)", padding: 32 }}>{c.emptyState}</td></tr>
-                  ) : interviews.map((r) => (
-                    <tr key={r._id}>
-                      <td>
-                        <div style={{ fontWeight: 500 }}>{r.userId?.fullName || "—"}</div>
-                        <div style={{ fontSize: "0.8rem", color: "var(--color-text-muted)" }}>{r.userId?.email}</div>
-                      </td>
-                      <td>{r.targetRole || "—"}</td>
-                      <td><span className="badge badge-muted">{r.interviewType}</span></td>
-                      <td>{r.difficulty || "—"}</td>
-                      <td style={{ fontWeight: 600, color: "var(--color-primary)" }}>
-                        {r.overallScore ? `${r.overallScore}/10` : "—"}
-                      </td>
-                      <td style={{ color: "var(--color-text-secondary)", fontSize: "0.8125rem" }}>
-                        {new Date(r.createdAt).toLocaleDateString("en-IN")}
+                    <tr>
+                      <td
+                        colSpan={6}
+                        style={{
+                          textAlign: "center",
+                          color: "var(--color-text-muted)",
+                          padding: 32,
+                        }}
+                      >
+                        {c.emptyState}
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    interviews.map((r) => (
+                      <tr key={r._id}>
+                        <td>
+                          <div style={{ fontWeight: 500 }}>
+                            {r.userId?.fullName || "—"}
+                          </div>
+                          <div
+                            style={{
+                              fontSize: "0.8rem",
+                              color: "var(--color-text-muted)",
+                            }}
+                          >
+                            {r.userId?.email}
+                          </div>
+                        </td>
+                        <td>{r.targetRole || "—"}</td>
+                        <td>
+                          <span className="badge badge-muted">
+                            {r.interviewType}
+                          </span>
+                        </td>
+                        <td>{r.difficulty || "—"}</td>
+                        <td
+                          style={{
+                            fontWeight: 600,
+                            color: "var(--color-primary)",
+                          }}
+                        >
+                          {r.overallScore ? `${r.overallScore}/10` : "—"}
+                        </td>
+                        <td
+                          style={{
+                            color: "var(--color-text-secondary)",
+                            fontSize: "0.8125rem",
+                          }}
+                        >
+                          {new Date(r.createdAt).toLocaleDateString("en-IN")}
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
@@ -205,23 +283,61 @@ export default function AdminDashboardPage() {
                 </thead>
                 <tbody>
                   {ppdtRecords.length === 0 ? (
-                    <tr><td colSpan={5} style={{ textAlign: "center", color: "var(--color-text-muted)", padding: 32 }}>{c.emptyState}</td></tr>
-                  ) : ppdtRecords.map((r) => (
-                    <tr key={r._id}>
-                      <td>
-                        <div style={{ fontWeight: 500 }}>{r.userId?.fullName || "—"}</div>
-                        <div style={{ fontSize: "0.8rem", color: "var(--color-text-muted)" }}>{r.userId?.email}</div>
-                      </td>
-                      <td style={{ color: "var(--color-text-secondary)" }}>{r.imageId}</td>
-                      <td><span className="badge badge-muted">{r.difficulty}</span></td>
-                      <td style={{ fontWeight: 600, color: "var(--color-primary)" }}>
-                        {r.overallScore ? `${r.overallScore}/10` : "—"}
-                      </td>
-                      <td style={{ color: "var(--color-text-secondary)", fontSize: "0.8125rem" }}>
-                        {new Date(r.createdAt).toLocaleDateString("en-IN")}
+                    <tr>
+                      <td
+                        colSpan={5}
+                        style={{
+                          textAlign: "center",
+                          color: "var(--color-text-muted)",
+                          padding: 32,
+                        }}
+                      >
+                        {c.emptyState}
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    ppdtRecords.map((r) => (
+                      <tr key={r._id}>
+                        <td>
+                          <div style={{ fontWeight: 500 }}>
+                            {r.userId?.fullName || "—"}
+                          </div>
+                          <div
+                            style={{
+                              fontSize: "0.8rem",
+                              color: "var(--color-text-muted)",
+                            }}
+                          >
+                            {r.userId?.email}
+                          </div>
+                        </td>
+                        <td style={{ color: "var(--color-text-secondary)" }}>
+                          {r.imageId}
+                        </td>
+                        <td>
+                          <span className="badge badge-muted">
+                            {r.difficulty}
+                          </span>
+                        </td>
+                        <td
+                          style={{
+                            fontWeight: 600,
+                            color: "var(--color-primary)",
+                          }}
+                        >
+                          {r.overallScore ? `${r.overallScore}/10` : "—"}
+                        </td>
+                        <td
+                          style={{
+                            color: "var(--color-text-secondary)",
+                            fontSize: "0.8125rem",
+                          }}
+                        >
+                          {new Date(r.createdAt).toLocaleDateString("en-IN")}
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>

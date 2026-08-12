@@ -28,7 +28,6 @@ router.get("/users", protect, isAdmin, async (req, res) => {
   }
 });
 
-// GET /api/admin/stats — platform-wide aggregate stats
 router.get("/stats", protect, isAdmin, async (req, res) => {
   try {
     const totalUsers = await User.countDocuments({ role: "user" });
@@ -36,13 +35,11 @@ router.get("/stats", protect, isAdmin, async (req, res) => {
     const totalInterviews = await InterviewRecord.countDocuments();
     const totalPPDT = await PPDTRecord.countDocuments();
 
-    // Average score across all completed interviews
     const interviewScoreAgg = await InterviewRecord.aggregate([
       { $group: { _id: null, avgScore: { $avg: "$overallScore" } } },
     ]);
     const avgInterviewScore = interviewScoreAgg[0]?.avgScore?.toFixed(1) || 0;
 
-    // Users who joined in the last 7 days
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const recentSignups = await User.countDocuments({
       createdAt: { $gte: sevenDaysAgo },
@@ -62,7 +59,6 @@ router.get("/stats", protect, isAdmin, async (req, res) => {
   }
 });
 
-// GET /api/admin/interview-records — paginated list of all interview records
 router.get("/interview-records", protect, isAdmin, async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -71,7 +67,7 @@ router.get("/interview-records", protect, isAdmin, async (req, res) => {
 
     const records = await InterviewRecord.find()
       .populate("userId", "fullName email")
-      .select("-rounds.turns") // skip turn detail in list view
+      .select("-rounds.turns")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
@@ -84,7 +80,6 @@ router.get("/interview-records", protect, isAdmin, async (req, res) => {
   }
 });
 
-// GET /api/admin/ppdt-records — paginated list of all PPDT records
 router.get("/ppdt-records", protect, isAdmin, async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;

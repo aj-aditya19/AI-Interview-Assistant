@@ -25,14 +25,17 @@ const DEFAULT_FORM = {
 
 export default function InterviewSetupPage() {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1); // 1 = profile details, 2 = rounds, 3 = review
+  const [step, setStep] = useState(1);
   const [form, setForm] = useState(DEFAULT_FORM);
   const [savedProfiles, setSavedProfiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    api.get("/interview-profiles").then((res) => setSavedProfiles(res.data)).catch(() => {});
+    api
+      .get("/interview-profiles")
+      .then((res) => setSavedProfiles(res.data))
+      .catch(() => {});
   }, []);
 
   const setField = (key, value) => setForm((f) => ({ ...f, [key]: value }));
@@ -41,10 +44,16 @@ export default function InterviewSetupPage() {
     const current = form.rounds;
     const exists = current.some((r) => r.roundType === roundValue);
     if (exists) {
-      if (current.length === 1) return; // must have at least one
-      setField("rounds", current.filter((r) => r.roundType !== roundValue));
+      if (current.length === 1) return;
+      setField(
+        "rounds",
+        current.filter((r) => r.roundType !== roundValue),
+      );
     } else {
-      setField("rounds", [...current, { roundType: roundValue, durationMinutes: 5 }]);
+      setField("rounds", [
+        ...current,
+        { roundType: roundValue, durationMinutes: 5 },
+      ]);
     }
   };
 
@@ -76,13 +85,17 @@ export default function InterviewSetupPage() {
   };
 
   const handleStartInterview = async () => {
-    if (!form.targetRole) { setError("Target role is required"); return; }
+    if (!form.targetRole) {
+      setError("Target role is required");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
-      // Save profile first
       const profileRes = await api.post("/interview-profiles", {
-        label: form.label || `${form.targetRole} — ${new Date().toLocaleDateString()}`,
+        label:
+          form.label ||
+          `${form.targetRole} — ${new Date().toLocaleDateString()}`,
         reason: form.reason,
         targetRole: form.targetRole,
         targetCompany: form.targetCompany,
@@ -96,8 +109,10 @@ export default function InterviewSetupPage() {
       });
       const profileId = profileRes.data._id;
 
-      // Start session
-      const sessionRes = await api.post("/interview/session", { action: "start", profileId });
+      const sessionRes = await api.post("/interview/session", {
+        action: "start",
+        profileId,
+      });
       navigate("/interview/live", {
         state: {
           sessionId: sessionRes.data.sessionId,
@@ -126,8 +141,15 @@ export default function InterviewSetupPage() {
       <div className="container setup-container">
         {/* Step indicator */}
         <div className="setup-steps">
-          {[content.steps.profile, content.steps.rounds, content.steps.review].map((s, i) => (
-            <div key={s} className={`setup-step ${step === i + 1 ? "active" : ""} ${step > i + 1 ? "done" : ""}`}>
+          {[
+            content.steps.profile,
+            content.steps.rounds,
+            content.steps.review,
+          ].map((s, i) => (
+            <div
+              key={s}
+              className={`setup-step ${step === i + 1 ? "active" : ""} ${step > i + 1 ? "done" : ""}`}
+            >
               <div className="step-dot">{step > i + 1 ? "✓" : i + 1}</div>
               <span>{s}</span>
             </div>
@@ -143,10 +165,15 @@ export default function InterviewSetupPage() {
                 <div className="setup-fields">
                   {/* Reason */}
                   <div className="form-group">
-                    <label className="form-label">{content.labels.reason}</label>
+                    <label className="form-label">
+                      {content.labels.reason}
+                    </label>
                     <div className="reason-options">
                       {content.reasonOptions.map((opt) => (
-                        <label key={opt.value} className={`reason-option ${form.reason === opt.value ? "selected" : ""}`}>
+                        <label
+                          key={opt.value}
+                          className={`reason-option ${form.reason === opt.value ? "selected" : ""}`}
+                        >
                           <input
                             type="radio"
                             name="reason"
@@ -162,7 +189,9 @@ export default function InterviewSetupPage() {
 
                   {/* Target role */}
                   <div className="form-group">
-                    <label className="form-label">{content.labels.targetRole}</label>
+                    <label className="form-label">
+                      {content.labels.targetRole}
+                    </label>
                     <input
                       className="form-input"
                       list="role-options"
@@ -171,24 +200,32 @@ export default function InterviewSetupPage() {
                       onChange={(e) => setField("targetRole", e.target.value)}
                     />
                     <datalist id="role-options">
-                      {content.roleOptions.map((r) => <option key={r} value={r} />)}
+                      {content.roleOptions.map((r) => (
+                        <option key={r} value={r} />
+                      ))}
                     </datalist>
                   </div>
 
                   {/* Target company */}
                   <div className="form-group">
-                    <label className="form-label">{content.labels.targetCompany}</label>
+                    <label className="form-label">
+                      {content.labels.targetCompany}
+                    </label>
                     <input
                       className="form-input"
                       placeholder={content.labels.targetCompanyPlaceholder}
                       value={form.targetCompany}
-                      onChange={(e) => setField("targetCompany", e.target.value)}
+                      onChange={(e) =>
+                        setField("targetCompany", e.target.value)
+                      }
                     />
                   </div>
 
                   {/* Skills */}
                   <div className="form-group">
-                    <label className="form-label">{content.labels.skills}</label>
+                    <label className="form-label">
+                      {content.labels.skills}
+                    </label>
                     <TagInput
                       tags={form.skills}
                       onChange={(v) => setField("skills", v)}
@@ -198,7 +235,9 @@ export default function InterviewSetupPage() {
 
                   {/* Tech stack */}
                   <div className="form-group">
-                    <label className="form-label">{content.labels.techStack}</label>
+                    <label className="form-label">
+                      {content.labels.techStack}
+                    </label>
                     <TagInput
                       tags={form.techStack}
                       onChange={(v) => setField("techStack", v)}
@@ -208,7 +247,9 @@ export default function InterviewSetupPage() {
 
                   {/* Projects */}
                   <div className="form-group">
-                    <label className="form-label">{content.labels.projects}</label>
+                    <label className="form-label">
+                      {content.labels.projects}
+                    </label>
                     <TagInput
                       tags={form.projects}
                       onChange={(v) => setField("projects", v)}
@@ -218,19 +259,33 @@ export default function InterviewSetupPage() {
 
                   {/* Additional message */}
                   <div className="form-group">
-                    <label className="form-label">{content.labels.additionalMessage}</label>
+                    <label className="form-label">
+                      {content.labels.additionalMessage}
+                    </label>
                     <textarea
                       className="form-textarea"
                       placeholder={content.labels.additionalMessagePlaceholder}
                       value={form.additionalMessage}
-                      onChange={(e) => setField("additionalMessage", e.target.value)}
+                      onChange={(e) =>
+                        setField("additionalMessage", e.target.value)
+                      }
                       rows={3}
                     />
                   </div>
                 </div>
 
                 <div className="setup-actions">
-                  <button className="btn btn-primary" onClick={() => { if (!form.targetRole) { setError("Target role is required"); return; } setError(""); setStep(2); }}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      if (!form.targetRole) {
+                        setError("Target role is required");
+                        return;
+                      }
+                      setError("");
+                      setStep(2);
+                    }}
+                  >
                     {content.buttons.next}
                   </button>
                   {error && <span className="form-error">{error}</span>}
@@ -240,12 +295,16 @@ export default function InterviewSetupPage() {
 
             {step === 2 && (
               <div className="card">
-                <h2 className="section-heading mb-8">{content.labels.rounds}</h2>
+                <h2 className="section-heading mb-8">
+                  {content.labels.rounds}
+                </h2>
                 <p className="body-text mb-24">{content.labels.roundsHelp}</p>
 
                 <div className="rounds-list">
                   {content.roundOptions.map((round) => {
-                    const selectedRound = form.rounds.find((r) => r.roundType === round.value);
+                    const selectedRound = form.rounds.find(
+                      (r) => r.roundType === round.value,
+                    );
                     return (
                       <label
                         key={round.value}
@@ -257,8 +316,12 @@ export default function InterviewSetupPage() {
                           onChange={() => toggleRound(round.value)}
                         />
                         <div>
-                          <div className="round-option-label">{round.label}</div>
-                          <div className="round-option-desc">{round.description}</div>
+                          <div className="round-option-label">
+                            {round.label}
+                          </div>
+                          <div className="round-option-desc">
+                            {round.description}
+                          </div>
                         </div>
                         {selectedRound && (
                           <div
@@ -270,7 +333,9 @@ export default function InterviewSetupPage() {
                               min={1}
                               max={60}
                               value={selectedRound.durationMinutes}
-                              onChange={(e) => updateRoundDuration(round.value, e.target.value)}
+                              onChange={(e) =>
+                                updateRoundDuration(round.value, e.target.value)
+                              }
                             />
                             <span>{content.labels.roundDurationUnit}</span>
                           </div>
@@ -282,7 +347,9 @@ export default function InterviewSetupPage() {
 
                 {/* Difficulty */}
                 <div className="form-group mt-24">
-                  <label className="form-label">{content.labels.difficulty}</label>
+                  <label className="form-label">
+                    {content.labels.difficulty}
+                  </label>
                   <div className="difficulty-options">
                     {content.difficultyOptions.map((opt) => (
                       <label
@@ -304,8 +371,15 @@ export default function InterviewSetupPage() {
                 </div>
 
                 <div className="setup-actions">
-                  <button className="btn btn-ghost" onClick={() => setStep(1)}>{content.buttons.back}</button>
-                  <button className="btn btn-primary" onClick={() => setStep(3)}>{content.buttons.next}</button>
+                  <button className="btn btn-ghost" onClick={() => setStep(1)}>
+                    {content.buttons.back}
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => setStep(3)}
+                  >
+                    {content.buttons.next}
+                  </button>
                 </div>
               </div>
             )}
@@ -316,31 +390,54 @@ export default function InterviewSetupPage() {
 
                 <div className="review-rows">
                   <ReviewRow label="Role" value={form.targetRole} />
-                  {form.targetCompany && <ReviewRow label="Company" value={form.targetCompany} />}
-                  <ReviewRow label="Reason" value={content.reasonOptions.find((r) => r.value === form.reason)?.label} />
+                  {form.targetCompany && (
+                    <ReviewRow label="Company" value={form.targetCompany} />
+                  )}
+                  <ReviewRow
+                    label="Reason"
+                    value={
+                      content.reasonOptions.find((r) => r.value === form.reason)
+                        ?.label
+                    }
+                  />
                   <ReviewRow label="Difficulty" value={form.difficulty} />
                   <ReviewRow
                     label="Rounds"
                     value={form.rounds
                       .map((r) => {
-                        const roundLabel = content.roundOptions.find((o) => o.value === r.roundType)?.label;
+                        const roundLabel = content.roundOptions.find(
+                          (o) => o.value === r.roundType,
+                        )?.label;
                         return `${roundLabel} (${r.durationMinutes} min)`;
                       })
                       .join(" → ")}
                   />
-                  {form.skills.length > 0 && <ReviewRow label="Skills" value={form.skills.join(", ")} />}
+                  {form.skills.length > 0 && (
+                    <ReviewRow label="Skills" value={form.skills.join(", ")} />
+                  )}
                 </div>
 
-                {error && <div className="alert alert-error mt-16">{error}</div>}
+                {error && (
+                  <div className="alert alert-error mt-16">{error}</div>
+                )}
 
                 <div className="setup-actions mt-24">
-                  <button className="btn btn-ghost" onClick={() => setStep(2)}>{content.buttons.back}</button>
+                  <button className="btn btn-ghost" onClick={() => setStep(2)}>
+                    {content.buttons.back}
+                  </button>
                   <button
                     className="btn btn-primary btn-lg"
                     onClick={handleStartInterview}
                     disabled={loading}
                   >
-                    {loading ? <span className="spinner" style={{ borderTopColor: "#fff" }} /> : content.buttons.start}
+                    {loading ? (
+                      <span
+                        className="spinner"
+                        style={{ borderTopColor: "#fff" }}
+                      />
+                    ) : (
+                      content.buttons.start
+                    )}
                   </button>
                 </div>
               </div>
@@ -351,15 +448,34 @@ export default function InterviewSetupPage() {
           {savedProfiles.length > 0 && step !== 3 && (
             <div className="setup-sidebar">
               <div className="card">
-                <h3 className="section-heading mb-16" style={{ fontSize: "1rem" }}>{content.savedProfiles}</h3>
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <h3
+                  className="section-heading mb-16"
+                  style={{ fontSize: "1rem" }}
+                >
+                  {content.savedProfiles}
+                </h3>
+                <div
+                  style={{ display: "flex", flexDirection: "column", gap: 12 }}
+                >
                   {savedProfiles.slice(0, 5).map((p) => (
                     <div key={p._id} className="saved-profile-item">
                       <div>
-                        <div style={{ fontWeight: 500, fontSize: "0.9rem" }}>{p.label}</div>
-                        <div style={{ fontSize: "0.8125rem", color: "var(--color-text-secondary)" }}>{p.targetRole} · {p.difficulty}</div>
+                        <div style={{ fontWeight: 500, fontSize: "0.9rem" }}>
+                          {p.label}
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "0.8125rem",
+                            color: "var(--color-text-secondary)",
+                          }}
+                        >
+                          {p.targetRole} · {p.difficulty}
+                        </div>
                       </div>
-                      <button className="btn btn-secondary btn-sm" onClick={() => useProfile(p)}>
+                      <button
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => useProfile(p)}
+                      >
                         {content.useProfile}
                       </button>
                     </div>

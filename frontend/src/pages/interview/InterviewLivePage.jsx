@@ -3,35 +3,30 @@ import { useNavigate, useLocation } from "react-router-dom";
 import api from "../../utils/api.js";
 import content from "../../content/interviewLive.json";
 import "./InterviewLivePage.css";
-
+import interviewerImage from "./interviewer.jpg";
 export default function InterviewLivePage() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
 
-  // If someone navigates here directly without state, send them back
   useEffect(() => {
     if (!state?.sessionId) navigate("/interview/setup", { replace: true });
-  }, []);
+  }, [navigate, state?.sessionId]);
 
   const {
     sessionId,
     firstQuestion,
     currentRound: initialRound,
     currentRoundIndex: initialRoundIndex,
-    totalRounds,
     rounds = [],
-    targetRole = "",
-    difficulty = "",
   } = state || {};
 
-  // Interview state
   const [currentQuestion, setCurrentQuestion] = useState(firstQuestion || "");
   const [currentRound, setCurrentRound] = useState(initialRound || "hr");
   const [currentRoundIndex, setCurrentRoundIndex] = useState(
     initialRoundIndex || 0,
   );
-  const [status, setStatus] = useState("waitingForAnswer"); // aiSpeaking | waitingForAnswer | listening | processing
+  const [status, setStatus] = useState("waitingForAnswer");
   const [transcript, setTranscript] = useState("");
   const [conversation, setConversation] = useState([
     { role: "ai", text: firstQuestion || "" },
@@ -41,21 +36,24 @@ export default function InterviewLivePage() {
   const [interviewDone, setInterviewDone] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [emotion, setEmotion] = useState("");
+  const [latestFeedback, setLatestFeedback] = useState(null);
+  const [interviewerImageError, setInterviewerImageError] = useState(false);
 
-  // Duration (in seconds) allowed for the round currently in progress
-  const roundDurationSeconds = (rounds[currentRoundIndex]?.durationMinutes || 5) * 60;
+  const roundDurationSeconds =
+    (rounds[currentRoundIndex]?.durationMinutes || 5) * 60;
   const roundTimeoutFiredRef = useRef(false);
 
-  // Refs
   const videoRef = useRef(null);
   const recognitionRef = useRef(null);
-  const finalTranscriptRef = useRef(""); // holds only confirmed (final) speech text across the recording session
+  const finalTranscriptRef = useRef("");
   const timerRef = useRef(null);
   const roundTimerRef = useRef(null);
   const synthRef = useRef(window.speechSynthesis);
   const conversationEndRef = useRef(null);
+  const captureIntervalRef = useRef(null);
+  const canvasRef = useRef(document.createElement("canvas"));
 
-  // ── Timers ──────────────────────────────────────────────
   useEffect(() => {
     timerRef.current = setInterval(() => setElapsedSeconds((s) => s + 1), 1000);
     return () => clearInterval(timerRef.current);
@@ -69,24 +67,16 @@ export default function InterviewLivePage() {
     return () => clearInterval(roundTimerRef.current);
   }, [currentRound]);
 
-  // ── Camera ──────────────────────────────────────────────
-
-  const captureIntervalRef = useRef(null);
-  const canvasRef = useRef(document.createElement("canvas"));
-
   const sendFrame = async () => {
     const video = videoRef.current;
-
-    if (!video) return;
-
-    if (video.readyState !== 4) return;
+    if (!video || video.readyState !== 4) return;
 
     const canvas = canvasRef.current;
-
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
     ctx.drawImage(video, 0, 0);
 
@@ -95,7 +85,6 @@ export default function InterviewLivePage() {
 
       try {
         const formData = new FormData();
-
         formData.append("image", blob, "frame.jpg");
 
         const response = await fetch("http://localhost:5000/api/face-detect", {
@@ -104,8 +93,9 @@ export default function InterviewLivePage() {
         });
 
         const data = await response.json();
-
-        console.log("Face Detection:", data);
+        if (data?.emotion) {
+          setEmotion(data.emotion);
+        }
       } catch (err) {
         console.error("Face Detect Error:", err);
       }
@@ -138,12 +128,10 @@ export default function InterviewLivePage() {
 
     return () => {
       clearInterval(captureIntervalRef.current);
-
       stream?.getTracks().forEach((track) => track.stop());
     };
   }, []);
 
-  // ── Speech synthesis (AI speaks the question) ───────────
   const speakText = useCallback((text) => {
     if (!synthRef.current) return;
     synthRef.current.cancel();
@@ -155,17 +143,14 @@ export default function InterviewLivePage() {
     synthRef.current.speak(utterance);
   }, []);
 
-  // Speak the first question on mount
   useEffect(() => {
     if (firstQuestion) speakText(firstQuestion);
-  }, []);
+  }, [firstQuestion, speakText]);
 
-  // Auto-scroll conversation panel
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [conversation]);
 
-  // ── Speech recognition (user answers) ───────────────────
   const startListening = () => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -178,9 +163,6 @@ export default function InterviewLivePage() {
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = "en-IN";
-
-    // Accumulate only FINAL text here (in a ref, not state) —
-    // interim text must never be baked into this, or it duplicates on every event.
     finalTranscriptRef.current = "";
 
     recognition.onresult = (e) => {
@@ -193,11 +175,7 @@ export default function InterviewLivePage() {
           interimText += piece;
         }
       }
-      // Always REPLACE the displayed transcript — never build on top of
-      // previous state, since interim text is already included in it.
-      setTranscript(
-        (finalTranscriptRef.current + " " + interimText).trim(),
-      );
+      setTranscript((finalTranscriptRef.current + " " + interimText).trim());
     };
 
     recognition.onerror = (e) => {
@@ -215,7 +193,6 @@ export default function InterviewLivePage() {
     setStatus("waitingForAnswer");
   };
 
-  // ── Submit answer ────────────────────────────────────────
   const submitAnswer = async () => {
     const answer = transcript.trim();
     if (!answer) return;
@@ -223,8 +200,6 @@ export default function InterviewLivePage() {
     stopListening();
     setStatus("processing");
     setLoading(true);
-
-    // Add user turn to conversation immediately
     setConversation((prev) => [...prev, { role: "user", text: answer }]);
     setTranscript("");
 
@@ -234,6 +209,10 @@ export default function InterviewLivePage() {
         sessionId,
         answer,
       });
+
+      if (res.data?.evaluation) {
+        setLatestFeedback(res.data.evaluation);
+      }
 
       const {
         nextQuestion,
@@ -262,7 +241,6 @@ export default function InterviewLivePage() {
           setRoundSeconds(0);
           roundTimeoutFiredRef.current = false;
           speakText(transitionMsg);
-          // Small delay before showing next question
           setTimeout(() => {
             setCurrentQuestion(nextQuestion);
             setConversation((prev) => [
@@ -289,7 +267,6 @@ export default function InterviewLivePage() {
     }
   };
 
-  // ── Finish interview ─────────────────────────────────────
   const finishInterview = async () => {
     setLoading(true);
     synthRef.current?.cancel();
@@ -307,7 +284,6 @@ export default function InterviewLivePage() {
     }
   };
 
-  // ── Round timer ran out — move on without waiting for an answer ──
   const handleRoundTimeout = async () => {
     if (recognitionRef.current) stopListening();
     synthRef.current?.cancel();
@@ -337,7 +313,10 @@ export default function InterviewLivePage() {
         setStatus("interviewComplete");
       } else if (roundComplete) {
         const transitionMsg = `Time's up for the ${content.roundLabels[currentRound]} round. Let's move on to the ${content.roundLabels[newRound]} round.`;
-        setConversation((prev) => [...prev, { role: "ai", text: transitionMsg }]);
+        setConversation((prev) => [
+          ...prev,
+          { role: "ai", text: transitionMsg },
+        ]);
         setCurrentRound(newRound);
         setCurrentRoundIndex(newRoundIndex);
         setRoundSeconds(0);
@@ -345,7 +324,10 @@ export default function InterviewLivePage() {
         speakText(transitionMsg);
         setTimeout(() => {
           setCurrentQuestion(nextQuestion);
-          setConversation((prev) => [...prev, { role: "ai", text: nextQuestion }]);
+          setConversation((prev) => [
+            ...prev,
+            { role: "ai", text: nextQuestion },
+          ]);
           speakText(nextQuestion);
         }, 3000);
         setStatus("waitingForAnswer");
@@ -358,7 +340,6 @@ export default function InterviewLivePage() {
     }
   };
 
-  // Watch the round clock and auto-advance once time is up
   useEffect(() => {
     if (interviewDone || loading) return;
     if (roundSeconds >= roundDurationSeconds && !roundTimeoutFiredRef.current) {
@@ -367,7 +348,6 @@ export default function InterviewLivePage() {
     }
   }, [roundSeconds, roundDurationSeconds, interviewDone, loading]);
 
-  // ── Round warning (last 30s of the round) ─────────────────
   const roundWarning =
     roundSeconds >= roundDurationSeconds - 30 && !interviewDone;
 
@@ -379,16 +359,19 @@ export default function InterviewLivePage() {
     return `${m}:${s}`;
   };
 
+  const scoreEntries = Object.entries(latestFeedback?.scores || {});
+  const latestOverallScore = latestFeedback?.scores?.overall ?? "—";
+
   if (!state?.sessionId) return null;
 
   return (
     <div className="live-page">
-      {/* Top bar */}
       <div className="live-topbar">
         <div className="live-topbar-left">
           <div className="live-logo">IQ</div>
           <span className="live-title">InterviewIQ</span>
         </div>
+
         <div className="live-round-indicator">
           {rounds.map((r, i) => (
             <div
@@ -399,82 +382,78 @@ export default function InterviewLivePage() {
             </div>
           ))}
         </div>
+
         <div className="live-timer">
           <span className="timer-label">{content.timer.elapsed}</span>
           <span className="timer-value">{formatTime(elapsedSeconds)}</span>
         </div>
+
         <div className="live-timer">
           <span className="timer-label">{content.timer.roundTime}</span>
-          <span className={`timer-value ${roundWarning ? "timer-warning" : ""}`}>
+          <span
+            className={`timer-value ${roundWarning ? "timer-warning" : ""}`}
+          >
             {formatTime(Math.max(0, roundDurationSeconds - roundSeconds))}
           </span>
         </div>
       </div>
 
-      {/* Main content */}
       <div className="live-main">
-        {/* Left: Avatar + question */}
         <div className="live-left">
-          {/* AI Avatar */}
-          <div className="avatar-panel card">
-            <div className="avatar-wrap">
-              <div className="avatar-circle">
-                <span className="avatar-initials">AI</span>
-                {status === "aiSpeaking" && (
-                  <div className="avatar-speaking-ring" />
-                )}
-              </div>
-              <div className="avatar-name">
-                {content.conversationLabels.aiLabel}
-              </div>
-              <div className="avatar-status">
-                {status === "aiSpeaking" && (
-                  <>
-                    <span
-                      className="pulse-dot"
-                      style={{ background: "var(--color-primary)" }}
-                    />
-                    <span>{content.status.aiSpeaking}</span>
-                  </>
-                )}
-                {status === "listening" && (
-                  <>
-                    <span className="pulse-dot" />
-                    <span>{content.status.listening}</span>
-                  </>
-                )}
-                {status === "processing" && (
-                  <>
-                    <span className="spinner" />
-                    <span>{content.status.processing}</span>
-                  </>
-                )}
-                {status === "waitingForAnswer" && (
-                  <span>{content.status.waitingForAnswer}</span>
-                )}
-                {status === "interviewComplete" && (
-                  <span>{content.status.interviewComplete}</span>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Current question display */}
-          <div className="question-card card">
-            <div className="question-badge">
-              <span className="badge badge-primary">
-                {content.roundLabels[currentRound]}
-              </span>
-              {roundWarning && (
-                <span className="badge badge-secondary">
-                  {content.hints.timerWarning}
+          <div className="live-screen-stack">
+            <div className="screen-card card interviewer-panel">
+              <div className="screen-header">
+                <span className="screen-tag">Interviewer</span>
+                <span className="screen-status">
+                  {status === "listening"
+                    ? "Listening"
+                    : status === "processing"
+                      ? "Reviewing"
+                      : "Ready"}
                 </span>
-              )}
+              </div>
+
+              <div className="interviewer-body">
+                <div
+                  className={`interviewer-portrait ${interviewerImageError ? "fallback-active" : ""}`}
+                >
+                  <img
+                    src={interviewerImage}
+                    alt="Interviewer"
+                    onLoad={() => setInterviewerImageError(false)}
+                    onError={() => setInterviewerImageError(true)}
+                  />
+                  <div className="interviewer-bubble">
+                    <p>{currentQuestion}</p>
+                  </div>
+                  <div className="portrait-fallback">AI</div>
+                </div>
+              </div>
             </div>
-            <p className="current-question">{currentQuestion}</p>
+
+            <div className="screen-card card user-panel">
+              <div className="screen-header">
+                <span className="screen-tag">User Screen</span>
+                <span className="screen-status">
+                  {status === "listening" ? "Recording" : "Live"}
+                </span>
+              </div>
+
+              <div className="camera-wrap user-camera-wrap">
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  muted
+                  playsInline
+                  className="camera-video"
+                />
+                <div className="user-live-subtitle">
+                  {transcript || "Your live answer will appear here..."}
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Controls */}
           <div className="live-controls">
             {!interviewDone ? (
               <>
@@ -499,11 +478,16 @@ export default function InterviewLivePage() {
                     {content.controls.startAnswering}
                   </button>
                 )}
-                {transcript && status !== "listening" && (
+
+                {transcript && (
                   <button
                     className="btn btn-secondary btn-lg"
                     onClick={submitAnswer}
-                    disabled={loading}
+                    disabled={
+                      loading ||
+                      status === "aiSpeaking" ||
+                      status === "processing"
+                    }
                   >
                     {loading ? (
                       <span className="spinner" />
@@ -512,6 +496,7 @@ export default function InterviewLivePage() {
                     )}
                   </button>
                 )}
+
                 <button
                   className="btn btn-ghost"
                   onClick={finishInterview}
@@ -541,51 +526,55 @@ export default function InterviewLivePage() {
           {error && <div className="alert alert-error mt-16">{error}</div>}
         </div>
 
-        {/* Right: Camera + conversation */}
-        <div className="live-right">
-          {/* Live camera */}
-          <div className="camera-panel card">
-            <div className="camera-label">{content.cameraLabel}</div>
-            <div className="camera-wrap">
-              <video
-                ref={videoRef}
-                autoPlay
-                muted
-                playsInline
-                className="camera-video"
-              />
+        <aside className="live-right">
+          <div className="insight-card card">
+            <div className="insight-header">
+              <span className="insight-label">Expression</span>
+              <span className="emotion-pill">{emotion || "Neutral"}</span>
+            </div>
+            <div className="score-box">
+              <span>{latestOverallScore}</span>
+              <small>/10</small>
             </div>
           </div>
 
-          {/* Conversation panel */}
-          <div className="conversation-panel card">
-            <div className="conversation-header">Live conversation</div>
-            <div className="conversation-body">
-              {conversation.map((msg, i) => (
-                <div key={i} className={`convo-msg ${msg.role}`}>
-                  <span className="convo-name">
-                    {msg.role === "ai"
-                      ? content.conversationLabels.aiLabel
-                      : content.conversationLabels.youLabel}
-                  </span>
-                  <p className="convo-text">{msg.text}</p>
-                </div>
-              ))}
+          <div className="insight-card card">
+            <h3>Answer breakdown</h3>
+            {scoreEntries.length ? (
+              <div className="score-grid">
+                {scoreEntries.map(([key, value]) => (
+                  <div key={key} className="mini-score">
+                    <span>{key}</span>
+                    <strong>{value}/10</strong>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="empty-state">
+                Submit an answer to see the AI scoring here.
+              </p>
+            )}
+          </div>
 
-              {/* Live transcript */}
-              {status === "listening" && transcript && (
-                <div className="convo-msg user live">
-                  <span className="convo-name">
-                    {content.conversationLabels.youLabel}{" "}
-                    <span className="live-dot" />
-                  </span>
-                  <p className="convo-text">{transcript}</p>
-                </div>
+          <div className="insight-card card">
+            <h3>Improvement</h3>
+            <p className="improvement-text">
+              {latestFeedback?.improvedAnswer ||
+                "Your improved answer will appear here after the system evaluates your response."}
+            </p>
+          </div>
+
+          <div className="insight-card card">
+            <h3>Live transcript</h3>
+            <div className="live-transcript-box">
+              {status === "listening" && transcript ? (
+                <p>{transcript}</p>
+              ) : (
+                <p className="empty-state">Waiting for your response...</p>
               )}
-              <div ref={conversationEndRef} />
             </div>
           </div>
-        </div>
+        </aside>
       </div>
     </div>
   );

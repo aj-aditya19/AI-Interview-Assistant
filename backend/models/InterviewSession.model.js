@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-// Each turn holds one Q&A exchange and its scores
 const turnSchema = new mongoose.Schema({
   round: { type: String },
   question: { type: String },
@@ -24,7 +23,6 @@ const turnSchema = new mongoose.Schema({
 const interviewSessionSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   profileId: { type: mongoose.Schema.Types.ObjectId, ref: "InterviewProfile" },
-  // sessionId is a UUID we generate so the frontend can reference it easily
   sessionId: { type: String, required: true, unique: true },
   rounds: [{ type: String }],
   currentRoundIndex: { type: Number, default: 0 },
@@ -33,9 +31,11 @@ const interviewSessionSchema = new mongoose.Schema({
   turns: [turnSchema],
   durationMinutes: { type: Number },
   startedAt: { type: Date, default: Date.now },
-  // TTL: MongoDB auto-deletes documents 24 hours after expiresAt
   expiresAt: { type: Date, required: true, index: { expires: 0 } },
 });
 
-const InterviewSession = mongoose.model("InterviewSession", interviewSessionSchema);
+const InterviewSession = mongoose.model(
+  "InterviewSession",
+  interviewSessionSchema,
+);
 export default InterviewSession;

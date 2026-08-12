@@ -15,15 +15,22 @@ const turnRecordSchema = new mongoose.Schema({
 });
 
 const roundRecordSchema = new mongoose.Schema({
-  roundType: { type: String }, // "hr", "technical", "other"
+  roundType: { type: String },
   turns: [turnRecordSchema],
   roundScore: { type: Number },
 });
 
 const interviewRecordSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    profileId: { type: mongoose.Schema.Types.ObjectId, ref: "InterviewProfile" },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    profileId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "InterviewProfile",
+    },
     interviewType: {
       type: String,
       enum: ["HR", "Technical", "Behavioral", "Mixed"],
@@ -32,7 +39,11 @@ const interviewRecordSchema = new mongoose.Schema(
     targetRole: { type: String },
     targetCompany: { type: String },
     difficulty: { type: String },
-    status: { type: String, enum: ["Completed", "Cancelled"], default: "Completed" },
+    status: {
+      type: String,
+      enum: ["Completed", "Cancelled"],
+      default: "Completed",
+    },
     durationSeconds: { type: Number },
     startedAt: { type: Date },
     endedAt: { type: Date },
@@ -51,11 +62,13 @@ const interviewRecordSchema = new mongoose.Schema(
     weaknesses: [{ type: String }],
     recommendations: [{ type: String }],
     finalSummary: { type: String },
-    // e.g. "Interview Ready", "Needs Improvement", "Promising"
     readinessLabel: { type: String },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const InterviewRecord = mongoose.model("InterviewRecord", interviewRecordSchema);
+const InterviewRecord = mongoose.model(
+  "InterviewRecord",
+  interviewRecordSchema,
+);
 export default InterviewRecord;
