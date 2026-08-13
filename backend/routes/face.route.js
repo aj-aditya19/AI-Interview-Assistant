@@ -22,9 +22,13 @@ router.post("/", upload.single("image"), async (req, res) => {
 
     form.append("image", fs.createReadStream(req.file.path));
 
-    const response = await axios.post("http://localhost:5001/detect", form, {
-      headers: form.getHeaders(),
-    });
+    const response = await axios.post(
+      `${process.env.PYTHON_API_URL}/detect`,
+      form,
+      {
+        headers: form.getHeaders(),
+      },
+    );
 
     fs.unlinkSync(req.file.path);
 
