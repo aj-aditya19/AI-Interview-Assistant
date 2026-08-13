@@ -1,41 +1,41 @@
-import express from "express";
-import multer from "multer";
-import FormData from "form-data";
-import fs from "fs";
-import axios from "axios";
+// import express from "express";
+// import multer from "multer";
+// import FormData from "form-data";
+// import fs from "fs";
+// import axios from "axios";
 
-const router = express.Router();
+// const router = express.Router();
 
-const upload = multer({
-  dest: "uploads/",
-});
+// const upload = multer({
+//   dest: "uploads/",
+// });
 
-router.post("/", upload.single("image"), async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({
-        success: false,
-      });
-    }
+// router.post("/", upload.single("image"), async (req, res) => {
+//   try {
+//     if (!req.file) {
+//       return res.status(400).json({
+//         success: false,
+//       });
+//     }
 
-    const form = new FormData();
+//     const form = new FormData();
 
-    form.append("image", fs.createReadStream(req.file.path));
+//     form.append("image", fs.createReadStream(req.file.path));
 
-    const response = await axios.post("http://localhost:5001/detect", form, {
-      headers: form.getHeaders(),
-    });
+//     const response = await axios.post("http://localhost:5001/detect", form, {
+//       headers: form.getHeaders(),
+//     });
 
-    fs.unlinkSync(req.file.path);
+//     fs.unlinkSync(req.file.path);
 
-    res.json(response.data);
-  } catch (err) {
-    console.log(err);
+//     res.json(response.data);
+//   } catch (err) {
+//     console.log(err);
 
-    res.status(500).json({
-      success: false,
-    });
-  }
-});
+//     res.status(500).json({
+//       success: false,
+//     });
+//   }
+// });
 
-export default router;
+// export default router;
