@@ -8,7 +8,6 @@ const ppdtSessionSchema = new mongoose.Schema({
   responseDurationSeconds: { type: Number },
   userAnswer: { type: String },
   startedAt: { type: Date, default: Date.now },
-  // TTL: MongoDB auto-deletes 1 hour after expiresAt
   expiresAt: { type: Date, required: true, index: { expires: 0 } },
 });
 

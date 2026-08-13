@@ -1,4 +1,3 @@
-/* ── Page ── */
 .auth-page {
   min-height: 100vh;
   display: grid;
@@ -14,7 +13,6 @@
   align-items: stretch;
 }
 
-/* ── Left: marketing copy ── */
 .auth-copy {
   background: var(--surface);
   border: 1px solid var(--border);

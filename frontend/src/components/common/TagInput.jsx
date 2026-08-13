@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-
-// Input that lets users type and press Enter to add string tags
-export default function TagInput({ tags = [], onChange, placeholder = "Add and press Enter" }) {
+export default function TagInput({
+  tags = [],
+  onChange,
+  placeholder = "Add and press Enter",
+}) {
   const [inputValue, setInputValue] = useState("");
 
   const handleKeyDown = (e) => {
@@ -13,7 +15,6 @@ export default function TagInput({ tags = [], onChange, placeholder = "Add and p
       }
       setInputValue("");
     }
-    // Backspace on empty input removes the last tag
     if (e.key === "Backspace" && !inputValue && tags.length > 0) {
       onChange(tags.slice(0, -1));
     }
@@ -40,7 +41,13 @@ export default function TagInput({ tags = [], onChange, placeholder = "Add and p
       {tags.map((tag, i) => (
         <span key={i} className="tag">
           {tag}
-          <button className="tag-remove" onClick={() => removeTag(i)} type="button">×</button>
+          <button
+            className="tag-remove"
+            onClick={() => removeTag(i)}
+            type="button"
+          >
+            ×
+          </button>
         </span>
       ))}
       <input

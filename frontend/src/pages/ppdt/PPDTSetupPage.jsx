@@ -13,7 +13,8 @@ export default function PPDTSetupPage() {
   const [fetchLoading, setFetchLoading] = useState(true);
 
   useEffect(() => {
-    api.get("/ppdt/images")
+    api
+      .get("/ppdt/images")
       .then((res) => setImages(res.data))
       .catch(() => {})
       .finally(() => setFetchLoading(false));
@@ -23,11 +24,13 @@ export default function PPDTSetupPage() {
     const filtered = images.filter((img) => img.difficulty === difficulty);
     if (filtered.length === 0) return;
 
-    // Pick a random image from the difficulty pool
     const image = filtered[Math.floor(Math.random() * filtered.length)];
     setLoading(true);
     try {
-      const res = await api.post("/ppdt/session/start", { imageId: image.id, difficulty });
+      const res = await api.post("/ppdt/session/start", {
+        imageId: image.id,
+        difficulty,
+      });
       navigate("/ppdt/live", {
         state: {
           sessionId: res.data.sessionId,
@@ -55,7 +58,9 @@ export default function PPDTSetupPage() {
             <p className="body-text mt-8 mb-32">{content.setup.subheading}</p>
 
             <div className="card">
-              <h2 className="section-heading mb-20">{content.setup.difficultyLabel}</h2>
+              <h2 className="section-heading mb-20">
+                {content.setup.difficultyLabel}
+              </h2>
               <div className="ppdt-difficulty-list">
                 {content.difficultyOptions.map((opt) => (
                   <label
@@ -82,16 +87,22 @@ export default function PPDTSetupPage() {
                 onClick={handleStart}
                 disabled={loading || fetchLoading}
               >
-                {loading
-                  ? <span className="spinner" style={{ borderTopColor: "#fff" }} />
-                  : content.setup.startButton}
+                {loading ? (
+                  <span
+                    className="spinner"
+                    style={{ borderTopColor: "#fff" }}
+                  />
+                ) : (
+                  content.setup.startButton
+                )}
               </button>
             </div>
           </div>
 
-          {/* Right: how it works */}
           <div className="ppdt-how-card card">
-            <h3 className="section-heading mb-16">{content.setup.howItWorks.title}</h3>
+            <h3 className="section-heading mb-16">
+              {content.setup.howItWorks.title}
+            </h3>
             <ol className="ppdt-steps">
               {content.setup.howItWorks.steps.map((step, i) => (
                 <li key={i}>
@@ -102,7 +113,9 @@ export default function PPDTSetupPage() {
             </ol>
 
             <div className="ppdt-tip mt-24">
-              <strong>Tip:</strong> Observe every person, their expression, and the setting. Your story should have a clear beginning, middle, and conclusion.
+              <strong>Tip:</strong> Observe every person, their expression, and
+              the setting. Your story should have a clear beginning, middle, and
+              conclusion.
             </div>
           </div>
         </div>

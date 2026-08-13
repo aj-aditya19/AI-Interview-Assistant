@@ -21,7 +21,13 @@ const experienceSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema(
   {
     fullName: { type: String, required: true, trim: true },
-    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
     passwordHash: { type: String, required: true },
     phoneNumber: { type: String },
     profilePicture: { type: String },
@@ -53,14 +59,12 @@ const userSchema = new mongoose.Schema(
       bestInterviewScore: { type: Number, default: 0 },
       bestPPDTScore: { type: Number, default: 0 },
     },
-    // Used for forgot password flow
     resetPasswordToken: { type: String },
     resetPasswordExpiry: { type: Date },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-// Hash the password before saving, but only if it was changed
 userSchema.pre("save", async function (next) {
   if (!this.isModified("passwordHash")) return next();
   const salt = await bcrypt.genSalt(10);
@@ -68,7 +72,6 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// Helper method to compare a plain password with the stored hash
 userSchema.methods.comparePassword = async function (plainPassword) {
   return bcrypt.compare(plainPassword, this.passwordHash);
 };

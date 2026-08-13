@@ -31,10 +31,9 @@ export default function PPDTLivePage() {
   const [elapsedResponse, setElapsedResponse] = useState(0);
 
   const recognitionRef = useRef(null);
-  const finalTranscriptRef = useRef(""); // holds only confirmed (final) speech text across the recording session
+  const finalTranscriptRef = useRef("");
   const timerRef = useRef(null);
 
-  // ── Viewing phase timer ──────────────────────────────────
   useEffect(() => {
     if (phase !== PHASE.VIEWING) return;
     timerRef.current = setInterval(() => {
@@ -51,7 +50,6 @@ export default function PPDTLivePage() {
     return () => clearInterval(timerRef.current);
   }, [phase]);
 
-  // ── Response phase timer ─────────────────────────────────
   useEffect(() => {
     if (phase !== PHASE.RESPONDING) return;
     timerRef.current = setInterval(() => {
@@ -59,7 +57,6 @@ export default function PPDTLivePage() {
       setTimeLeft((t) => {
         if (t <= 1) {
           clearInterval(timerRef.current);
-          // Time's up — if user is still speaking, we wait for stop
           stopListening();
           return 0;
         }
@@ -69,7 +66,6 @@ export default function PPDTLivePage() {
     return () => clearInterval(timerRef.current);
   }, [phase]);
 
-  // Auto-start listening when response phase begins
   useEffect(() => {
     if (phase === PHASE.RESPONDING) {
       startListening();

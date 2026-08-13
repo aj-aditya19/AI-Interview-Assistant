@@ -13,16 +13,23 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// If the server returns 401, clear the stored token so the user is logged out
+// Avoid bouncing users away on auth failures like invalid login credentials.
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
+    const requestUrl = err.config?.url || "";
+    const isAuthRequest =
+      /\/(login|register|forgot-password|reset-password)(\?|$)/.test(
+        requestUrl,
+      );
+
+    if (err.response?.status === 401 && !isAuthRequest) {
       localStorage.removeItem("iq_token");
       window.location.href = "/auth";
     }
+
     return Promise.reject(err);
-  }
+  },
 );
 
 export default api;

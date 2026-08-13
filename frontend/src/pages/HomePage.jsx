@@ -40,7 +40,6 @@ export default function HomePage() {
     <div className="page-wrapper">
       <Navbar />
       <div className="container home-container">
-        {/* Header */}
         <div className="home-header">
           <div>
             <h1 className="display-heading">
@@ -50,7 +49,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Stats row */}
         <div className="home-stats">
           {[
             {
@@ -78,14 +76,11 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Notify toast */}
         {notifyMsg && (
           <div className="alert alert-success mt-16">{notifyMsg}</div>
         )}
 
-        {/* Module tiles */}
         <div className="home-tiles">
-          {/* AI Interview */}
           <div className="module-tile card">
             <div className="tile-header">
               <div className="tile-icon tile-icon-primary">🎙️</div>
@@ -160,7 +155,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Quick access — history link */}
         <div className="home-quick mt-24">
           <button
             className="btn btn-ghost btn-sm"
