@@ -57,7 +57,6 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// POST /api/auth/login
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -78,7 +77,6 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // Update lastLogin time
     user.lastLogin = new Date();
     await user.save();
 
@@ -100,7 +98,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// GET /api/auth/me — get logged-in user's profile
 router.get("/me", protect, async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select(
@@ -112,7 +109,6 @@ router.get("/me", protect, async (req, res) => {
   }
 });
 
-// PUT /api/auth/profile — update profile fields
 router.put("/profile", protect, async (req, res) => {
   try {
     const allowedFields = [
@@ -146,7 +142,6 @@ router.put("/profile", protect, async (req, res) => {
   }
 });
 
-// POST /api/auth/forgot-password
 router.post("/forgot-password", async (req, res) => {
   try {
     const { email } = req.body;
@@ -240,7 +235,6 @@ router.post("/reset-password-otp", async (req, res) => {
   }
 });
 
-// Legacy route kept for compatibility
 router.post("/reset-password/:token", async (req, res) => {
   try {
     const { newPassword } = req.body;

@@ -73,7 +73,6 @@ button, input, select, textarea { font: inherit; }
 img { max-width: 100%; display: block; }
 ::selection { background: var(--brand-light); color: var(--brand-dark); }
 
-/* ── Animations ── */
 @keyframes riseIn {
   from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0); }

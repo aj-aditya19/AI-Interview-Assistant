@@ -1,17 +1,55 @@
-# .\venv\Scripts\Activate.ps1  
-
 from flask import Flask, request, jsonify
 import cv2
-import mediapipe as mp
 import numpy as np
+import os
+import urllib.request
 
 app = Flask(__name__)
 
-mp_face = mp.solutions.face_detection
-face_detector = mp_face.FaceDetection(
-    model_selection=0,
-    min_detection_confidence=0.5
-)
+cascade_path = os.path.join(cv2.data.haarcascades, "haarcascade_frontalface_default.xml")
+face_cascade = cv2.CascadeClassifier(cascade_path)
+
+MODEL_PATH = "emotion-ferplus-8.onnx"
+MODEL_URL = "https://github.com/onnx/models/raw/main/validated/vision/body_analysis/emotion_ferplus/model/emotion-ferplus-8.onnx"
+
+EMOTIONS = [
+    "neutral", "happiness", "surprise", "sadness",
+    "anger", "disgust", "fear", "contempt"
+]
+
+
+def ensure_model():
+    if not os.path.exists(MODEL_PATH):
+        print("Downloading emotion model (~34MB, one-time)...")
+        urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+        print("Model downloaded.")
+
+
+ensure_model()
+emotion_net = cv2.dnn.readNetFromONNX(MODEL_PATH)
+
+
+def softmax(x):
+    e = np.exp(x - np.max(x))
+    return e / e.sum()
+
+
+def predict_emotion(face_gray_roi):
+    face_resized = cv2.resize(face_gray_roi, (64, 64))
+    blob = face_resized.astype(np.float32).reshape(1, 1, 64, 64)
+
+    emotion_net.setInput(blob)
+    output = emotion_net.forward()[0]
+
+    probs = softmax(output)
+    top_idx = int(np.argmax(probs))
+
+    return EMOTIONS[top_idx], {EMOTIONS[i]: float(probs[i]) for i in range(len(EMOTIONS))}
+
+
+@app.route("/", methods=["GET"])
+def health_check():
+    return jsonify({"status": "ok", "service": "emotion-detection-api"}), 200
 
 
 @app.route("/detect", methods=["POST"])
@@ -23,7 +61,6 @@ def detect_face():
         }), 400
 
     file = request.files["image"]
-
     data = np.frombuffer(file.read(), np.uint8)
     image = cv2.imdecode(data, cv2.IMREAD_COLOR)
 
@@ -33,12 +70,17 @@ def detect_face():
             "message": "Invalid image"
         }), 400
 
-    rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    gray_full = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    results = face_detector.process(rgb)
+    faces = face_cascade.detectMultiScale(
+        gray_full,
+        scaleFactor=1.1,
+        minNeighbors=5,
+        minSize=(60, 60)
+    )
 
-    face_detected = results.detections is not None
-    face_count = len(results.detections) if face_detected else 0
+    face_detected = len(faces) > 0
+    face_count = len(faces)
 
     response = {
         "success": True,
@@ -49,59 +91,26 @@ def detect_face():
     }
 
     if face_detected:
-        det = results.detections[0]
-        bbox = det.location_data.relative_bounding_box
-        ih, iw = image.shape[:2]
-        x = int(bbox.xmin * iw)
-        y = int(bbox.ymin * ih)
-        w = int(bbox.width * iw)
-        h = int(bbox.height * ih)
+        x, y, w, h = max(faces, key=lambda f: f[2] * f[3])
 
+        ih, iw = image.shape[:2]
         x = max(0, x)
         y = max(0, y)
         w = max(1, min(iw - x, w))
         h = max(1, min(ih - y, h))
 
-        face_roi = image[y : y + h, x : x + w]
+        face_gray_roi = gray_full[y : y + h, x : x + w]
 
-        gray = cv2.cvtColor(face_roi, cv2.COLOR_BGR2GRAY)
+        emotion, all_scores = predict_emotion(face_gray_roi)
 
-        lap = cv2.Laplacian(gray, cv2.CV_64F)
-        sharpness = float(lap.var())
-
-        lh = gray.shape[0]
-        lower_third = gray[int(lh * 0.6) : lh, :]
-        mouth_var = float(np.var(lower_third))
-
-        upper_third = gray[0 : int(lh * 0.35), :]
-        eye_var = float(np.var(upper_third))
-
-        score = float(det.score[0]) if det.score else 0.0
-
-        emotion = "neutral"
-        if sharpness < 20 or eye_var < 200:
-            emotion = "tired"
-        elif mouth_var > 2000:
-            emotion = "nervous"
-        elif score > 0.7 and sharpness > 70 and mouth_var < 800:
-            emotion = "confident"
-        elif sharpness > 90 and mouth_var < 500:
-            emotion = "stressed"
-
-        response.update(
-            {
-                "emotion": emotion,
-                "scores": {
-                    "detectionScore": score,
-                    "sharpness": sharpness,
-                    "mouthVar": mouth_var,
-                    "eyeVar": eye_var,
-                },
-            }
-        )
+        response.update({
+            "emotion": emotion,
+            "scores": all_scores
+        })
 
     return jsonify(response)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    port = int(os.environ.get("PORT", 5001))
+    app.run(host="0.0.0.0", port=port, debug=False)

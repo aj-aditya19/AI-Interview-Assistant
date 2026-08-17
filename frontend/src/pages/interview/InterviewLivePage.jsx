@@ -423,10 +423,14 @@ export default function InterviewLivePage() {
                     onLoad={() => setInterviewerImageError(false)}
                     onError={() => setInterviewerImageError(true)}
                   />
-                  <div className="interviewer-bubble">
+                  <div className="portrait-fallback">AI</div>
+                </div>
+
+                <div className="interviewer-text-panel">
+                  <span className="ai-label">AI Interviewer</span>
+                  <div className="interviewer-subtitle-box">
                     <p>{currentQuestion}</p>
                   </div>
-                  <div className="portrait-fallback">AI</div>
                 </div>
               </div>
             </div>
@@ -439,16 +443,24 @@ export default function InterviewLivePage() {
                 </span>
               </div>
 
-              <div className="camera-wrap user-camera-wrap">
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  muted
-                  playsInline
-                  className="camera-video"
-                />
-                <div className="user-live-subtitle">
-                  {transcript || "Your live answer will appear here..."}
+              <div className="user-body">
+                <div className="camera-wrap user-camera-wrap">
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    muted
+                    playsInline
+                    className="camera-video"
+                  />
+                </div>
+
+                <div className="user-text-panel">
+                  <span className="user-label">Your Screen</span>
+                  <div className="user-subtitle-box">
+                    <p>
+                      {transcript || "Your live answer will appear here..."}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

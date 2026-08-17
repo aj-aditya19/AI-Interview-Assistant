@@ -3,7 +3,6 @@
   min-height: 100vh;
 }
 
-/* Left branding panel */
 .auth-left {
   width: 420px;
   flex-shrink: 0;
@@ -74,7 +73,6 @@
   font-weight: 600;
 }
 
-/* Right form panel */
 .auth-right {
   flex: 1;
   display: flex;

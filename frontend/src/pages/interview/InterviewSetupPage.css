@@ -4,7 +4,6 @@
   max-width: 960px;
 }
 
-/* Steps */
 .setup-steps {
   display: flex;
   align-items: center;
@@ -62,7 +61,6 @@
   color: var(--color-primary);
 }
 
-/* Layout */
 .setup-layout {
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -87,7 +85,6 @@
   border-top: 1px solid var(--color-border);
 }
 
-/* Reason options */
 .reason-options {
   display: flex;
   gap: 10px;
@@ -116,7 +113,6 @@
   font-weight: 500;
 }
 
-/* Round options */
 .rounds-list {
   display: flex;
   flex-direction: column;
@@ -175,7 +171,6 @@
   color: var(--color-text-secondary);
 }
 
-/* Difficulty */
 .difficulty-options {
   display: flex;
   flex-direction: column;
@@ -211,7 +206,6 @@
   color: var(--color-text-secondary);
 }
 
-/* Review */
 .review-rows {
   display: flex;
   flex-direction: column;
@@ -239,7 +233,6 @@
   font-weight: 500;
 }
 
-/* Sidebar */
 .saved-profile-item {
   display: flex;
   align-items: center;

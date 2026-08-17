@@ -26,7 +26,6 @@ const interviewProfileSchema = new mongoose.Schema(
       enum: ["Beginner", "Intermediate", "Advanced"],
       default: "Intermediate",
     },
-    // rounds is an ordered array of round configs, each with its own time limit
     rounds: [
       {
         roundType: { type: String, enum: ["hr", "technical", "other"] },

@@ -6,8 +6,13 @@ import content from "../../content/auth.json";
 import "./AuthPage.css";
 
 export default function AuthPage() {
-  const [mode, setMode] = useState("login"); // "login" | "register"
-  const [form, setForm] = useState({ fullName: "", email: "", password: "", phoneNumber: "" });
+  const [mode, setMode] = useState("login");
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+  });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
@@ -38,9 +43,15 @@ export default function AuthPage() {
     setLoading(true);
     try {
       const endpoint = mode === "login" ? "/auth/login" : "/auth/register";
-      const payload = mode === "login"
-        ? { email: form.email, password: form.password }
-        : { fullName: form.fullName, email: form.email, password: form.password, phoneNumber: form.phoneNumber };
+      const payload =
+        mode === "login"
+          ? { email: form.email, password: form.password }
+          : {
+              fullName: form.fullName,
+              email: form.email,
+              password: form.password,
+              phoneNumber: form.phoneNumber,
+            };
 
       const res = await api.post(endpoint, payload);
       login(res.data.token, res.data.user);
@@ -60,7 +71,6 @@ export default function AuthPage() {
 
   return (
     <div className="auth-page">
-      {/* Left panel — branding */}
       <div className="auth-left">
         <div className="auth-brand">
           <div className="auth-logo">IQ</div>
@@ -78,7 +88,6 @@ export default function AuthPage() {
         </ul>
       </div>
 
-      {/* Right panel — form */}
       <div className="auth-right">
         <div className="auth-form-card">
           <h2 className="auth-heading">{c.heading}</h2>
@@ -145,7 +154,9 @@ export default function AuthPage() {
                 placeholder={c.passwordPlaceholder}
                 value={form.password}
                 onChange={handleChange}
-                autoComplete={mode === "login" ? "current-password" : "new-password"}
+                autoComplete={
+                  mode === "login" ? "current-password" : "new-password"
+                }
               />
             </div>
 
@@ -154,14 +165,22 @@ export default function AuthPage() {
               className="btn btn-primary btn-lg btn-full mt-8"
               disabled={loading}
             >
-              {loading ? <span className="spinner" style={{ borderTopColor: "#fff" }} /> : c.submitButton}
+              {loading ? (
+                <span className="spinner" style={{ borderTopColor: "#fff" }} />
+              ) : (
+                c.submitButton
+              )}
             </button>
           </form>
 
           <p className="auth-switch">
-            {mode === "login" ? content.login.noAccount : content.register.hasAccount}{" "}
+            {mode === "login"
+              ? content.login.noAccount
+              : content.register.hasAccount}{" "}
             <button className="auth-switch-btn" onClick={switchMode}>
-              {mode === "login" ? content.login.registerLink : content.register.loginLink}
+              {mode === "login"
+                ? content.login.registerLink
+                : content.register.loginLink}
             </button>
           </p>
         </div>

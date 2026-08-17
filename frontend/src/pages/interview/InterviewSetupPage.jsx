@@ -139,7 +139,6 @@ export default function InterviewSetupPage() {
     <div className="page-wrapper">
       <Navbar />
       <div className="container setup-container">
-        {/* Step indicator */}
         <div className="setup-steps">
           {[
             content.steps.profile,
@@ -157,13 +156,11 @@ export default function InterviewSetupPage() {
         </div>
 
         <div className="setup-layout">
-          {/* Main form */}
           <div className="setup-main">
             {step === 1 && (
               <div className="card">
                 <h2 className="section-heading mb-24">{content.heading}</h2>
                 <div className="setup-fields">
-                  {/* Reason */}
                   <div className="form-group">
                     <label className="form-label">
                       {content.labels.reason}
@@ -187,7 +184,6 @@ export default function InterviewSetupPage() {
                     </div>
                   </div>
 
-                  {/* Target role */}
                   <div className="form-group">
                     <label className="form-label">
                       {content.labels.targetRole}
@@ -206,7 +202,6 @@ export default function InterviewSetupPage() {
                     </datalist>
                   </div>
 
-                  {/* Target company */}
                   <div className="form-group">
                     <label className="form-label">
                       {content.labels.targetCompany}
@@ -221,7 +216,6 @@ export default function InterviewSetupPage() {
                     />
                   </div>
 
-                  {/* Skills */}
                   <div className="form-group">
                     <label className="form-label">
                       {content.labels.skills}
@@ -233,7 +227,6 @@ export default function InterviewSetupPage() {
                     />
                   </div>
 
-                  {/* Tech stack */}
                   <div className="form-group">
                     <label className="form-label">
                       {content.labels.techStack}
@@ -245,7 +238,6 @@ export default function InterviewSetupPage() {
                     />
                   </div>
 
-                  {/* Projects */}
                   <div className="form-group">
                     <label className="form-label">
                       {content.labels.projects}
@@ -257,7 +249,6 @@ export default function InterviewSetupPage() {
                     />
                   </div>
 
-                  {/* Additional message */}
                   <div className="form-group">
                     <label className="form-label">
                       {content.labels.additionalMessage}
@@ -345,7 +336,6 @@ export default function InterviewSetupPage() {
                   })}
                 </div>
 
-                {/* Difficulty */}
                 <div className="form-group mt-24">
                   <label className="form-label">
                     {content.labels.difficulty}
@@ -443,8 +433,6 @@ export default function InterviewSetupPage() {
               </div>
             )}
           </div>
-
-          {/* Saved profiles sidebar */}
           {savedProfiles.length > 0 && step !== 3 && (
             <div className="setup-sidebar">
               <div className="card">

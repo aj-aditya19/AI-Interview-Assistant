@@ -117,7 +117,6 @@
 .auth-point strong { font-size: .86rem; display: block; margin-bottom: 2px; color: var(--text); }
 .auth-point span   { font-size: .79rem; color: var(--muted); line-height: 1.45; }
 
-/* ── Right: form card ── */
 .auth-card {
   background: var(--surface);
   border: 1px solid var(--border);

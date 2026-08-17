@@ -10,7 +10,6 @@
   margin-bottom: 32px;
 }
 
-/* Stats row */
 .home-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -37,7 +36,6 @@
   color: var(--color-text-secondary);
 }
 
-/* Module tiles */
 .home-tiles {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

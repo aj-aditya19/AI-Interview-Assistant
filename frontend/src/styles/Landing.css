@@ -7,7 +7,6 @@
   overflow: hidden;
 }
 
-/* animated background blobs */
 .landing-page::before {
   content: '';
   position: fixed;
@@ -34,14 +33,12 @@
   to   { transform: translate(40px, 30px) scale(1.08); }
 }
 
-/* ── Max-width wrapper ── */
 .landing-shell {
   width: min(1160px, 100%);
   position: relative;
   z-index: 1;
 }
 
-/* ── Two-column grid ── */
 .landing-grid {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -49,9 +46,6 @@
   align-items: center;
 }
 
-/* ─────────────────────────
-   LEFT — hero copy
-───────────────────────── */
 .landing-hero {
   display: flex;
   flex-direction: column;
@@ -59,7 +53,6 @@
   animation: riseIn .65s cubic-bezier(.22,1,.36,1) both;
 }
 
-/* eyebrow chip */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -80,7 +73,6 @@
   font-style: normal;
 }
 
-/* main heading */
 .landing-hero h1 {
   font-size: clamp(2.4rem, 6vw, 4rem);
   line-height: 1.1;
@@ -99,7 +91,6 @@
   animation: gradientShift 6s ease infinite;
 }
 
-/* body copy */
 .landing-copy {
   font-size: 1.06rem;
   color: var(--muted);
@@ -107,7 +98,6 @@
   max-width: 480px;
 }
 
-/* CTA buttons */
 .landing-actions {
   display: flex;
   gap: 12px;
@@ -152,7 +142,6 @@
   box-shadow: var(--shadow-md);
 }
 
-/* stat highlights row */
 .landing-highlights {
   display: flex;
   gap: 0;
@@ -195,9 +184,6 @@
   line-height: 1.45;
 }
 
-/* ─────────────────────────
-   RIGHT — preview cards
-───────────────────────── */
 .landing-preview {
   display: flex;
   flex-direction: column;
@@ -205,7 +191,6 @@
   animation: riseIn .65s 120ms cubic-bezier(.22,1,.36,1) both;
 }
 
-/* main preview card */
 .preview-card-main {
   background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
   border-radius: var(--r-xl);
@@ -261,7 +246,6 @@
   z-index: 1;
 }
 
-/* feature cards stack */
 .preview-stack {
   display: flex;
   flex-direction: column;
@@ -316,12 +300,10 @@
   z-index: 1;
 }
 
-/* track icon prefixes */
 .feature-card:nth-child(1) h3::before { content: '🎓 '; }
 .feature-card:nth-child(2) h3::before { content: '💼 '; }
 .feature-card:nth-child(3) h3::before { content: '🌍 '; }
 
-/* ── Responsive ── */
 @media (max-width: 860px) {
   .landing-grid {
     grid-template-columns: 1fr;

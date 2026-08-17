@@ -147,7 +147,6 @@ export default function PPDTLivePage() {
 
   return (
     <div className="ppdt-live-page">
-      {/* Top bar */}
       <div className="ppdt-topbar">
         <div className="flex items-center gap-12">
           <div className="live-logo">IQ</div>
@@ -164,7 +163,6 @@ export default function PPDTLivePage() {
       </div>
 
       <div className="ppdt-main container">
-        {/* Phase heading */}
         <div className="ppdt-phase-header">
           {phase === PHASE.VIEWING ? (
             <>
@@ -180,7 +178,6 @@ export default function PPDTLivePage() {
         </div>
 
         <div className="ppdt-content">
-          {/* Image area */}
           <div className="ppdt-image-wrap card">
             {phase === PHASE.VIEWING ? (
               <img src={imageUrl} alt="PPDT image" className="ppdt-image" />
@@ -192,7 +189,6 @@ export default function PPDTLivePage() {
             )}
           </div>
 
-          {/* Response area */}
           {phase === PHASE.RESPONDING && (
             <div className="ppdt-response-wrap card">
               <div className="ppdt-response-header">

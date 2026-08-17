@@ -419,3 +419,161 @@
 {
   border: 2px black solid;
 }
+
+.interviewer-body {
+  display: flex;
+  gap: 16px;
+  min-height: 100px;
+  align-items: stretch;
+}
+
+.interviewer-portrait {
+  position: relative;
+  width: 45%;
+  min-height: 300px;
+  height: 100%;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #071f28, #1b3948 35%, #0a2328);
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.05);
+  flex-shrink: 0;
+}
+
+.interviewer-text-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px 4px;
+}
+
+.interviewer-text-panel .ai-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.interviewer-subtitle-box {
+  flex: 1;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: rgba(0,0,0,0.02);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.interviewer-subtitle-box p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+}
+
+.user-camera-wrap {
+  position: relative;
+  z-index: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #111;
+  width: 45%;
+  aspect-ratio: 16 / 9;
+  min-height: 170px;
+  flex-shrink: 0;
+}
+
+.user-body {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  min-height: 100px;
+}
+
+.user-text-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px 4px;
+}
+
+.user-text-panel .user-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.user-subtitle-box {
+  flex: 1;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: rgba(0,0,0,0.02);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.user-subtitle-box p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+}
+
+.user-camera-wrap {
+  position: relative;
+  z-index: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #111;
+  width: 45%;
+  height: 100%;       
+  min-height: 170px;
+  max-height: 260px;
+  flex-shrink: 0;
+}
+
+.user-body {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  min-height: 100px;
+  height: 100%;
+}
+
+.screen-card.user-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.live-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+  height: 100%;
+  min-height: 0;
+}
+
+.insight-card {
+  padding: 18px 18px 16px;
+  overflow: hidden;
+}
+
+.insight-card:has(.improvement-text) {
+  max-height: 180px;
+  display: flex;
+  flex-direction: column;
+}
+
+.improvement-text {
+  margin: 0;
+  color: var(--color-text-primary);
+  line-height: 1.7;
+  overflow-y: auto;     
+  flex: 1;
+  min-height: 0;
+}
