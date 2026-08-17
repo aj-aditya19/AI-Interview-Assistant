@@ -158,7 +158,6 @@ input, textarea, select {
 .btn-lg { padding: 13px 28px; font-size: 1rem; }
 .btn-full { width: 100%; }
 
-/* ── Form Inputs ──────────────────────────────────────────── */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -357,7 +356,6 @@ input, textarea, select {
   .display-heading { font-size: 1.5rem; }
 }
 
-/* ── Utilities ────────────────────────────────────────────── */
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
 .items-center { align-items: center; }

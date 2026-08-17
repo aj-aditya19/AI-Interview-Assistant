@@ -4,7 +4,6 @@ const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "/api",
 });
 
-// Attach the JWT to every request if it exists in localStorage
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("iq_token");
   if (token) {
@@ -13,7 +12,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Avoid bouncing users away on auth failures like invalid login credentials.
 api.interceptors.response.use(
   (res) => res,
   (err) => {

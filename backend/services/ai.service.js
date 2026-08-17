@@ -41,7 +41,7 @@ Rules:
     : `Continue the interview naturally. Conversation so far:\n${previousQA}\n\nAsk the next question — either a deeper follow-up on their last answer, or a fresh question grounded in their listed skills/projects/tech stack.`;
 
   const response = await groq.chat.completions.create({
-    model: "llama-3.3-70b-versatile",
+    model: process.env.GROQ_MODEL,
     messages: [
       { role: "system", content: systemPrompt },
       { role: "user", content: userMessage },
@@ -78,7 +78,7 @@ Question: ${question}
 Candidate's answer: ${answer}`;
 
   const response = await groq.chat.completions.create({
-    model: "llama-3.1-8b-instant",
+    model: "openai/gpt-oss-120b",
     messages: [
       { role: "system", content: systemPrompt },
       { role: "user", content: userMessage },
@@ -144,7 +144,7 @@ Difficulty: ${profile.difficulty}
 Round performance:\n${roundsSummary}`;
 
   const response = await groq.chat.completions.create({
-    model: "llama-3.1-8b-instant",
+    model: "openai/gpt-oss-120b",
     messages: [
       { role: "system", content: systemPrompt },
       { role: "user", content: userMessage },
@@ -202,7 +202,7 @@ Evaluate their description against the reference and return JSON only:
 Candidate's response: ${userAnswer}`;
 
   const response = await groq.chat.completions.create({
-    model: "llama-3.1-8b-instant",
+    model: "openai/gpt-oss-120b",
     messages: [
       { role: "system", content: systemPrompt },
       { role: "user", content: userMessage },

@@ -27,11 +27,12 @@ router.post("/session", protect, async (req, res) => {
   } else {
     return res
       .status(400)
-      .json({ message: "Invalid action. Use: start, answer, timeout, or finish" });
+      .json({
+        message: "Invalid action. Use: start, answer, timeout, or finish",
+      });
   }
 });
 
-// Start a new interview session
 async function handleStart(req, res) {
   try {
     const { profileId } = req.body;
@@ -50,10 +51,8 @@ async function handleStart(req, res) {
 
     const sessionId = uuidv4();
 
-    // TTL: session expires 24 hours from now
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
-    // Get the first question for the first round
     const firstRound = profile.rounds[0]?.roundType || "hr";
     const firstQuestion = await generateQuestion({
       roundType: firstRound,
@@ -89,7 +88,6 @@ async function handleStart(req, res) {
   }
 }
 
-// Submit an answer and get the next question (or move to next round)
 async function handleAnswer(req, res) {
   try {
     const { sessionId, answer } = req.body;
@@ -111,7 +109,6 @@ async function handleAnswer(req, res) {
     const profile = await InterviewProfile.findById(session.profileId);
     const currentRound = session.rounds[session.currentRoundIndex];
 
-    // Evaluate the answer using AI
     const evaluation = await evaluateAnswer({
       question: session.currentQuestion,
       answer,
@@ -119,7 +116,6 @@ async function handleAnswer(req, res) {
       profile,
     });
 
-    // Save this turn to the session
     const turn = {
       round: currentRound.roundType,
       question: session.currentQuestion,
@@ -132,16 +128,15 @@ async function handleAnswer(req, res) {
     };
     session.turns.push(turn);
 
-    // Count how many questions have been asked in the current round
     const turnsInCurrentRound = session.turns.filter(
       (t) => t.round === currentRound.roundType,
     );
 
-    // A round ends when either the question cap is hit OR its time is up —
-    // whichever comes first.
     const maxQuestionsPerRound = 5;
-    const roundElapsedMs = Date.now() - new Date(session.roundStartedAt).getTime();
-    const roundTimeUp = roundElapsedMs >= currentRound.durationMinutes * 60 * 1000;
+    const roundElapsedMs =
+      Date.now() - new Date(session.roundStartedAt).getTime();
+    const roundTimeUp =
+      roundElapsedMs >= currentRound.durationMinutes * 60 * 1000;
     const shouldMoveToNextRound =
       turnsInCurrentRound.length >= maxQuestionsPerRound || roundTimeUp;
 
@@ -152,7 +147,6 @@ async function handleAnswer(req, res) {
     let nextRoundIndex = session.currentRoundIndex;
 
     if (shouldMoveToNextRound) {
-      // Check if there is a next round
       if (session.currentRoundIndex + 1 < session.rounds.length) {
         nextRoundIndex = session.currentRoundIndex + 1;
         nextRound = session.rounds[nextRoundIndex];
@@ -169,13 +163,11 @@ async function handleAnswer(req, res) {
         session.currentQuestion = nextQuestion;
         roundComplete = true;
       } else {
-        // All rounds done
         interviewComplete = true;
         session.currentQuestion = null;
       }
     } else {
-      // Continue with the next question in the same round
-      const turnsForContext = turnsInCurrentRound.slice(-3); // pass last 3 for context
+      const turnsForContext = turnsInCurrentRound.slice(-3);
       nextQuestion = await generateQuestion({
         roundType: currentRound.roundType,
         profile,
@@ -203,8 +195,6 @@ async function handleAnswer(req, res) {
   }
 }
 
-// Called when the round's timer runs out on the frontend before the
-// candidate submits an answer — skips the current question and moves on.
 async function handleRoundTimeout(req, res) {
   try {
     const { sessionId } = req.body;
@@ -266,7 +256,6 @@ async function handleRoundTimeout(req, res) {
   }
 }
 
-// Finish the interview: generate final summary and save to InterviewRecord
 async function handleFinish(req, res) {
   try {
     const { sessionId, durationSeconds } = req.body;
@@ -287,7 +276,6 @@ async function handleFinish(req, res) {
 
     const profile = await InterviewProfile.findById(session.profileId);
 
-    // Group turns by round for the final record
     const roundsMap = {};
     for (const turn of session.turns) {
       if (!roundsMap[turn.round]) {
@@ -309,13 +297,11 @@ async function handleFinish(req, res) {
       },
     );
 
-    // Ask AI for the final summary
     const summary = await generateFinalSummary({
       rounds: roundsForSummary,
       profile,
     });
 
-    // Determine interview type based on which rounds were done
     const roundTypes = session.rounds.map((r) => r.roundType);
     let interviewType = "Mixed";
     if (roundTypes.length === 1) {
@@ -345,10 +331,8 @@ async function handleFinish(req, res) {
       readinessLabel: summary.readinessLabel,
     });
 
-    // Update user stats
     await updateUserStats(req.user._id, summary.overallScore);
 
-    // Delete the temporary session now that we're done with it
     await InterviewSession.deleteOne({ sessionId });
 
     res.json({ record });
@@ -358,7 +342,6 @@ async function handleFinish(req, res) {
   }
 }
 
-// Helper to update aggregate stats on the User document
 async function updateUserStats(userId, newScore) {
   const user = await User.findById(userId);
   if (!user) return;
@@ -376,7 +359,6 @@ async function updateUserStats(userId, newScore) {
   await user.save();
 }
 
-// GET /api/interview/session/:sessionId — get session state (for reconnecting)
 router.get("/session/:sessionId", protect, async (req, res) => {
   try {
     const session = await InterviewSession.findOne({
@@ -392,11 +374,10 @@ router.get("/session/:sessionId", protect, async (req, res) => {
   }
 });
 
-// GET /api/interview/records — list past completed interviews
 router.get("/records", protect, async (req, res) => {
   try {
     const records = await InterviewRecord.find({ userId: req.user._id })
-      .select("-rounds.turns") // exclude full turn data in list view for speed
+      .select("-rounds.turns")
       .sort({ createdAt: -1 });
     res.json(records);
   } catch (error) {
@@ -404,7 +385,6 @@ router.get("/records", protect, async (req, res) => {
   }
 });
 
-// GET /api/interview/records/:id — single record with full detail
 router.get("/records/:id", protect, async (req, res) => {
   try {
     const record = await InterviewRecord.findOne({

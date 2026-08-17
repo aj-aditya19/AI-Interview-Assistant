@@ -52,7 +52,6 @@ export default function PPDTSetupPage() {
       <Navbar />
       <div className="container ppdt-setup-container">
         <div className="ppdt-setup-layout">
-          {/* Left: form */}
           <div className="ppdt-setup-main">
             <h1 className="display-heading">{content.setup.heading}</h1>
             <p className="body-text mt-8 mb-32">{content.setup.subheading}</p>

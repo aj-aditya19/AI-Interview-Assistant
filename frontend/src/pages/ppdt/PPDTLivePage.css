@@ -50,7 +50,6 @@
   gap: 20px;
 }
 
-/* Image */
 .ppdt-image-wrap {
   padding: 0;
   overflow: hidden;
@@ -80,7 +79,6 @@
 .ppdt-image-hidden span { font-size: 2.5rem; filter: grayscale(1); opacity: 0.4; }
 .ppdt-image-hidden p { font-size: 0.9rem; color: var(--color-text-muted); }
 
-/* Response area */
 .ppdt-response-wrap { padding: 20px 24px; }
 
 .ppdt-response-header {
