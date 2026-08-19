@@ -113,11 +113,34 @@ export default function InterviewSetupPage() {
         action: "start",
         profileId,
       });
+
+      const question = sessionRes.data.question;
+
+      console.log("START SESSION RESPONSE:", sessionRes.data);
+      console.log("FIRST QUESTION FROM BACKEND:", question);
+
+      sessionStorage.setItem(
+        "interviewSession",
+        JSON.stringify({
+          sessionId: sessionRes.data.sessionId,
+          profileId,
+          firstQuestion: question,
+          currentRound: sessionRes.data.currentRound,
+          currentRoundIndex: sessionRes.data.currentRoundIndex,
+          totalRounds: sessionRes.data.totalRounds,
+          roundDurationMinutes: sessionRes.data.roundDurationMinutes,
+          rounds: form.rounds,
+          targetRole: form.targetRole,
+          targetCompany: form.targetCompany,
+          difficulty: form.difficulty,
+        }),
+      );
+
       navigate("/interview/live", {
         state: {
           sessionId: sessionRes.data.sessionId,
           profileId,
-          firstQuestion: sessionRes.data.question,
+          firstQuestion: question,
           currentRound: sessionRes.data.currentRound,
           currentRoundIndex: sessionRes.data.currentRoundIndex,
           totalRounds: sessionRes.data.totalRounds,

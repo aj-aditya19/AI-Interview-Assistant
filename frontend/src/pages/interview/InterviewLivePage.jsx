@@ -8,10 +8,17 @@ export default function InterviewLivePage() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
+  const savedSession = JSON.parse(
+    sessionStorage.getItem("interviewSession") || "null",
+  );
+
+  const interviewState = state || savedSession;
 
   useEffect(() => {
-    if (!state?.sessionId) navigate("/interview/setup", { replace: true });
-  }, [navigate, state?.sessionId]);
+    if (!interviewState?.sessionId) {
+      navigate("/interview/setup", { replace: true });
+    }
+  }, [navigate, interviewState?.sessionId]);
 
   const {
     sessionId,
@@ -19,7 +26,7 @@ export default function InterviewLivePage() {
     currentRound: initialRound,
     currentRoundIndex: initialRoundIndex,
     rounds = [],
-  } = state || {};
+  } = interviewState || {};
 
   const [currentQuestion, setCurrentQuestion] = useState(firstQuestion || "");
   const [currentRound, setCurrentRound] = useState(initialRound || "hr");
@@ -133,19 +140,82 @@ export default function InterviewLivePage() {
   }, []);
 
   const speakText = useCallback((text) => {
-    if (!synthRef.current) return;
-    synthRef.current.cancel();
+    if (!text || !window.speechSynthesis) {
+      console.error("Speech synthesis unavailable");
+      return;
+    }
+    window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-IN";
     utterance.rate = 0.95;
     utterance.pitch = 1;
-    utterance.onstart = () => setStatus("aiSpeaking");
-    utterance.onend = () => setStatus("waitingForAnswer");
-    synthRef.current.speak(utterance);
+    utterance.volume = 1;
+    utterance.onstart = () => {
+      setStatus("aiSpeaking");
+    };
+    utterance.onend = () => {
+      setStatus("waitingForAnswer");
+    };
+    utterance.onerror = (event) => {
+      console.error("Speech synthesis error:", event);
+      setStatus("waitingForAnswer");
+    };
+    window.speechSynthesis.speak(utterance);
   }, []);
 
   useEffect(() => {
-    if (firstQuestion) speakText(firstQuestion);
-  }, [firstQuestion, speakText]);
+    const loadQuestion = async () => {
+      if (firstQuestion?.trim()) {
+        console.log("USING FIRST QUESTION:", firstQuestion);
+
+        setCurrentQuestion(firstQuestion);
+
+        setConversation([
+          {
+            role: "ai",
+            text: firstQuestion,
+          },
+        ]);
+
+        speakText(firstQuestion);
+        return;
+      }
+
+      if (!sessionId) return;
+
+      try {
+        const res = await api.get(`/interview/session/${sessionId}`);
+
+        console.log("SESSION RESPONSE:", res.data);
+
+        const question = res.data?.currentQuestion?.trim();
+
+        if (question) {
+          console.log("QUESTION FROM SESSION:", question);
+
+          setCurrentQuestion(question);
+
+          setConversation([
+            {
+              role: "ai",
+              text: question,
+            },
+          ]);
+
+          speakText(question);
+        } else {
+          console.error("No question found. Session response:", res.data);
+
+          setError("Question was not received from the interview session.");
+        }
+      } catch (err) {
+        console.error("Failed to load interview question:", err);
+        setError("Failed to load interview question.");
+      }
+    };
+
+    loadQuestion();
+  }, [firstQuestion, sessionId, speakText]);
 
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -362,7 +432,7 @@ export default function InterviewLivePage() {
   const scoreEntries = Object.entries(latestFeedback?.scores || {});
   const latestOverallScore = latestFeedback?.scores?.overall ?? "—";
 
-  if (!state?.sessionId) return null;
+  if (!interviewState?.sessionId) return null;
 
   return (
     <div className="live-page">

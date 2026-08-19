@@ -46,11 +46,21 @@ Rules:
       { role: "system", content: systemPrompt },
       { role: "user", content: userMessage },
     ],
-    max_tokens: 200,
+    max_tokens: 600,
     temperature: 0.8,
   });
 
-  return response.choices[0].message.content.trim();
+  const question = response.choices[0].message.content?.trim();
+
+  if (!question) {
+    console.error(
+      "generateQuestion: model returned empty content. finish_reason:",
+      response.choices[0].finish_reason,
+    );
+    throw new Error("AI returned an empty question");
+  }
+
+  return question;
 };
 
 const evaluateAnswer = async ({ question, answer, roundType, profile }) => {

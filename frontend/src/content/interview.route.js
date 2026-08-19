@@ -25,11 +25,9 @@ router.post("/session", protect, async (req, res) => {
   } else if (action === "finish") {
     return handleFinish(req, res);
   } else {
-    return res
-      .status(400)
-      .json({
-        message: "Invalid action. Use: start, answer, timeout, or finish",
-      });
+    return res.status(400).json({
+      message: "Invalid action. Use: start, answer, timeout, or finish",
+    });
   }
 });
 
@@ -60,6 +58,7 @@ async function handleStart(req, res) {
       previousTurns: [],
       isFirst: true,
     });
+    console.log("GENERATED FIRST QUESTION:", firstQuestion);
 
     const session = await InterviewSession.create({
       userId: req.user._id,

@@ -24,7 +24,12 @@ const interviewSessionSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   profileId: { type: mongoose.Schema.Types.ObjectId, ref: "InterviewProfile" },
   sessionId: { type: String, required: true, unique: true },
-  rounds: [{ type: String }],
+  rounds: [
+    {
+      roundType: { type: String, enum: ["hr", "technical", "other"] },
+      durationMinutes: { type: Number, default: 5, min: 1, max: 60 },
+    },
+  ],
   currentRoundIndex: { type: Number, default: 0 },
   currentQuestion: { type: String },
   retryCount: { type: Number, default: 0 },
