@@ -1,0 +1,187 @@
+[
+ {
+  "id": "tx01",
+  "text": "I write a report every Monday.",
+  "tense": "Present simple"
+ },
+ {
+  "id": "tx02",
+  "text": "She works at a bank in the city.",
+  "tense": "Present simple"
+ },
+ {
+  "id": "tx03",
+  "text": "The train leaves at six in the morning.",
+  "tense": "Present simple"
+ },
+ {
+  "id": "tx04",
+  "text": "I am preparing for my interview right now.",
+  "tense": "Present continuous"
+ },
+ {
+  "id": "tx05",
+  "text": "They are discussing the plan in the meeting room.",
+  "tense": "Present continuous"
+ },
+ {
+  "id": "tx06",
+  "text": "I have completed three mock interviews this week.",
+  "tense": "Present perfect"
+ },
+ {
+  "id": "tx07",
+  "text": "She has already submitted her application.",
+  "tense": "Present perfect"
+ },
+ {
+  "id": "tx08",
+  "text": "We have been practising for two hours.",
+  "tense": "Present perfect continuous"
+ },
+ {
+  "id": "tx09",
+  "text": "He has been working on this project since January.",
+  "tense": "Present perfect continuous"
+ },
+ {
+  "id": "tx10",
+  "text": "I visited my college last Sunday.",
+  "tense": "Past simple"
+ },
+ {
+  "id": "tx11",
+  "text": "They finished the match before dark.",
+  "tense": "Past simple"
+ },
+ {
+  "id": "tx12",
+  "text": "I was reading a book when the phone rang.",
+  "tense": "Past continuous"
+ },
+ {
+  "id": "tx13",
+  "text": "The team was practising at sunrise.",
+  "tense": "Past continuous"
+ },
+ {
+  "id": "tx14",
+  "text": "She had left before I arrived.",
+  "tense": "Past perfect"
+ },
+ {
+  "id": "tx15",
+  "text": "They had already started when we reached.",
+  "tense": "Past perfect"
+ },
+ {
+  "id": "tx16",
+  "text": "He had been waiting for an hour when the bus came.",
+  "tense": "Past perfect continuous"
+ },
+ {
+  "id": "tx17",
+  "text": "I will call you tomorrow morning.",
+  "tense": "Future simple"
+ },
+ {
+  "id": "tx18",
+  "text": "We will win if we stay disciplined.",
+  "tense": "Future simple"
+ },
+ {
+  "id": "tx19",
+  "text": "I am going to start a new course next month.",
+  "tense": "Be going to future"
+ },
+ {
+  "id": "tx20",
+  "text": "She is going to lead the team.",
+  "tense": "Be going to future"
+ },
+ {
+  "id": "tx21",
+  "text": "This time tomorrow I will be travelling to Delhi.",
+  "tense": "Future continuous"
+ },
+ {
+  "id": "tx22",
+  "text": "They will be waiting at the gate.",
+  "tense": "Future continuous"
+ },
+ {
+  "id": "tx23",
+  "text": "By next year I will have completed my degree.",
+  "tense": "Future perfect"
+ },
+ {
+  "id": "tx24",
+  "text": "He will have finished the report by noon.",
+  "tense": "Future perfect"
+ },
+ {
+  "id": "tx25",
+  "text": "If I work hard, I will clear the exam.",
+  "tense": "First conditional"
+ },
+ {
+  "id": "tx26",
+  "text": "If it rains, we will cancel the trip.",
+  "tense": "First conditional"
+ },
+ {
+  "id": "tx27",
+  "text": "If I were the captain, I would change the strategy.",
+  "tense": "Second conditional"
+ },
+ {
+  "id": "tx28",
+  "text": "If she had more time, she would learn French.",
+  "tense": "Second conditional"
+ },
+ {
+  "id": "tx29",
+  "text": "If I had prepared better, I would have passed.",
+  "tense": "Third conditional"
+ },
+ {
+  "id": "tx30",
+  "text": "The report was written by the whole team.",
+  "tense": "Passive voice"
+ },
+ {
+  "id": "tx31",
+  "text": "The bridge is being repaired this week.",
+  "tense": "Passive voice"
+ },
+ {
+  "id": "tx32",
+  "text": "The results will be announced on Friday.",
+  "tense": "Passive voice"
+ },
+ {
+  "id": "tx33",
+  "text": "She said that she was feeling nervous.",
+  "tense": "Reported speech"
+ },
+ {
+  "id": "tx34",
+  "text": "He told me that he had finished the work.",
+  "tense": "Reported speech"
+ },
+ {
+  "id": "tx35",
+  "text": "I wish I had started earlier.",
+  "tense": "Wish (past regret)"
+ },
+ {
+  "id": "tx36",
+  "text": "You should have called me earlier.",
+  "tense": "Modal perfect"
+ },
+ {
+  "id": "tx37",
+  "text": "He might be waiting outside.",
+  "tense": "Modal verbs"
+ }
+]

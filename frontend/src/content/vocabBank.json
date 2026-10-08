@@ -1,0 +1,1275 @@
+[
+ {
+  "id": "vb001",
+  "word": "articulate",
+  "hint": "ar-TIK-yoo-late",
+  "meaning": "to express ideas clearly in words",
+  "example": "She can articulate her goals very well.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "express",
+   "voice"
+  ]
+ },
+ {
+  "id": "vb002",
+  "word": "diligent",
+  "hint": "DIL-i-jent",
+  "meaning": "careful and hard-working",
+  "example": "A diligent student revises every day.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "hardworking",
+   "careful"
+  ]
+ },
+ {
+  "id": "vb003",
+  "word": "proactive",
+  "hint": "pro-AK-tiv",
+  "meaning": "acting early instead of waiting to be told",
+  "example": "He is proactive and fixes problems before they grow.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "initiative",
+   "forward-looking"
+  ]
+ },
+ {
+  "id": "vb004",
+  "word": "adaptable",
+  "hint": "a-DAP-ta-bul",
+  "meaning": "able to adjust to new situations",
+  "example": "Adaptable people settle into new teams quickly.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "flexible",
+   "versatile"
+  ]
+ },
+ {
+  "id": "vb005",
+  "word": "collaborate",
+  "hint": "ku-LAB-uh-rate",
+  "meaning": "to work together with others",
+  "example": "We collaborate with the design team daily.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "cooperate",
+   "team up"
+  ]
+ },
+ {
+  "id": "vb006",
+  "word": "meticulous",
+  "hint": "me-TIK-yoo-lus",
+  "meaning": "very careful about small details",
+  "example": "A meticulous coder checks every edge case.",
+  "level": "Intermediate",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "thorough",
+   "precise"
+  ]
+ },
+ {
+  "id": "vb007",
+  "word": "resilient",
+  "hint": "ri-ZIL-yent",
+  "meaning": "able to recover quickly from difficulty",
+  "example": "She stayed resilient after the rejection.",
+  "level": "Intermediate",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "tough",
+   "strong"
+  ]
+ },
+ {
+  "id": "vb008",
+  "word": "initiative",
+  "hint": "i-NISH-uh-tiv",
+  "meaning": "the ability to start things without being told",
+  "example": "He showed initiative by organising the event.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "drive",
+   "enterprise"
+  ]
+ },
+ {
+  "id": "vb009",
+  "word": "credible",
+  "hint": "KRED-uh-bul",
+  "meaning": "trustworthy and believable",
+  "example": "Use credible sources in your report.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "reliable",
+   "believable"
+  ]
+ },
+ {
+  "id": "vb010",
+  "word": "deadline",
+  "hint": "DED-line",
+  "meaning": "the time by which a task must be finished",
+  "example": "We must meet the deadline on Friday.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "due date",
+   "cut-off"
+  ]
+ },
+ {
+  "id": "vb011",
+  "word": "feedback",
+  "hint": "FEED-bak",
+  "meaning": "comments given to help improve",
+  "example": "I welcome feedback on my presentation.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "comments",
+   "input"
+  ]
+ },
+ {
+  "id": "vb012",
+  "word": "prioritise",
+  "hint": "pry-OR-i-tize",
+  "meaning": "to put tasks in order of importance",
+  "example": "Prioritise urgent tasks first.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "rank",
+   "order"
+  ]
+ },
+ {
+  "id": "vb013",
+  "word": "accountable",
+  "hint": "a-KOWN-ta-bul",
+  "meaning": "responsible for your actions and results",
+  "example": "Leaders are accountable for their team's results.",
+  "level": "Intermediate",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "responsible",
+   "answerable"
+  ]
+ },
+ {
+  "id": "vb014",
+  "word": "negotiate",
+  "hint": "ni-GO-shee-ate",
+  "meaning": "to discuss to reach an agreement",
+  "example": "She negotiated a better salary.",
+  "level": "Intermediate",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "bargain",
+   "settle"
+  ]
+ },
+ {
+  "id": "vb015",
+  "word": "leverage",
+  "hint": "LEV-uh-rij",
+  "meaning": "to use something to maximum advantage",
+  "example": "Leverage your strengths in the interview.",
+  "level": "Intermediate",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "utilise",
+   "exploit"
+  ]
+ },
+ {
+  "id": "vb016",
+  "word": "scalable",
+  "hint": "SKAY-luh-bul",
+  "meaning": "able to grow without losing performance",
+  "example": "We built a scalable backend.",
+  "level": "Intermediate",
+  "category": "Business & technology",
+  "synonyms": [
+   "expandable",
+   "flexible"
+  ]
+ },
+ {
+  "id": "vb017",
+  "word": "optimise",
+  "hint": "OP-ti-mize",
+  "meaning": "to make as effective as possible",
+  "example": "He optimised the query to run faster.",
+  "level": "Intermediate",
+  "category": "Business & technology",
+  "synonyms": [
+   "improve",
+   "refine"
+  ]
+ },
+ {
+  "id": "vb018",
+  "word": "robust",
+  "hint": "ro-BUST",
+  "meaning": "strong and able to handle problems",
+  "example": "A robust system rarely crashes.",
+  "level": "Intermediate",
+  "category": "Business & technology",
+  "synonyms": [
+   "sturdy",
+   "strong"
+  ]
+ },
+ {
+  "id": "vb019",
+  "word": "iterate",
+  "hint": "IT-uh-rate",
+  "meaning": "to repeat a process to improve it",
+  "example": "We iterate on the design every week.",
+  "level": "Intermediate",
+  "category": "Business & technology",
+  "synonyms": [
+   "repeat",
+   "refine"
+  ]
+ },
+ {
+  "id": "vb020",
+  "word": "streamline",
+  "hint": "STREEM-line",
+  "meaning": "to make a process simpler and more efficient",
+  "example": "They streamlined the hiring process.",
+  "level": "Intermediate",
+  "category": "Business & technology",
+  "synonyms": [
+   "simplify",
+   "rationalise"
+  ]
+ },
+ {
+  "id": "vb021",
+  "word": "deploy",
+  "hint": "di-PLOY",
+  "meaning": "to release software or put into use",
+  "example": "We deploy the app every Friday.",
+  "level": "Basic",
+  "category": "Business & technology",
+  "synonyms": [
+   "release",
+   "launch"
+  ]
+ },
+ {
+  "id": "vb022",
+  "word": "bottleneck",
+  "hint": "BOT-ul-nek",
+  "meaning": "a point that slows down a whole process",
+  "example": "The database is the bottleneck.",
+  "level": "Intermediate",
+  "category": "Business & technology",
+  "synonyms": [
+   "obstacle",
+   "hold-up"
+  ]
+ },
+ {
+  "id": "vb023",
+  "word": "stakeholder",
+  "hint": "STAYK-hol-der",
+  "meaning": "a person with an interest in a project",
+  "example": "Update every stakeholder before launch.",
+  "level": "Intermediate",
+  "category": "Business & technology",
+  "synonyms": [
+   "interested party"
+  ]
+ },
+ {
+  "id": "vb024",
+  "word": "paradigm",
+  "hint": "PAR-uh-dime",
+  "meaning": "a typical model or pattern",
+  "example": "Cloud computing changed the paradigm.",
+  "level": "Advanced",
+  "category": "Business & technology",
+  "synonyms": [
+   "model",
+   "framework"
+  ]
+ },
+ {
+  "id": "vb025",
+  "word": "ubiquitous",
+  "hint": "yoo-BIK-wi-tus",
+  "meaning": "present everywhere",
+  "example": "Smartphones are ubiquitous today.",
+  "level": "Advanced",
+  "category": "Business & technology",
+  "synonyms": [
+   "omnipresent",
+   "universal"
+  ]
+ },
+ {
+  "id": "vb026",
+  "word": "pragmatic",
+  "hint": "prag-MAT-ik",
+  "meaning": "practical rather than theoretical",
+  "example": "Take a pragmatic approach to the problem.",
+  "level": "Intermediate",
+  "category": "Business & technology",
+  "synonyms": [
+   "practical",
+   "realistic"
+  ]
+ },
+ {
+  "id": "vb027",
+  "word": "viable",
+  "hint": "VY-uh-bul",
+  "meaning": "able to work successfully",
+  "example": "Is this plan financially viable?",
+  "level": "Intermediate",
+  "category": "Business & technology",
+  "synonyms": [
+   "workable",
+   "feasible"
+  ]
+ },
+ {
+  "id": "vb028",
+  "word": "mitigate",
+  "hint": "MIT-i-gate",
+  "meaning": "to make something less severe",
+  "example": "We added backups to mitigate risk.",
+  "level": "Advanced",
+  "category": "Business & technology",
+  "synonyms": [
+   "reduce",
+   "lessen"
+  ]
+ },
+ {
+  "id": "vb029",
+  "word": "agile",
+  "hint": "AJ-ile",
+  "meaning": "able to move or adapt quickly",
+  "example": "An agile team responds to change fast.",
+  "level": "Basic",
+  "category": "Business & technology",
+  "synonyms": [
+   "nimble",
+   "quick"
+  ]
+ },
+ {
+  "id": "vb030",
+  "word": "integrity",
+  "hint": "in-TEG-ri-tee",
+  "meaning": "honesty and strong moral principles",
+  "example": "An officer must have integrity.",
+  "level": "Basic",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "honesty",
+   "honour"
+  ]
+ },
+ {
+  "id": "vb031",
+  "word": "valour",
+  "hint": "VAL-er",
+  "meaning": "great courage in the face of danger",
+  "example": "He was awarded for his valour.",
+  "level": "Intermediate",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "bravery",
+   "courage"
+  ]
+ },
+ {
+  "id": "vb032",
+  "word": "discipline",
+  "hint": "DIS-uh-plin",
+  "meaning": "training that produces obedience and self-control",
+  "example": "Discipline is the backbone of the army.",
+  "level": "Basic",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "order",
+   "self-control"
+  ]
+ },
+ {
+  "id": "vb033",
+  "word": "fortitude",
+  "hint": "FOR-ti-tude",
+  "meaning": "courage in pain or adversity",
+  "example": "She faced the crisis with fortitude.",
+  "level": "Advanced",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "resilience",
+   "grit"
+  ]
+ },
+ {
+  "id": "vb034",
+  "word": "stoic",
+  "hint": "STO-ik",
+  "meaning": "enduring hardship without complaint",
+  "example": "He remained stoic during the long march.",
+  "level": "Advanced",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "patient",
+   "uncomplaining"
+  ]
+ },
+ {
+  "id": "vb035",
+  "word": "sacrifice",
+  "hint": "SAK-ri-fice",
+  "meaning": "giving up something valued for a greater cause",
+  "example": "Soldiers make great sacrifices for the nation.",
+  "level": "Basic",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "surrender",
+   "forgo"
+  ]
+ },
+ {
+  "id": "vb036",
+  "word": "steadfast",
+  "hint": "STED-fast",
+  "meaning": "firm and unwavering",
+  "example": "Stay steadfast in your goals.",
+  "level": "Intermediate",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "loyal",
+   "determined"
+  ]
+ },
+ {
+  "id": "vb037",
+  "word": "camaraderie",
+  "hint": "kam-uh-RAH-duh-ree",
+  "meaning": "friendship and trust among comrades",
+  "example": "There is great camaraderie in the squad.",
+  "level": "Advanced",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "fellowship",
+   "comradeship"
+  ]
+ },
+ {
+  "id": "vb038",
+  "word": "vigilant",
+  "hint": "VIJ-uh-lunt",
+  "meaning": "keeping careful watch for danger",
+  "example": "Sentries must stay vigilant at night.",
+  "level": "Intermediate",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "alert",
+   "watchful"
+  ]
+ },
+ {
+  "id": "vb039",
+  "word": "resolute",
+  "hint": "REZ-uh-loot",
+  "meaning": "admirably determined",
+  "example": "She was resolute in her decision.",
+  "level": "Intermediate",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "firm",
+   "determined"
+  ]
+ },
+ {
+  "id": "vb040",
+  "word": "strategic",
+  "hint": "struh-TEE-jik",
+  "meaning": "planned carefully to achieve a long-term aim",
+  "example": "A strategic move won them the match.",
+  "level": "Intermediate",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "calculated",
+   "planned"
+  ]
+ },
+ {
+  "id": "vb041",
+  "word": "commandeer",
+  "hint": "kom-un-DEER",
+  "meaning": "to take control of something for official use",
+  "example": "The army commandeered the bridge.",
+  "level": "Advanced",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "seize",
+   "appropriate"
+  ]
+ },
+ {
+  "id": "vb042",
+  "word": "morale",
+  "hint": "muh-RAL",
+  "meaning": "confidence and enthusiasm of a group",
+  "example": "A good leader keeps team morale high.",
+  "level": "Intermediate",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "spirit",
+   "confidence"
+  ]
+ },
+ {
+  "id": "vb043",
+  "word": "inspire",
+  "hint": "in-SPYR",
+  "meaning": "to fill someone with the urge to do something",
+  "example": "Her speech inspired the whole team.",
+  "level": "Basic",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "motivate",
+   "encourage"
+  ]
+ },
+ {
+  "id": "vb044",
+  "word": "authority",
+  "hint": "aw-THOR-i-tee",
+  "meaning": "the power to give orders and make decisions",
+  "example": "He spoke with authority.",
+  "level": "Basic",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "power",
+   "command"
+  ]
+ },
+ {
+  "id": "vb045",
+  "word": "composure",
+  "hint": "kum-PO-zher",
+  "meaning": "a calm state of mind",
+  "example": "She kept her composure under pressure.",
+  "level": "Intermediate",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "calmness",
+   "poise"
+  ]
+ },
+ {
+  "id": "vb046",
+  "word": "tenacity",
+  "hint": "te-NAS-i-tee",
+  "meaning": "determination that does not give up",
+  "example": "His tenacity helped him clear the exam.",
+  "level": "Advanced",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "persistence",
+   "grit"
+  ]
+ },
+ {
+  "id": "vb047",
+  "word": "benevolent",
+  "hint": "buh-NEV-uh-lunt",
+  "meaning": "kind and well-meaning",
+  "example": "A benevolent leader cares for his team.",
+  "level": "Advanced",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "kind",
+   "generous"
+  ]
+ },
+ {
+  "id": "vb048",
+  "word": "candid",
+  "hint": "KAN-did",
+  "meaning": "honest and straightforward",
+  "example": "Please give me your candid opinion.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "frank",
+   "open"
+  ]
+ },
+ {
+  "id": "vb049",
+  "word": "ambiguous",
+  "hint": "am-BIG-yoo-us",
+  "meaning": "open to more than one meaning",
+  "example": "The instructions were ambiguous.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "unclear",
+   "vague"
+  ]
+ },
+ {
+  "id": "vb050",
+  "word": "eloquent",
+  "hint": "EL-uh-kwent",
+  "meaning": "fluent and persuasive in speaking",
+  "example": "She gave an eloquent speech.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "expressive",
+   "fluent"
+  ]
+ },
+ {
+  "id": "vb051",
+  "word": "meagre",
+  "hint": "MEE-ger",
+  "meaning": "small in quantity or quality",
+  "example": "He lived on a meagre salary.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "scanty",
+   "poor"
+  ]
+ },
+ {
+  "id": "vb052",
+  "word": "frugal",
+  "hint": "FROO-gul",
+  "meaning": "careful about spending money",
+  "example": "A frugal student saves every month.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "thrifty",
+   "economical"
+  ]
+ },
+ {
+  "id": "vb053",
+  "word": "pivotal",
+  "hint": "PIV-uh-tul",
+  "meaning": "of crucial importance",
+  "example": "Her goal was pivotal to the win.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "crucial",
+   "central"
+  ]
+ },
+ {
+  "id": "vb054",
+  "word": "lucid",
+  "hint": "LOO-sid",
+  "meaning": "clearly expressed and easy to understand",
+  "example": "He gave a lucid explanation.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "clear",
+   "plain"
+  ]
+ },
+ {
+  "id": "vb055",
+  "word": "tangible",
+  "hint": "TAN-juh-bul",
+  "meaning": "real and able to be touched or measured",
+  "example": "We need tangible results.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "concrete",
+   "real"
+  ]
+ },
+ {
+  "id": "vb056",
+  "word": "reluctant",
+  "hint": "ri-LUK-tunt",
+  "meaning": "unwilling and hesitant",
+  "example": "He was reluctant to speak in public.",
+  "level": "Basic",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "unwilling",
+   "hesitant"
+  ]
+ },
+ {
+  "id": "vb057",
+  "word": "alleviate",
+  "hint": "uh-LEE-vee-ate",
+  "meaning": "to make suffering or a problem less severe",
+  "example": "Medicine can alleviate the pain.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "ease",
+   "relieve"
+  ]
+ },
+ {
+  "id": "vb058",
+  "word": "conscientious",
+  "hint": "kon-shee-EN-shus",
+  "meaning": "wishing to do one's work well and carefully",
+  "example": "A conscientious student never misses homework.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "careful",
+   "diligent"
+  ]
+ },
+ {
+  "id": "vb059",
+  "word": "ephemeral",
+  "hint": "i-FEM-er-ul",
+  "meaning": "lasting for a very short time",
+  "example": "Fame can be ephemeral.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "fleeting",
+   "brief"
+  ]
+ },
+ {
+  "id": "vb060",
+  "word": "scrutinise",
+  "hint": "SKROO-ti-nize",
+  "meaning": "to examine very carefully",
+  "example": "Scrutinise the contract before you sign.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "inspect",
+   "examine"
+  ]
+ },
+ {
+  "id": "vb061",
+  "word": "ostentatious",
+  "hint": "os-ten-TAY-shus",
+  "meaning": "showy to impress people",
+  "example": "He lived in an ostentatious mansion.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "showy",
+   "flashy"
+  ]
+ },
+ {
+  "id": "vb062",
+  "word": "tedious",
+  "hint": "TEE-dee-us",
+  "meaning": "too long, slow and boring",
+  "example": "Data entry can be tedious.",
+  "level": "Basic",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "boring",
+   "dull"
+  ]
+ },
+ {
+  "id": "vb063",
+  "word": "empathy",
+  "hint": "EM-puh-thee",
+  "meaning": "understanding another person's feelings",
+  "example": "Good leaders show empathy.",
+  "level": "Basic",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "compassion",
+   "understanding"
+  ]
+ },
+ {
+  "id": "vb064",
+  "word": "exacerbate",
+  "hint": "ig-ZAS-er-bate",
+  "meaning": "to make a problem worse",
+  "example": "Shouting will only exacerbate the situation.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "worsen",
+   "aggravate"
+  ]
+ },
+ {
+  "id": "vb065",
+  "word": "nonchalant",
+  "hint": "non-shuh-LAHNT",
+  "meaning": "calm and not showing worry",
+  "example": "He seemed nonchalant before the exam.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "casual",
+   "unconcerned"
+  ]
+ },
+ {
+  "id": "vb066",
+  "word": "plausible",
+  "hint": "PLAW-zuh-bul",
+  "meaning": "seeming reasonable or likely",
+  "example": "That is a plausible explanation.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "believable",
+   "credible"
+  ]
+ },
+ {
+  "id": "vb067",
+  "word": "unanimous",
+  "hint": "yoo-NAN-i-mus",
+  "meaning": "fully in agreement",
+  "example": "The decision was unanimous.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "united",
+   "agreed"
+  ]
+ },
+ {
+  "id": "vb068",
+  "word": "zealous",
+  "hint": "ZEL-us",
+  "meaning": "very enthusiastic and energetic",
+  "example": "She is a zealous volunteer.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "passionate",
+   "eager"
+  ]
+ },
+ {
+  "id": "vb069",
+  "word": "spontaneous",
+  "hint": "spon-TAY-nee-us",
+  "meaning": "done on impulse, without planning",
+  "example": "His spontaneous answer impressed the panel.",
+  "level": "Basic",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "impulsive",
+   "natural"
+  ]
+ },
+ {
+  "id": "vb070",
+  "word": "elaborate",
+  "hint": "i-LAB-uh-rate",
+  "meaning": "to explain in more detail",
+  "example": "Could you elaborate on that point?",
+  "level": "Basic",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "expand",
+   "detail"
+  ]
+ },
+ {
+  "id": "vb071",
+  "word": "substantiate",
+  "hint": "sub-STAN-shee-ate",
+  "meaning": "to give proof that something is true",
+  "example": "Substantiate your claim with data.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "prove",
+   "verify"
+  ]
+ },
+ {
+  "id": "vb072",
+  "word": "concise",
+  "hint": "kun-SISE",
+  "meaning": "giving much information in few words",
+  "example": "Keep your answers concise.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "brief",
+   "short"
+  ]
+ },
+ {
+  "id": "vb073",
+  "word": "empower",
+  "hint": "im-POW-er",
+  "meaning": "to give someone the power or confidence to act",
+  "example": "Good managers empower their team.",
+  "level": "Intermediate",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "enable",
+   "authorise"
+  ]
+ },
+ {
+  "id": "vb074",
+  "word": "transparent",
+  "hint": "trans-PAIR-unt",
+  "meaning": "open and honest, with nothing hidden",
+  "example": "Be transparent about mistakes.",
+  "level": "Intermediate",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "open",
+   "clear"
+  ]
+ },
+ {
+  "id": "vb075",
+  "word": "commitment",
+  "hint": "kuh-MIT-munt",
+  "meaning": "dedication to a cause or task",
+  "example": "Her commitment to the team is clear.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "dedication",
+   "loyalty"
+  ]
+ },
+ {
+  "id": "vb076",
+  "word": "consensus",
+  "hint": "kun-SEN-sus",
+  "meaning": "general agreement among a group",
+  "example": "The team reached a consensus.",
+  "level": "Intermediate",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "agreement",
+   "unity"
+  ]
+ },
+ {
+  "id": "vb077",
+  "word": "enthusiasm",
+  "hint": "in-THOO-zee-az-um",
+  "meaning": "strong excitement and interest",
+  "example": "He spoke with great enthusiasm.",
+  "level": "Basic",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "eagerness",
+   "passion"
+  ]
+ },
+ {
+  "id": "vb078",
+  "word": "perseverance",
+  "hint": "per-suh-VEER-uns",
+  "meaning": "steady effort despite difficulty",
+  "example": "Perseverance brings success.",
+  "level": "Intermediate",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "persistence",
+   "grit"
+  ]
+ },
+ {
+  "id": "vb079",
+  "word": "versatile",
+  "hint": "VUR-suh-tile",
+  "meaning": "able to do many different things",
+  "example": "A versatile engineer works across the stack.",
+  "level": "Intermediate",
+  "category": "Interview & workplace",
+  "synonyms": [
+   "adaptable",
+   "flexible"
+  ]
+ },
+ {
+  "id": "vb080",
+  "word": "impartial",
+  "hint": "im-PAR-shul",
+  "meaning": "treating all sides equally",
+  "example": "The referee must be impartial.",
+  "level": "Intermediate",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "fair",
+   "neutral"
+  ]
+ },
+ {
+  "id": "vb081",
+  "word": "allegiance",
+  "hint": "uh-LEE-jens",
+  "meaning": "loyalty to a person, group or cause",
+  "example": "Soldiers swear allegiance to the nation.",
+  "level": "Advanced",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "loyalty",
+   "devotion"
+  ]
+ },
+ {
+  "id": "vb082",
+  "word": "sovereignty",
+  "hint": "SOV-run-tee",
+  "meaning": "supreme power or authority of a state",
+  "example": "The army protects the nation's sovereignty.",
+  "level": "Advanced",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "independence",
+   "autonomy"
+  ]
+ },
+ {
+  "id": "vb083",
+  "word": "reconnaissance",
+  "hint": "ri-KON-uh-suns",
+  "meaning": "a military survey to gather information",
+  "example": "The patrol went on reconnaissance.",
+  "level": "Advanced",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "survey",
+   "scouting"
+  ]
+ },
+ {
+  "id": "vb084",
+  "word": "endurance",
+  "hint": "in-DYOOR-uns",
+  "meaning": "the ability to keep going despite hardship",
+  "example": "Marathon runners need endurance.",
+  "level": "Intermediate",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "stamina",
+   "staying power"
+  ]
+ },
+ {
+  "id": "vb085",
+  "word": "audacious",
+  "hint": "aw-DAY-shus",
+  "meaning": "showing a willingness to take bold risks",
+  "example": "An audacious plan saved the mission.",
+  "level": "Advanced",
+  "category": "Defence & leadership",
+  "synonyms": [
+   "bold",
+   "daring"
+  ]
+ },
+ {
+  "id": "vb086",
+  "word": "diplomatic",
+  "hint": "dip-luh-MAT-ik",
+  "meaning": "skilled at handling people tactfully",
+  "example": "Be diplomatic when you disagree.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "tactful",
+   "polite"
+  ]
+ },
+ {
+  "id": "vb087",
+  "word": "inevitable",
+  "hint": "in-EV-i-tuh-bul",
+  "meaning": "certain to happen",
+  "example": "Change is inevitable.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "unavoidable",
+   "certain"
+  ]
+ },
+ {
+  "id": "vb088",
+  "word": "hindrance",
+  "hint": "HIN-drunce",
+  "meaning": "something that makes progress difficult",
+  "example": "Fear is a hindrance to success.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "obstacle",
+   "barrier"
+  ]
+ },
+ {
+  "id": "vb089",
+  "word": "mundane",
+  "hint": "mun-DAIN",
+  "meaning": "dull and ordinary",
+  "example": "He wanted an escape from mundane work.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "ordinary",
+   "routine"
+  ]
+ },
+ {
+  "id": "vb090",
+  "word": "prudent",
+  "hint": "PROO-dunt",
+  "meaning": "acting with care for the future",
+  "example": "A prudent person saves money.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "wise",
+   "careful"
+  ]
+ },
+ {
+  "id": "vb091",
+  "word": "abundant",
+  "hint": "uh-BUN-dunt",
+  "meaning": "existing in large quantities",
+  "example": "The region has abundant water.",
+  "level": "Basic",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "plentiful",
+   "ample"
+  ]
+ },
+ {
+  "id": "vb092",
+  "word": "hinder",
+  "hint": "HIN-der",
+  "meaning": "to create difficulties for",
+  "example": "Noise can hinder concentration.",
+  "level": "Basic",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "obstruct",
+   "hamper"
+  ]
+ },
+ {
+  "id": "vb093",
+  "word": "vivid",
+  "hint": "VIV-id",
+  "meaning": "producing strong, clear images in the mind",
+  "example": "She gave a vivid description.",
+  "level": "Basic",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "striking",
+   "graphic"
+  ]
+ },
+ {
+  "id": "vb094",
+  "word": "modest",
+  "hint": "MOD-ist",
+  "meaning": "not too proud of one's achievements",
+  "example": "Despite his success, he stayed modest.",
+  "level": "Basic",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "humble",
+   "unassuming"
+  ]
+ },
+ {
+  "id": "vb095",
+  "word": "fluctuate",
+  "hint": "FLUK-choo-ate",
+  "meaning": "to rise and fall irregularly",
+  "example": "Prices fluctuate every day.",
+  "level": "Intermediate",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "vary",
+   "swing"
+  ]
+ },
+ {
+  "id": "vb096",
+  "word": "catalyst",
+  "hint": "KAT-uh-list",
+  "meaning": "a person or thing that causes change",
+  "example": "The speech was a catalyst for reform.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "trigger",
+   "spark"
+  ]
+ },
+ {
+  "id": "vb097",
+  "word": "juxtapose",
+  "hint": "JUK-stuh-poze",
+  "meaning": "to place side by side to compare",
+  "example": "The article juxtaposes rich and poor.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "contrast",
+   "compare"
+  ]
+ },
+ {
+  "id": "vb098",
+  "word": "meticulously",
+  "hint": "muh-TIK-yuh-lus-lee",
+  "meaning": "in a very careful and precise way",
+  "example": "She planned the trip meticulously.",
+  "level": "Advanced",
+  "category": "Everyday & GRE-style",
+  "synonyms": [
+   "carefully",
+   "precisely"
+  ]
+ }
+]

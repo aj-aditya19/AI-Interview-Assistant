@@ -16,6 +16,8 @@ const ppdtRecordSchema = new mongoose.Schema(
       storyStructure: { type: Number },
       officerLikeQualities: { type: Number },
     },
+    storyElements: { type: mongoose.Schema.Types.Mixed },
+    olq: { type: mongoose.Schema.Types.Mixed },
     recommendations: [{ type: String }],
     durationSeconds: { type: Number },
     difficulty: { type: String },

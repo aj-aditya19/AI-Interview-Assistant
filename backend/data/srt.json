@@ -1,0 +1,168 @@
+{
+ "situations": [
+  {
+   "id": "s001",
+   "situation": "You are going to attend an important interview and your vehicle breaks down on a lonely road. You have only 40 minutes."
+  },
+  {
+   "id": "s002",
+   "situation": "While travelling by train at night you see a co-passenger being harassed by a group of men."
+  },
+  {
+   "id": "s003",
+   "situation": "You are leading a trekking group and one member twists an ankle badly, far from the base camp."
+  },
+  {
+   "id": "s004",
+   "situation": "You discover your close friend copying in an examination you are invigilating."
+  },
+  {
+   "id": "s005",
+   "situation": "On the way to the railway station you find a wallet with a large amount of cash and an ID card."
+  },
+  {
+   "id": "s006",
+   "situation": "You are the captain of the team and your best player refuses to follow your instructions before a final match."
+  },
+  {
+   "id": "s007",
+   "situation": "Your village is cut off by a flood and food stocks are running low. You are the only one with some organising experience."
+  },
+  {
+   "id": "s008",
+   "situation": "A fire breaks out in the neighbouring house when the family is out and you are alone at home."
+  },
+  {
+   "id": "s009",
+   "situation": "You are at the bank when armed robbers enter and take everyone hostage."
+  },
+  {
+   "id": "s010",
+   "situation": "Your team has been given a project with a deadline of two days, but two members have fallen ill."
+  },
+  {
+   "id": "s011",
+   "situation": "You find a classmate crying alone because he failed an important examination."
+  },
+  {
+   "id": "s012",
+   "situation": "During a night camp you hear strange noises near the tents and some members are scared."
+  },
+  {
+   "id": "s013",
+   "situation": "You are going for an interview and see a road accident in which a man is badly injured."
+  },
+  {
+   "id": "s014",
+   "situation": "Your close friend asks you to help him get out of a college rule violation by lying to the principal."
+  },
+  {
+   "id": "s015",
+   "situation": "You are in charge of a college fest and the chief guest cancels at the last minute."
+  },
+  {
+   "id": "s016",
+   "situation": "While swimming at a river, you notice a child being swept away from the bank."
+  },
+  {
+   "id": "s017",
+   "situation": "Your younger brother is addicted to mobile games and is failing in school."
+  },
+  {
+   "id": "s018",
+   "situation": "You are the group leader and two members are quarrelling over the task division, delaying the work."
+  },
+  {
+   "id": "s019",
+   "situation": "You were promised a leave for your sister's wedding, but your boss asks you to stay for an urgent task."
+  },
+  {
+   "id": "s020",
+   "situation": "While on a cycle trip you reach a bridge that is broken and it is getting dark."
+  },
+  {
+   "id": "s021",
+   "situation": "You find that one of your teammates has been spreading false rumours about you."
+  },
+  {
+   "id": "s022",
+   "situation": "You are alone at home when an unknown person claiming to be an electricity officer insists on coming in."
+  },
+  {
+   "id": "s023",
+   "situation": "You are given charge of a junior group but they do not take you seriously because you are young."
+  },
+  {
+   "id": "s024",
+   "situation": "You are in a lift with others and it stops between floors and the lights go out."
+  },
+  {
+   "id": "s025",
+   "situation": "Your friend is depressed after a breakup and has stopped talking to everyone."
+  },
+  {
+   "id": "s026",
+   "situation": "Your family is facing a financial crisis and you get a job offer that would prevent you from studying further."
+  },
+  {
+   "id": "s027",
+   "situation": "A stranger in the market starts abusing you without any reason."
+  },
+  {
+   "id": "s028",
+   "situation": "In your hostel you notice a student secretly bringing in alcohol."
+  },
+  {
+   "id": "s029",
+   "situation": "You are in a crowded bus and notice a pickpocket stealing from an old man."
+  },
+  {
+   "id": "s030",
+   "situation": "You are climbing a mountain with a team and a sudden snowstorm begins."
+  },
+  {
+   "id": "s031",
+   "situation": "The college principal blames you wrongly for damage to college property."
+  },
+  {
+   "id": "s032",
+   "situation": "Your teacher gives you a very difficult assignment to complete in one day and you know you don't have the full knowledge."
+  },
+  {
+   "id": "s033",
+   "situation": "There is an outbreak of disease in your area and many people ignore precautions."
+  },
+  {
+   "id": "s034",
+   "situation": "You see a group of boys ragging a junior student in your college."
+  },
+  {
+   "id": "s035",
+   "situation": "You have to lead a night patrol and one of your members refuses to go because he is afraid."
+  },
+  {
+   "id": "s036",
+   "situation": "While on duty you find that a senior has made a mistake that may cause loss to the organisation."
+  },
+  {
+   "id": "s037",
+   "situation": "You are given a task you have never done before and the person who could guide you is on leave."
+  },
+  {
+   "id": "s038",
+   "situation": "A fellow student seeks your notes before the exam but you know he never helps others."
+  },
+  {
+   "id": "s039",
+   "situation": "You are returning home late at night and find a street dog badly hurt by a vehicle."
+  },
+  {
+   "id": "s040",
+   "situation": "Your friend invites you to a party the night before your most important exam."
+  },
+  {
+   "id": "s041",
+   "situation": "In a team event your rival group is clearly ahead and your team has begun to lose hope."
+  }
+ ]
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/common/Navbar.jsx";
 import TagInput from "../../components/common/TagInput.jsx";
@@ -20,6 +20,8 @@ const DEFAULT_FORM = {
     { roundType: "technical", durationMinutes: 5 },
   ],
   additionalMessage: "",
+  language: "english",
+  companyStyle: "",
   isDefault: false,
 };
 
@@ -37,6 +39,35 @@ export default function InterviewSetupPage() {
       .then((res) => setSavedProfiles(res.data))
       .catch(() => {});
   }, []);
+
+  const fileRef = useRef(null);
+  const [extracting, setExtracting] = useState(false);
+  const [extractMsg, setExtractMsg] = useState("");
+
+  const autofillFromResume = async (file) => {
+    if (!file) return;
+    setExtracting(true);
+    setExtractMsg("");
+    try {
+      const fd = new FormData();
+      fd.append("resume", file);
+      const { data } = await api.post("/resume/extract-profile", fd);
+      setForm((f) => ({
+        ...f,
+        targetRole: f.targetRole || data.suggestedRole || "",
+        skills: [...new Set([...(f.skills || []), ...(data.skills || [])])],
+        techStack: [...new Set([...(f.techStack || []), ...(data.techStack || [])])],
+        projects: [...new Set([...(f.projects || []), ...(data.projects || [])])],
+        additionalMessage: f.additionalMessage || data.experienceSummary || "",
+      }));
+      setExtractMsg("Filled from your resume. Please review and edit anything that's off.");
+    } catch (err) {
+      setExtractMsg(err.response?.data?.message || "Couldn't read that resume.");
+    } finally {
+      setExtracting(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  };
 
   const setField = (key, value) => setForm((f) => ({ ...f, [key]: value }));
 
@@ -79,6 +110,8 @@ export default function InterviewSetupPage() {
       difficulty: profile.difficulty,
       rounds: profile.rounds,
       additionalMessage: profile.additionalMessage || "",
+      language: profile.language || "english",
+      companyStyle: profile.companyStyle || "",
       isDefault: false,
     });
     setStep(3);
@@ -105,6 +138,8 @@ export default function InterviewSetupPage() {
         difficulty: form.difficulty,
         rounds: form.rounds,
         additionalMessage: form.additionalMessage,
+        language: form.language,
+        companyStyle: form.companyStyle,
         isDefault: form.isDefault,
       });
       const profileId = profileRes.data._id;
@@ -184,6 +219,15 @@ export default function InterviewSetupPage() {
               <div className="card">
                 <h2 className="section-heading mb-24">{content.heading}</h2>
                 <div className="setup-fields">
+                  <div className="form-group">
+                    <label className="form-label">Autofill from your resume (PDF)</label>
+                    <input ref={fileRef} type="file" accept="application/pdf" hidden onChange={(e) => autofillFromResume(e.target.files?.[0])} />
+                    <button type="button" className="btn btn-secondary" onClick={() => fileRef.current?.click()} disabled={extracting}>
+                      {extracting ? <span className="spinner" /> : "Upload resume & autofill"}
+                    </button>
+                    {extractMsg && <p className="form-hint mt-8">{extractMsg}</p>}
+                  </div>
+
                   <div className="form-group">
                     <label className="form-label">
                       {content.labels.reason}
@@ -270,6 +314,26 @@ export default function InterviewSetupPage() {
                       onChange={(v) => setField("projects", v)}
                       placeholder={content.labels.projectsPlaceholder}
                     />
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="iq-language">Interview language</label>
+                    <select id="iq-language" className="form-select" value={form.language} onChange={(e) => setField("language", e.target.value)}>
+                      <option value="english">English</option>
+                      <option value="hinglish">Hinglish (Hindi + English)</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="iq-style">Interview style</label>
+                    <select id="iq-style" className="form-select" value={form.companyStyle} onChange={(e) => setField("companyStyle", e.target.value)}>
+                      <option value="">General</option>
+                      <option value="tcs">Service company campus (TCS / Wipro)</option>
+                      <option value="infosys">Infosys-style</option>
+                      <option value="amazon">Amazon-style (leadership principles)</option>
+                      <option value="google">Google-style (problem solving)</option>
+                      <option value="startup">Startup</option>
+                    </select>
                   </div>
 
                   <div className="form-group">

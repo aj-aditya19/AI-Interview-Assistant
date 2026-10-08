@@ -4,9 +4,940 @@
       "id": "ppdt_001",
       "difficulty": "Beginner",
       "viewDurationSeconds": 30,
-      "responseDurationSeconds": 180,
-      "imageUrl" : "https://ssbace.com/tat_images/PPDT_ANSWER_FORMAT.jpg",
-      "referenceDescription": "A group of people gathered near a riverside village, one person pointing toward the water while others look concerned, suggesting a rescue or community response scene."
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20rural%20riverside%20setting%20with%20a%20small%20group%20of%20villagers%20gathered%20close%20to%20the%20water.%20One%20person%20appears%20to%20be%20pointing%20toward%20the%20river%20while%20the%20others%20look%20in%20the%20same%20direction%20with%20concerned%20or%20alert%20expressions.%20The%20composition%20suggests%20that%20something%20important%20has%20happened%20near%20the%20water%20and%20that%20the%20group%20may%20be%20preparing%20to%20respond.?width=900&height=600&nologo=true",
+      "referenceDescription": "A group of people gathered near a riverside village, one person pointing toward the water while others look concerned, suggesting a rescue or community response scene.",
+      "keyElements": [
+        "group of people",
+        "riverside village",
+        "person pointing at water",
+        "concerned onlookers"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A group of people gathered near a riverside village, one person pointing toward the water while others look concerned, suggesting a rescue or community response scene.",
+      "visual_description": "A rural riverside setting with a small group of villagers gathered close to the water. One person appears to be pointing toward the river while the others look in the same direction with concerned or alert expressions. The composition suggests that something important has happened near the water and that the group may be preparing to respond.",
+      "likely_situation": "Possible river-related emergency, rescue attempt, missing-person situation, or community response.",
+      "observable_actions": [
+        "person pointing toward the water",
+        "group members observing the river",
+        "people gathered together",
+        "concerned body language"
+      ],
+      "environment": [
+        "riverside",
+        "village surroundings",
+        "open outdoor area",
+        "water body"
+      ],
+      "ppdt_story_direction": "The protagonist could identify the problem, organize the villagers, seek immediate help, and coordinate a safe rescue or emergency response."
+    },
+    {
+      "id": "ppdt_002",
+      "difficulty": "Beginner",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20Two%20young%20men%20are%20assisting%20an%20elderly%20woman%20who%20is%20carrying%20or%20struggling%20with%20heavy%20bags%20on%20a%20village%20road.%20A%20child%20is%20nearby%20watching%20the%20interaction.%20The%20scene%20emphasizes%20physical%20assistance%2C%20consideration%20for%20an%20older%20person%2C%20and%20cooperation%20in%20an%20everyday%20rural%20environment.?width=900&height=600&nologo=true",
+      "referenceDescription": "Two young men help an elderly woman carry heavy bags across a village road while a child watches.",
+      "keyElements": [
+        "two young men",
+        "elderly woman",
+        "heavy bags",
+        "village road",
+        "child watching"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. Two young men help an elderly woman carry heavy bags across a village road while a child watches.",
+      "visual_description": "Two young men are assisting an elderly woman who is carrying or struggling with heavy bags on a village road. A child is nearby watching the interaction. The scene emphasizes physical assistance, consideration for an older person, and cooperation in an everyday rural environment.",
+      "likely_situation": "Helping an elderly person transport belongings safely.",
+      "observable_actions": [
+        "two young men supporting the elderly woman",
+        "heavy bags being carried",
+        "child observing",
+        "group moving along a road"
+      ],
+      "environment": [
+        "village road",
+        "rural settlement",
+        "outdoor daytime setting"
+      ],
+      "ppdt_story_direction": "The protagonist could notice the elderly woman's difficulty, divide the luggage among helpers, arrange transport if necessary, and ensure she reaches her destination safely."
+    },
+    {
+      "id": "ppdt_003",
+      "difficulty": "Beginner",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20Several%20students%20are%20gathered%20under%20a%20large%20tree%20in%20a%20rural%20setting.%20One%20student%20appears%20to%20be%20teaching%20or%20explaining%20something%20to%20the%20others%20while%20the%20group%20listens%20and%20studies.%20The%20scene%20suggests%20an%20informal%20learning%20arrangement%20where%20students%20are%20making%20use%20of%20available%20surroundings%20instead%20of%20a%20conventional%20classroom.?width=900&height=600&nologo=true",
+      "referenceDescription": "A group of students studies together under a tree outside a small rural school; one explains something on a slate.",
+      "keyElements": [
+        "group of students",
+        "tree",
+        "rural school",
+        "one student teaching"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A group of students studies together under a tree outside a small rural school; one explains something on a slate.",
+      "visual_description": "Several students are gathered under a large tree in a rural setting. One student appears to be teaching or explaining something to the others while the group listens and studies. The scene suggests an informal learning arrangement where students are making use of available surroundings instead of a conventional classroom.",
+      "likely_situation": "Peer teaching or community-supported education.",
+      "observable_actions": [
+        "one student explaining a topic",
+        "other students listening",
+        "students studying together",
+        "use of outdoor space as a classroom"
+      ],
+      "environment": [
+        "rural school area",
+        "large tree",
+        "open ground",
+        "simple educational setting"
+      ],
+      "ppdt_story_direction": "The protagonist could organize a regular study group, divide subjects among capable students, arrange basic learning material, and help weaker students improve."
+    },
+    {
+      "id": "ppdt_004",
+      "difficulty": "Beginner",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20farmer%20and%20his%20son%20are%20standing%20near%20a%20dry%20agricultural%20field%20and%20examining%20the%20condition%20of%20the%20land.%20The%20field%20appears%20stressed%20by%20lack%20of%20water%2C%20while%20dark%20clouds%20are%20visible%20in%20the%20distance.%20Their%20posture%20suggests%20concern%20about%20crops%20and%20uncertainty%20about%20whether%20rainfall%20will%20arrive.?width=900&height=600&nologo=true",
+      "referenceDescription": "A farmer and his son look at a dry field while dark clouds gather in the distance.",
+      "keyElements": [
+        "farmer",
+        "son",
+        "dry field",
+        "dark clouds"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A farmer and his son look at a dry field while dark clouds gather in the distance.",
+      "visual_description": "A farmer and his son are standing near a dry agricultural field and examining the condition of the land. The field appears stressed by lack of water, while dark clouds are visible in the distance. Their posture suggests concern about crops and uncertainty about whether rainfall will arrive.",
+      "likely_situation": "Agricultural difficulty caused by insufficient rainfall or water shortage.",
+      "observable_actions": [
+        "farmer inspecting field",
+        "son observing crop condition",
+        "both looking toward the sky/field",
+        "assessment of dry land"
+      ],
+      "environment": [
+        "farmland",
+        "dry soil",
+        "rural area",
+        "cloudy sky"
+      ],
+      "ppdt_story_direction": "The protagonist could assess available water resources, contact agricultural officials, arrange irrigation or water conservation measures, and protect the remaining crop."
+    },
+    {
+      "id": "ppdt_005",
+      "difficulty": "Beginner",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20Villagers%20are%20forming%20a%20human%20chain%20while%20carrying%20buckets%20toward%20a%20burning%20hut%20or%20small%20structure.%20A%20young%20person%20appears%20to%20be%20moving%20quickly%20to%20seek%20additional%20assistance.%20The%20scene%20shows%20an%20active%20emergency%20response%20involving%20several%20people%20working%20together.?width=900&height=600&nologo=true",
+      "referenceDescription": "Villagers form a human chain to pass buckets of water to a burning hut while a youth runs to call for help.",
+      "keyElements": [
+        "villagers",
+        "chain of buckets",
+        "burning hut",
+        "youth running"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. Villagers form a human chain to pass buckets of water to a burning hut while a youth runs to call for help.",
+      "visual_description": "Villagers are forming a human chain while carrying buckets toward a burning hut or small structure. A young person appears to be moving quickly to seek additional assistance. The scene shows an active emergency response involving several people working together.",
+      "likely_situation": "Community response to a village fire.",
+      "observable_actions": [
+        "people passing/carrying buckets",
+        "human chain formation",
+        "fire at a hut",
+        "person running for help"
+      ],
+      "environment": [
+        "village settlement",
+        "burning hut",
+        "open area",
+        "emergency scene"
+      ],
+      "ppdt_story_direction": "The protagonist could raise an alarm, organize the bucket chain, evacuate people, call the fire service, and prevent the fire from spreading."
+    },
+    {
+      "id": "ppdt_006",
+      "difficulty": "Beginner",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20young%20man%20wearing%20sports%20clothing%20is%20interacting%20with%20children%20on%20a%20dusty%20playground.%20A%20football%20is%20visible%20or%20implied%20in%20the%20activity%2C%20and%20the%20children%20appear%20to%20be%20receiving%20guidance.%20The%20setting%20resembles%20a%20modest%20community%20or%20school%20sports%20ground.?width=900&height=600&nologo=true",
+      "referenceDescription": "A young man in sports clothes talks to a group of children on a dusty playground, holding a football.",
+      "keyElements": [
+        "young man",
+        "sports clothes",
+        "children",
+        "playground",
+        "football"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A young man in sports clothes talks to a group of children on a dusty playground, holding a football.",
+      "visual_description": "A young man wearing sports clothing is interacting with children on a dusty playground. A football is visible or implied in the activity, and the children appear to be receiving guidance. The setting resembles a modest community or school sports ground.",
+      "likely_situation": "Youth sports coaching and development.",
+      "observable_actions": [
+        "young man coaching children",
+        "children gathered for practice",
+        "football-related activity",
+        "demonstration or instruction"
+      ],
+      "environment": [
+        "dusty playground",
+        "rural/community sports area",
+        "open field"
+      ],
+      "ppdt_story_direction": "The protagonist could conduct regular football training, teach basic fitness and teamwork, identify talented children, and organize local matches."
+    },
+    {
+      "id": "ppdt_007",
+      "difficulty": "Beginner",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20woman%20doctor%20is%20examining%20a%20child%20in%20a%20simple%20village%20clinic.%20The%20child%27s%20mother%20stands%20nearby%20and%20appears%20anxious%20or%20attentive.%20The%20doctor%20is%20focused%20on%20the%20examination%2C%20creating%20a%20scene%20centered%20on%20healthcare%20and%20reassurance.?width=900&height=600&nologo=true",
+      "referenceDescription": "A woman doctor examines a child while the anxious mother stands beside her in a small village clinic.",
+      "keyElements": [
+        "woman doctor",
+        "child",
+        "anxious mother",
+        "village clinic"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A woman doctor examines a child while the anxious mother stands beside her in a small village clinic.",
+      "visual_description": "A woman doctor is examining a child in a simple village clinic. The child's mother stands nearby and appears anxious or attentive. The doctor is focused on the examination, creating a scene centered on healthcare and reassurance.",
+      "likely_situation": "Medical examination of a child at a rural clinic.",
+      "observable_actions": [
+        "doctor examining child",
+        "mother waiting anxiously",
+        "basic clinical interaction",
+        "doctor providing attention"
+      ],
+      "environment": [
+        "village clinic",
+        "simple medical room",
+        "rural healthcare setting"
+      ],
+      "ppdt_story_direction": "The protagonist could diagnose the immediate issue, provide treatment, explain precautions to the mother, and arrange referral or follow-up if required."
+    },
+    {
+      "id": "ppdt_008",
+      "difficulty": "Beginner",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20Three%20friends%20are%20standing%20on%20a%20hilltop%20at%20dawn.%20A%20town%20or%20settlement%20can%20be%20seen%20in%20the%20distance%2C%20and%20one%20person%20is%20pointing%20toward%20it%20or%20toward%20a%20feature%20of%20the%20landscape.%20The%20group%20appears%20to%20be%20discussing%20or%20planning%20something%20while%20observing%20the%20surroundings.?width=900&height=600&nologo=true",
+      "referenceDescription": "Three friends stand on a hilltop at dawn looking at a distant town, one pointing toward the road they must take.",
+      "keyElements": [
+        "three friends",
+        "hilltop",
+        "dawn",
+        "distant town",
+        "pointing"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. Three friends stand on a hilltop at dawn looking at a distant town, one pointing toward the road they must take.",
+      "visual_description": "Three friends are standing on a hilltop at dawn. A town or settlement can be seen in the distance, and one person is pointing toward it or toward a feature of the landscape. The group appears to be discussing or planning something while observing the surroundings.",
+      "likely_situation": "Friends surveying an area, planning a route, or discussing a community/travel objective.",
+      "observable_actions": [
+        "one person pointing",
+        "three people observing the landscape",
+        "group discussion",
+        "looking toward distant settlement"
+      ],
+      "environment": [
+        "hilltop",
+        "dawn sky",
+        "distant town",
+        "elevated outdoor location"
+      ],
+      "ppdt_story_direction": "The protagonist could use the viewpoint to plan a route, assess the area, communicate directions, and coordinate the group's next action."
+    },
+    {
+      "id": "ppdt_009",
+      "difficulty": "Beginner",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20boy%20is%20returning%20a%20lost%20wallet%20to%20a%20man%20at%20a%20bus%20stop.%20Other%20people%20nearby%20appear%20to%20notice%20the%20interaction.%20The%20scene%20focuses%20on%20honesty%2C%20responsibility%2C%20and%20a%20simple%20but%20meaningful%20public%20interaction.?width=900&height=600&nologo=true",
+      "referenceDescription": "A boy at a bus stop returns a lost wallet to a man while others look on.",
+      "keyElements": [
+        "boy",
+        "bus stop",
+        "wallet",
+        "man",
+        "onlookers"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A boy at a bus stop returns a lost wallet to a man while others look on.",
+      "visual_description": "A boy is returning a lost wallet to a man at a bus stop. Other people nearby appear to notice the interaction. The scene focuses on honesty, responsibility, and a simple but meaningful public interaction.",
+      "likely_situation": "Returning lost property to its owner.",
+      "observable_actions": [
+        "boy handing wallet to man",
+        "man receiving/identifying wallet",
+        "bystanders observing",
+        "public transport setting"
+      ],
+      "environment": [
+        "bus stop",
+        "roadside",
+        "urban or semi-urban public area"
+      ],
+      "ppdt_story_direction": "The protagonist could verify the owner, return the wallet safely, avoid misuse of the contents, and encourage responsible behavior."
+    },
+    {
+      "id": "ppdt_010",
+      "difficulty": "Beginner",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20Cyclists%20have%20stopped%20to%20help%20a%20man%20whose%20bullock%20cart%20has%20developed%20a%20broken%20wheel.%20The%20cyclists%20appear%20to%20be%20examining%20or%20assisting%20with%20the%20damaged%20wheel%20while%20the%20cart%20owner%20waits%20nearby.%20The%20scene%20emphasizes%20spontaneous%20cooperation%20between%20strangers.?width=900&height=600&nologo=true",
+      "referenceDescription": "A group of cyclists stops on a rural road to help a man whose bullock cart has broken a wheel.",
+      "keyElements": [
+        "cyclists",
+        "rural road",
+        "bullock cart",
+        "broken wheel",
+        "man"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A group of cyclists stops on a rural road to help a man whose bullock cart has broken a wheel.",
+      "visual_description": "Cyclists have stopped to help a man whose bullock cart has developed a broken wheel. The cyclists appear to be examining or assisting with the damaged wheel while the cart owner waits nearby. The scene emphasizes spontaneous cooperation between strangers.",
+      "likely_situation": "Helping repair or move a disabled bullock cart.",
+      "observable_actions": [
+        "cyclists stopping to help",
+        "broken wheel being examined",
+        "cart owner receiving assistance",
+        "group problem-solving"
+      ],
+      "environment": [
+        "rural road",
+        "bullock cart",
+        "agricultural surroundings",
+        "outdoor setting"
+      ],
+      "ppdt_story_direction": "The protagonist could inspect the damage, arrange tools or a temporary repair, move the cart to safety, and help the owner reach a nearby repair facility."
+    },
+    {
+      "id": "ppdt_011",
+      "difficulty": "Beginner",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20teacher%20and%20students%20are%20planting%20young%20saplings%20near%20a%20school%20wall.%20Some%20participants%20are%20carrying%20water%20while%20others%20work%20around%20the%20plants.%20The%20activity%20appears%20organized%20and%20educational%2C%20combining%20environmental%20improvement%20with%20student%20participation.?width=900&height=600&nologo=true",
+      "referenceDescription": "A teacher and two students plant saplings near a school wall while others carry water.",
+      "keyElements": [
+        "teacher",
+        "two students",
+        "saplings",
+        "school wall",
+        "water"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A teacher and two students plant saplings near a school wall while others carry water.",
+      "visual_description": "A teacher and students are planting young saplings near a school wall. Some participants are carrying water while others work around the plants. The activity appears organized and educational, combining environmental improvement with student participation.",
+      "likely_situation": "School tree-plantation and environmental awareness activity.",
+      "observable_actions": [
+        "students planting saplings",
+        "teacher supervising",
+        "people carrying water",
+        "young trees being placed in soil"
+      ],
+      "environment": [
+        "school compound",
+        "wall",
+        "open ground",
+        "tree-plantation area"
+      ],
+      "ppdt_story_direction": "The protagonist could plan the plantation, assign groups, arrange water supply, label or monitor saplings, and establish a long-term maintenance schedule."
+    },
+    {
+      "id": "ppdt_012",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20young%20man%20carrying%20a%20rucksack%20stands%20between%20two%20groups%20of%20villagers%20who%20appear%20to%20be%20arguing.%20He%20raises%20a%20hand%20as%20if%20asking%20them%20to%20stop%20or%20listen.%20His%20position%20in%20the%20center%20suggests%20an%20attempt%20to%20reduce%20tension%20and%20create%20dialogue.?width=900&height=600&nologo=true",
+      "referenceDescription": "A young man with a rucksack stands between two groups of arguing villagers, raising a hand to calm them.",
+      "keyElements": [
+        "young man",
+        "rucksack",
+        "two groups",
+        "argument",
+        "raised hand"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A young man with a rucksack stands between two groups of arguing villagers, raising a hand to calm them.",
+      "visual_description": "A young man carrying a rucksack stands between two groups of villagers who appear to be arguing. He raises a hand as if asking them to stop or listen. His position in the center suggests an attempt to reduce tension and create dialogue.",
+      "likely_situation": "Mediation of a dispute between two groups.",
+      "observable_actions": [
+        "two groups facing each other",
+        "young man standing between them",
+        "hand raised to calm people",
+        "argument or disagreement"
+      ],
+      "environment": [
+        "village area",
+        "community gathering place",
+        "outdoor setting"
+      ],
+      "ppdt_story_direction": "The protagonist could separate the groups, listen to both sides, identify the underlying issue, involve respected community members, and work toward a practical settlement."
+    },
+    {
+      "id": "ppdt_013",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20Soldiers%20and%20villagers%20are%20working%20together%20to%20fill%20and%20position%20sandbags%20near%20a%20swollen%20river.%20A%20woman%20is%20holding%20or%20standing%20with%20a%20child%20nearby.%20The%20water%20level%20appears%20dangerous%2C%20creating%20an%20urgent%20flood-prevention%20or%20evacuation%20context.?width=900&height=600&nologo=true",
+      "referenceDescription": "Soldiers and villagers fill sandbags along a swollen river bank while a woman holds a child at the back.",
+      "keyElements": [
+        "soldiers",
+        "villagers",
+        "sandbags",
+        "swollen river",
+        "woman with child"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. Soldiers and villagers fill sandbags along a swollen river bank while a woman holds a child at the back.",
+      "visual_description": "Soldiers and villagers are working together to fill and position sandbags near a swollen river. A woman is holding or standing with a child nearby. The water level appears dangerous, creating an urgent flood-prevention or evacuation context.",
+      "likely_situation": "Flood-control and emergency preparedness near a swollen river.",
+      "observable_actions": [
+        "sandbags being filled",
+        "people strengthening riverbank",
+        "soldiers assisting villagers",
+        "woman protecting child"
+      ],
+      "environment": [
+        "swollen river",
+        "riverbank",
+        "flood-risk area",
+        "rural settlement"
+      ],
+      "ppdt_story_direction": "The protagonist could coordinate sandbag placement, identify vulnerable households, organize evacuation routes, communicate warnings, and ensure children and elderly people reach safety."
+    },
+    {
+      "id": "ppdt_014",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20youth%20team%20is%20gathered%20in%20a%20workshop%20around%20a%20half-built%20machine%20or%20engineering%20project.%20One%20member%20appears%20worried%20while%20another%20refers%20to%20a%20diagram%20or%20plan.%20The%20group%20is%20actively%20analyzing%20a%20technical%20problem%20rather%20than%20simply%20observing%20the%20unfinished%20device.?width=900&height=600&nologo=true",
+      "referenceDescription": "A team of young people in a workshop huddle over a half-built machine; one looks worried while another points at a diagram.",
+      "keyElements": [
+        "team of youth",
+        "workshop",
+        "half-built machine",
+        "worried member",
+        "diagram"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A team of young people in a workshop huddle over a half-built machine; one looks worried while another points at a diagram.",
+      "visual_description": "A youth team is gathered in a workshop around a half-built machine or engineering project. One member appears worried while another refers to a diagram or plan. The group is actively analyzing a technical problem rather than simply observing the unfinished device.",
+      "likely_situation": "Student engineering team troubleshooting a prototype.",
+      "observable_actions": [
+        "team inspecting prototype",
+        "member consulting diagram",
+        "group discussion",
+        "identification of a technical problem"
+      ],
+      "environment": [
+        "workshop",
+        "engineering workspace",
+        "prototype table",
+        "technical project area"
+      ],
+      "ppdt_story_direction": "The protagonist could identify the failure point, divide testing tasks, consult technical references, modify the design, test the prototype, and prepare it for demonstration."
+    },
+    {
+      "id": "ppdt_015",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20girl%20carrying%20a%20suitcase%20stands%20on%20a%20railway%20platform%20and%20looks%20back%20toward%20an%20elderly%20couple.%20The%20emotional%20distance%20between%20the%20traveler%20and%20the%20older%20couple%20suggests%20a%20farewell%2C%20departure%2C%20family%20transition%2C%20or%20an%20important%20journey.?width=900&height=600&nologo=true",
+      "referenceDescription": "A girl stands at a railway platform with a suitcase, looking back at an elderly couple waving from the crowd.",
+      "keyElements": [
+        "girl",
+        "railway platform",
+        "suitcase",
+        "elderly couple",
+        "crowd"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A girl stands at a railway platform with a suitcase, looking back at an elderly couple waving from the crowd.",
+      "visual_description": "A girl carrying a suitcase stands on a railway platform and looks back toward an elderly couple. The emotional distance between the traveler and the older couple suggests a farewell, departure, family transition, or an important journey.",
+      "likely_situation": "A young person leaving home or helping elderly family members during a journey.",
+      "observable_actions": [
+        "girl holding suitcase",
+        "girl looking back",
+        "elderly couple nearby",
+        "railway departure context"
+      ],
+      "environment": [
+        "railway platform",
+        "station",
+        "travel setting",
+        "public transport environment"
+      ],
+      "ppdt_story_direction": "The protagonist could ensure the elderly couple are comfortable, complete travel arrangements, communicate the journey plan, and maintain contact after departure."
+    },
+    {
+      "id": "ppdt_016",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20Two%20men%20are%20carrying%20an%20injured%20companion%20on%20a%20makeshift%20stretcher%20through%20a%20forest%20while%20a%20third%20person%20uses%20a%20torch%20to%20guide%20the%20group.%20The%20terrain%20appears%20difficult%20and%20the%20group%20is%20focused%20on%20safely%20transporting%20the%20injured%20person.?width=900&height=600&nologo=true",
+      "referenceDescription": "Two men carry an injured companion on a makeshift stretcher through a forest trail while a third leads with a torch.",
+      "keyElements": [
+        "two men",
+        "injured companion",
+        "stretcher",
+        "forest trail",
+        "torch"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. Two men carry an injured companion on a makeshift stretcher through a forest trail while a third leads with a torch.",
+      "visual_description": "Two men are carrying an injured companion on a makeshift stretcher through a forest while a third person uses a torch to guide the group. The terrain appears difficult and the group is focused on safely transporting the injured person.",
+      "likely_situation": "Emergency evacuation of an injured person from a forest.",
+      "observable_actions": [
+        "injured person on makeshift stretcher",
+        "two people carrying stretcher",
+        "third person using torch",
+        "careful movement through forest"
+      ],
+      "environment": [
+        "forest",
+        "dark or low-light conditions",
+        "uneven terrain",
+        "remote location"
+      ],
+      "ppdt_story_direction": "The protagonist could stabilize the injured person, organize the carrying team, choose a safe route, contact emergency services, and move toward the nearest accessible medical facility."
+    },
+    {
+      "id": "ppdt_017",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20young%20man%20wearing%20a%20shirt%20and%20tie%20is%20addressing%20a%20group%20of%20villagers%20beneath%20a%20banner.%20Some%20villagers%20appear%20attentive%20while%20others%20seem%20skeptical%20or%20unconvinced.%20The%20scene%20suggests%20a%20formal%20community%20meeting%20involving%20communication%2C%20persuasion%2C%20or%20public%20awareness.?width=900&height=600&nologo=true",
+      "referenceDescription": "A man in a shirt and tie addresses a small gathering of villagers under a banner, while a few listen sceptically.",
+      "keyElements": [
+        "man in tie",
+        "villagers",
+        "banner",
+        "sceptical listeners"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A man in a shirt and tie addresses a small gathering of villagers under a banner, while a few listen sceptically.",
+      "visual_description": "A young man wearing a shirt and tie is addressing a group of villagers beneath a banner. Some villagers appear attentive while others seem skeptical or unconvinced. The scene suggests a formal community meeting involving communication, persuasion, or public awareness.",
+      "likely_situation": "Community meeting about a development, awareness, or public initiative.",
+      "observable_actions": [
+        "speaker addressing villagers",
+        "banner indicating organized event",
+        "mixed reactions from audience",
+        "public discussion"
+      ],
+      "environment": [
+        "village meeting area",
+        "community gathering",
+        "bannered event space"
+      ],
+      "ppdt_story_direction": "The protagonist could explain the proposal with facts, listen to objections, answer questions, gather feedback, and develop a transparent implementation plan."
+    },
+    {
+      "id": "ppdt_018",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20young%20woman%20is%20working%20at%20a%20computer%20in%20a%20cramped%20office%20while%20a%20senior%20colleague%20points%20toward%20the%20screen.%20The%20senior%20person%20appears%20to%20be%20explaining%20or%20reviewing%20something%2C%20suggesting%20workplace%20guidance%2C%20debugging%2C%20training%2C%20or%20correction.?width=900&height=600&nologo=true",
+      "referenceDescription": "A young woman at a desk in a cramped office looks at a computer while a senior colleague leans over to point at the screen.",
+      "keyElements": [
+        "young woman",
+        "cramped office",
+        "computer",
+        "senior colleague"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A young woman at a desk in a cramped office looks at a computer while a senior colleague leans over to point at the screen.",
+      "visual_description": "A young woman is working at a computer in a cramped office while a senior colleague points toward the screen. The senior person appears to be explaining or reviewing something, suggesting workplace guidance, debugging, training, or correction.",
+      "likely_situation": "Professional mentoring, technical review, or workplace problem-solving.",
+      "observable_actions": [
+        "woman working at computer",
+        "senior colleague pointing at screen",
+        "screen-based discussion",
+        "employee receiving guidance"
+      ],
+      "environment": [
+        "small office",
+        "computer workstation",
+        "professional workplace"
+      ],
+      "ppdt_story_direction": "The protagonist could understand the issue, reproduce the problem, learn from the senior colleague, implement the correction, test the result, and document the solution."
+    },
+    {
+      "id": "ppdt_019",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20boy%20on%20a%20bicycle%20is%20positioned%20near%20a%20collapsed%20bridge%20and%20signals%20an%20approaching%20truck%20using%20a%20red%20cloth.%20The%20warning%20gesture%20appears%20urgent%20and%20is%20intended%20to%20prevent%20the%20vehicle%20from%20entering%20a%20dangerous%20section%20of%20road.?width=900&height=600&nologo=true",
+      "referenceDescription": "A boy on a cycle at the edge of a collapsed bridge signals to an approaching truck with a red cloth.",
+      "keyElements": [
+        "boy on cycle",
+        "collapsed bridge",
+        "approaching truck",
+        "red cloth"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A boy on a cycle at the edge of a collapsed bridge signals to an approaching truck with a red cloth.",
+      "visual_description": "A boy on a bicycle is positioned near a collapsed bridge and signals an approaching truck using a red cloth. The warning gesture appears urgent and is intended to prevent the vehicle from entering a dangerous section of road.",
+      "likely_situation": "Preventing a vehicle accident after infrastructure damage.",
+      "observable_actions": [
+        "boy signaling with red cloth",
+        "collapsed bridge",
+        "truck approaching",
+        "urgent warning"
+      ],
+      "environment": [
+        "damaged bridge",
+        "road",
+        "rural or remote area",
+        "hazardous crossing"
+      ],
+      "ppdt_story_direction": "The protagonist could stop approaching traffic, mark the danger area, inform authorities, arrange barriers or diversions, and help restore safe access."
+    },
+    {
+      "id": "ppdt_020",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20Mountaineers%20are%20gathered%20at%20a%20mountain%20camp.%20One%20person%20appears%20to%20be%20studying%20the%20sky%20or%20weather%20conditions%20while%20another%20checks%20climbing%20equipment%20such%20as%20a%20rope.%20A%20tent%20is%20visible%20and%20appears%20affected%20by%20wind%2C%20creating%20a%20potentially%20changing%20weather%20situation.?width=900&height=600&nologo=true",
+      "referenceDescription": "Mountaineers rest at a camp as one of them studies the sky and another checks a rope; a tent flaps in the wind.",
+      "keyElements": [
+        "mountaineers",
+        "camp",
+        "studying sky",
+        "rope",
+        "tent in wind"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. Mountaineers rest at a camp as one of them studies the sky and another checks a rope; a tent flaps in the wind.",
+      "visual_description": "Mountaineers are gathered at a mountain camp. One person appears to be studying the sky or weather conditions while another checks climbing equipment such as a rope. A tent is visible and appears affected by wind, creating a potentially changing weather situation.",
+      "likely_situation": "Mountaineering team assessing weather and expedition safety.",
+      "observable_actions": [
+        "weather observation",
+        "rope/equipment inspection",
+        "team at camp",
+        "tent affected by wind"
+      ],
+      "environment": [
+        "mountain camp",
+        "high-altitude terrain",
+        "tent",
+        "exposed outdoor location"
+      ],
+      "ppdt_story_direction": "The protagonist could assess the weather, inspect all safety equipment, postpone the climb if necessary, secure the camp, and establish a safe route and communication plan."
+    },
+    {
+      "id": "ppdt_021",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20young%20man%20is%20presenting%20or%20handing%20a%20certificate%20to%20a%20girl%20on%20a%20stage%20while%20an%20audience%20applauds.%20A%20teacher%20or%20senior%20person%20watches%20the%20ceremony.%20The%20setting%20suggests%20recognition%20of%20an%20achievement%20in%20an%20organized%20educational%20or%20community%20event.?width=900&height=600&nologo=true",
+      "referenceDescription": "A young man hands a certificate to a girl on a stage while the audience claps and a teacher watches proudly.",
+      "keyElements": [
+        "young man",
+        "certificate",
+        "girl",
+        "stage",
+        "audience",
+        "teacher"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A young man hands a certificate to a girl on a stage while the audience claps and a teacher watches proudly.",
+      "visual_description": "A young man is presenting or handing a certificate to a girl on a stage while an audience applauds. A teacher or senior person watches the ceremony. The setting suggests recognition of an achievement in an organized educational or community event.",
+      "likely_situation": "Award or certificate ceremony recognizing a student's achievement.",
+      "observable_actions": [
+        "certificate being presented",
+        "recipient on stage",
+        "audience applauding",
+        "teacher/senior observing"
+      ],
+      "environment": [
+        "stage",
+        "school/college event",
+        "auditorium or public ceremony"
+      ],
+      "ppdt_story_direction": "The protagonist could organize the recognition event, acknowledge achievement, motivate other students, and use the occasion to encourage participation and healthy competition."
+    },
+    {
+      "id": "ppdt_022",
+      "difficulty": "Intermediate",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20young%20man%20is%20sitting%20alone%20on%20a%20bench%20at%20night%20near%20a%20railway%20station.%20In%20the%20background%2C%20two%20people%20appear%20to%20be%20arguing.%20The%20protagonist%20seems%20to%20be%20observing%20the%20surroundings%20while%20the%20background%20conflict%20creates%20an%20uncertain%20or%20tense%20atmosphere.?width=900&height=600&nologo=true",
+      "referenceDescription": "A youth sits alone on a bench at night near a railway station while two people in the background seem to be arguing.",
+      "keyElements": [
+        "youth alone",
+        "bench",
+        "night",
+        "railway station",
+        "two people arguing"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A youth sits alone on a bench at night near a railway station while two people in the background seem to be arguing.",
+      "visual_description": "A young man is sitting alone on a bench at night near a railway station. In the background, two people appear to be arguing. The protagonist seems to be observing the surroundings while the background conflict creates an uncertain or tense atmosphere.",
+      "likely_situation": "A public-place disturbance observed by a bystander.",
+      "observable_actions": [
+        "young man sitting and observing",
+        "two people arguing in background",
+        "night-time setting",
+        "public transport surroundings"
+      ],
+      "environment": [
+        "railway station",
+        "night",
+        "public bench",
+        "station surroundings"
+      ],
+      "ppdt_story_direction": "The protagonist could assess whether intervention is safe, alert railway/security staff, prevent escalation if appropriate, and ensure vulnerable people are kept away from the conflict."
+    },
+    {
+      "id": "ppdt_023",
+      "difficulty": "Advanced",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20man%20stands%20at%20the%20entrance%20of%20a%20shop%20while%20facing%20an%20agitated%20group%20outside.%20A%20young%20girl%20appears%20to%20be%20watching%20from%20behind%20or%20inside%20the%20doorway.%20The%20scene%20indicates%20tension%20around%20the%20shop%20and%20suggests%20the%20need%20for%20calm%20communication%20and%20protection%20of%20bystanders.?width=900&height=600&nologo=true",
+      "referenceDescription": "A man stands at the door of a small shop while a group outside appears to be demanding something; the shopkeeper's daughter peeks from behind him.",
+      "keyElements": [
+        "man at shop door",
+        "group outside",
+        "demanding",
+        "shopkeeper's daughter"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A man stands at the door of a small shop while a group outside appears to be demanding something; the shopkeeper's daughter peeks from behind him.",
+      "visual_description": "A man stands at the entrance of a shop while facing an agitated group outside. A young girl appears to be watching from behind or inside the doorway. The scene indicates tension around the shop and suggests the need for calm communication and protection of bystanders.",
+      "likely_situation": "Dispute or confrontation at a shop.",
+      "observable_actions": [
+        "man facing group",
+        "group appears agitated",
+        "girl observing from safety",
+        "shop entrance as focal point"
+      ],
+      "environment": [
+        "shopfront",
+        "street",
+        "small commercial area",
+        "public confrontation"
+      ],
+      "ppdt_story_direction": "The protagonist could protect the girl and other bystanders, keep the doorway secure, de-escalate the confrontation, seek police or community assistance, and resolve the underlying dispute legally."
+    },
+    {
+      "id": "ppdt_024",
+      "difficulty": "Advanced",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20Three%20people%20are%20gathered%20around%20an%20office%20table%20with%20a%20map%20or%20planning%20document.%20One%20person%20is%20gesturing%20toward%20the%20map%20while%20another%20appears%20doubtful%20or%20concerned.%20The%20scene%20suggests%20planning%2C%20decision-making%2C%20and%20discussion%20of%20competing%20ideas.?width=900&height=600&nologo=true",
+      "referenceDescription": "Three people at a table in an office look at a map; one is standing and gesturing while another looks doubtful.",
+      "keyElements": [
+        "three people",
+        "office table",
+        "map",
+        "standing gesturing",
+        "doubtful person"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. Three people at a table in an office look at a map; one is standing and gesturing while another looks doubtful.",
+      "visual_description": "Three people are gathered around an office table with a map or planning document. One person is gesturing toward the map while another appears doubtful or concerned. The scene suggests planning, decision-making, and discussion of competing ideas.",
+      "likely_situation": "Team planning meeting involving a route, project, or operational decision.",
+      "observable_actions": [
+        "map/document being examined",
+        "one person explaining",
+        "another expressing doubt",
+        "group discussion"
+      ],
+      "environment": [
+        "office",
+        "meeting table",
+        "map/planning material",
+        "professional setting"
+      ],
+      "ppdt_story_direction": "The protagonist could define the objective, compare alternatives using evidence, address concerns, assign responsibilities, and finalize an actionable plan."
+    },
+    {
+      "id": "ppdt_025",
+      "difficulty": "Advanced",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20woman%20officer%20in%20uniform%20is%20addressing%20a%20group%20of%20men%20on%20a%20parade%20ground.%20Some%20individuals%20appear%20surprised%20or%20attentive%20while%20the%20officer%20maintains%20a%20formal%20posture.%20The%20scene%20conveys%20leadership%2C%20discipline%2C%20instruction%2C%20and%20organized%20group%20activity.?width=900&height=600&nologo=true",
+      "referenceDescription": "A woman officer in uniform speaks to a gathering of men on a parade ground; some look surprised.",
+      "keyElements": [
+        "woman officer",
+        "uniform",
+        "parade ground",
+        "men",
+        "surprised"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A woman officer in uniform speaks to a gathering of men on a parade ground; some look surprised.",
+      "visual_description": "A woman officer in uniform is addressing a group of men on a parade ground. Some individuals appear surprised or attentive while the officer maintains a formal posture. The scene conveys leadership, discipline, instruction, and organized group activity.",
+      "likely_situation": "Officer briefing or instructing personnel during a formal training or parade activity.",
+      "observable_actions": [
+        "uniformed officer addressing group",
+        "personnel standing together",
+        "formal briefing posture",
+        "mixed attentive reactions"
+      ],
+      "environment": [
+        "parade ground",
+        "training area",
+        "organized institutional setting"
+      ],
+      "ppdt_story_direction": "The protagonist could communicate the objective clearly, explain procedures, address doubts, demonstrate leadership, and ensure the group executes the task in a disciplined manner."
+    },
+    {
+      "id": "ppdt_026",
+      "difficulty": "Advanced",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20young%20man%20stands%20outside%20a%20closed%20gate%20holding%20a%20letter%20while%20an%20older%20man%20looks%20through%20the%20bars%20from%20inside.%20Their%20positions%20suggest%20that%20the%20young%20man%20has%20arrived%20with%20important%20information%2C%20a%20request%2C%20or%20a%20message%20and%20is%20seeking%20communication%20with%20the%20person%20inside.?width=900&height=600&nologo=true",
+      "referenceDescription": "A young man stands before a closed gate, a letter in hand, while an old man inside the compound looks at him through the bars.",
+      "keyElements": [
+        "young man",
+        "closed gate",
+        "letter",
+        "old man",
+        "bars"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A young man stands before a closed gate, a letter in hand, while an old man inside the compound looks at him through the bars.",
+      "visual_description": "A young man stands outside a closed gate holding a letter while an older man looks through the bars from inside. Their positions suggest that the young man has arrived with important information, a request, or a message and is seeking communication with the person inside.",
+      "likely_situation": "Delivery of an important message or attempt to resolve a matter involving a closed residence/facility.",
+      "observable_actions": [
+        "young man holding letter",
+        "closed gate",
+        "older man looking through bars",
+        "attempted communication"
+      ],
+      "environment": [
+        "closed compound",
+        "gate",
+        "residential/institutional setting"
+      ],
+      "ppdt_story_direction": "The protagonist could clearly explain the purpose of the letter, verify identities, communicate respectfully, and arrange the appropriate next step instead of forcing entry."
+    },
+    {
+      "id": "ppdt_027",
+      "difficulty": "Advanced",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20Several%20people%20are%20in%20a%20boat%20on%20rough%20water.%20A%20man%20is%20tying%20or%20securing%20a%20rope%20while%20a%20woman%20comforts%20a%20frightened%20child.%20The%20boat%20appears%20to%20be%20experiencing%20difficult%20conditions%2C%20making%20coordination%20and%20passenger%20safety%20important.?width=900&height=600&nologo=true",
+      "referenceDescription": "A group of people on a boat in rough water; one man is tying a rope while a woman comforts a frightened child.",
+      "keyElements": [
+        "boat",
+        "rough water",
+        "man tying rope",
+        "woman",
+        "frightened child"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A group of people on a boat in rough water; one man is tying a rope while a woman comforts a frightened child.",
+      "visual_description": "Several people are in a boat on rough water. A man is tying or securing a rope while a woman comforts a frightened child. The boat appears to be experiencing difficult conditions, making coordination and passenger safety important.",
+      "likely_situation": "Boat emergency or difficult river/lake crossing.",
+      "observable_actions": [
+        "man securing rope",
+        "woman comforting child",
+        "rough water",
+        "passengers maintaining safety"
+      ],
+      "environment": [
+        "boat",
+        "rough water",
+        "river/lake",
+        "unstable weather conditions"
+      ],
+      "ppdt_story_direction": "The protagonist could secure equipment, distribute safety instructions, keep passengers balanced, contact rescue support, and guide the boat toward safer water or shore."
+    },
+    {
+      "id": "ppdt_028",
+      "difficulty": "Advanced",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20bandaged%20man%20stands%20in%20front%20of%20an%20official%20who%20is%20holding%20papers%2C%20while%20a%20young%20man%20stands%20behind%20them.%20The%20bandaged%20person%27s%20condition%20suggests%20a%20recent%20incident%2C%20while%20the%20official%27s%20documents%20suggest%20questioning%2C%20verification%2C%20reporting%2C%20or%20an%20administrative%20process.?width=900&height=600&nologo=true",
+      "referenceDescription": "A man with a bandaged arm sits at a table across from an official holding papers, while a young man stands behind him.",
+      "keyElements": [
+        "bandaged man",
+        "official",
+        "papers",
+        "young man standing"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A man with a bandaged arm sits at a table across from an official holding papers, while a young man stands behind him.",
+      "visual_description": "A bandaged man stands in front of an official who is holding papers, while a young man stands behind them. The bandaged person's condition suggests a recent incident, while the official's documents suggest questioning, verification, reporting, or an administrative process.",
+      "likely_situation": "Official inquiry or documentation following an accident or incident.",
+      "observable_actions": [
+        "injured/bandaged man present",
+        "official holding documents",
+        "young man standing nearby",
+        "formal discussion"
+      ],
+      "environment": [
+        "office or administrative setting",
+        "post-incident context",
+        "official inquiry area"
+      ],
+      "ppdt_story_direction": "The protagonist could provide accurate information, present relevant documents, explain the incident clearly, cooperate with the inquiry, and ensure the injured person receives appropriate support."
+    },
+    {
+      "id": "ppdt_029",
+      "difficulty": "Advanced",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20Two%20groups%20of%20young%20people%20are%20positioned%20on%20a%20field%20while%20a%20boy%20stands%20between%20them%20holding%20a%20football.%20The%20arrangement%20suggests%20a%20disagreement%2C%20selection%20issue%2C%20or%20competition-related%20conflict%20that%20the%20central%20boy%20may%20be%20trying%20to%20address.?width=900&height=600&nologo=true",
+      "referenceDescription": "Two groups of young people on opposite sides of a ground, a boy in the middle holding a football and looking at both.",
+      "keyElements": [
+        "two groups",
+        "ground",
+        "boy in middle",
+        "football"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. Two groups of young people on opposite sides of a ground, a boy in the middle holding a football and looking at both.",
+      "visual_description": "Two groups of young people are positioned on a field while a boy stands between them holding a football. The arrangement suggests a disagreement, selection issue, or competition-related conflict that the central boy may be trying to address.",
+      "likely_situation": "Sports-related disagreement between two groups of youth.",
+      "observable_actions": [
+        "two groups facing each other",
+        "boy holding football in the middle",
+        "team members discussing or arguing",
+        "sports field"
+      ],
+      "environment": [
+        "football field",
+        "school/community ground",
+        "outdoor sports setting"
+      ],
+      "ppdt_story_direction": "The protagonist could understand both sides, apply fair rules, settle the disagreement through discussion, and organize the match or selection process transparently."
+    },
+    {
+      "id": "ppdt_030",
+      "difficulty": "Advanced",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20man%20holding%20a%20torch%20stands%20at%20the%20entrance%20of%20a%20dark%20cave%20at%20night%20while%20two%20companions%20carry%20ropes%20or%20climbing%20equipment.%20The%20group%20appears%20prepared%20for%20exploration%20or%20rescue%2C%20but%20the%20darkness%20and%20equipment%20indicate%20that%20safety%20precautions%20are%20essential.?width=900&height=600&nologo=true",
+      "referenceDescription": "A man at night shines a torch into a dark cave entrance as two companions wait behind him with ropes.",
+      "keyElements": [
+        "man with torch",
+        "cave entrance",
+        "night",
+        "two companions",
+        "ropes"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A man at night shines a torch into a dark cave entrance as two companions wait behind him with ropes.",
+      "visual_description": "A man holding a torch stands at the entrance of a dark cave at night while two companions carry ropes or climbing equipment. The group appears prepared for exploration or rescue, but the darkness and equipment indicate that safety precautions are essential.",
+      "likely_situation": "Cave exploration, search operation, or rescue preparation.",
+      "observable_actions": [
+        "torch illuminating cave entrance",
+        "companions carrying ropes",
+        "group preparing to enter",
+        "night-time low visibility"
+      ],
+      "environment": [
+        "cave entrance",
+        "dark outdoor setting",
+        "rocky terrain",
+        "night"
+      ],
+      "ppdt_story_direction": "The protagonist could inspect the entrance, establish a rope and communication system, check equipment, maintain a buddy system, and proceed only after assessing the risks."
+    },
+    {
+      "id": "ppdt_031",
+      "difficulty": "Advanced",
+      "viewDurationSeconds": 30,
+      "responseDurationSeconds": 240,
+      "imageUrl": "https://image.pollinations.ai/prompt/PPDT%20picture%20for%20Indian%20SSB%20screening%20practice%2C%20realistic%20monochrome%20pencil%20sketch%2C%20slightly%20hazy%20and%20ambiguous%2C%20natural%20human%20body%20language%2C%20documentary%20composition%2C%20no%20text%2C%20no%20captions%2C%20no%20watermark.%20A%20girl%20is%20standing%20on%20a%20rooftop%20looking%20toward%20a%20distant%20city%20skyline%20while%20a%20younger%20boy%20nearby%20holds%20or%20flies%20a%20kite.%20The%20scene%20contrasts%20the%20girl%27s%20reflective%20view%20of%20the%20wider%20city%20with%20the%20child%27s%20simple%20recreational%20activity.?width=900&height=600&nologo=true",
+      "referenceDescription": "A girl on a rooftop looks at a distant city skyline while a younger boy sits beside her with a kite.",
+      "keyElements": [
+        "girl",
+        "rooftop",
+        "city skyline",
+        "younger boy",
+        "kite"
+      ],
+      "imagePrompt": "Indian SSB/NDA-style PPDT scene, realistic monochrome pencil-sketch photograph, slightly hazy and ambiguous, medium-distance composition, 3-6 human figures where appropriate, natural body language, no text, no captions, no watermark. A girl on a rooftop looks at a distant city skyline while a younger boy sits beside her with a kite.",
+      "visual_description": "A girl is standing on a rooftop looking toward a distant city skyline while a younger boy nearby holds or flies a kite. The scene contrasts the girl's reflective view of the wider city with the child's simple recreational activity.",
+      "likely_situation": "Young people observing their surroundings and thinking about future possibilities.",
+      "observable_actions": [
+        "girl looking toward skyline",
+        "boy handling kite",
+        "rooftop observation",
+        "distant city visible"
+      ],
+      "environment": [
+        "rooftop",
+        "city outskirts/urban area",
+        "open sky",
+        "distant skyline"
+      ],
+      "ppdt_story_direction": "The protagonist could use the moment to discuss aspirations, identify educational or career opportunities, help the younger child safely enjoy the activity, and develop a constructive future plan."
     }
   ],
   "labels": {

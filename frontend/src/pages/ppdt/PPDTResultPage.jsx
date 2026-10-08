@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../../components/common/Navbar.jsx";
 import ScoreBar from "../../components/common/ScoreBar.jsx";
+import RewardBanner from "../../components/common/RewardBanner.jsx";
+import ShareButton from "../../components/common/ShareButton.jsx";
 import content from "../../content/ppdt.json";
 
 export default function PPDTResultPage() {
@@ -37,12 +39,22 @@ export default function PPDTResultPage() {
         className="container"
         style={{ paddingTop: 40, paddingBottom: 60, maxWidth: 900 }}
       >
+        <RewardBanner gamification={location.state?.gamification} />
+
         <div className="flex items-center justify-between mb-24 flex-wrap gap-16">
           <div>
             <h1 className="display-heading">{c.heading}</h1>
             <p className="body-text mt-8">{c.subheading}</p>
           </div>
           <div className="flex gap-12">
+            <ShareButton
+              card={{
+                title: "PPDT practice",
+                score: record.overallScore,
+                subtitle: (record.recommendations || [])[0],
+              }}
+              className="btn btn-secondary"
+            />
             <button
               className="btn btn-ghost"
               onClick={() => navigate("/ppdt/setup")}
@@ -54,6 +66,29 @@ export default function PPDTResultPage() {
             </button>
           </div>
         </div>
+
+        {record.storyElements && Object.keys(record.storyElements).length > 0 && (
+          <div className="ft-panel" style={{ marginBottom: 24 }}>
+            <h2 className="section-heading mb-8">Story checklist</h2>
+            <div className="tag-list">
+              {Object.entries(record.storyElements).map(([k, v]) => (
+                <span key={k} className="tag" style={{ opacity: v ? 1 : 0.55 }}>
+                  {v ? "✓" : "✗"} {k.replace(/([A-Z])/g, " $1").toLowerCase()}
+                </span>
+              ))}
+            </div>
+            {record.olq && Object.keys(record.olq).length > 0 && (
+              <>
+                <h3 className="section-heading mt-16 mb-8">OLQs shown</h3>
+                <div className="tag-list">
+                  {Object.entries(record.olq).map(([k, v]) => (
+                    <span key={k} className="tag">{k} <strong>{v}</strong></span>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        )}
 
         <div
           style={{

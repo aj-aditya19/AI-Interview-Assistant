@@ -2,7 +2,11 @@
   "roundLabels": {
     "hr": "HR Round",
     "technical": "Technical Round",
-    "other": "Other Round"
+    "other": "Other Round",
+    "dsa": "DSA Round",
+    "system_design": "System Design",
+    "project": "Project Deep-dive",
+    "managerial": "Managerial Round"
   },
   "status": {
     "aiSpeaking": "AI is speaking...",

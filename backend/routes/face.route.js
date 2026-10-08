@@ -1,42 +1,37 @@
 import express from "express";
 import multer from "multer";
 import FormData from "form-data";
-import fs from "fs";
 import axios from "axios";
+import protect from "../middleware/auth.js";
 
 const router = express.Router();
 
 const upload = multer({
-  dest: "uploads/",
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 1024 * 1024 },
+  fileFilter: (req, file, cb) => cb(null, /^image\//.test(file.mimetype)),
 });
 
-router.post("/", upload.single("image"), async (req, res) => {
+router.post("/", protect, upload.single("image"), async (req, res) => {
+  if (!req.file || !process.env.PYTHON_API_URL)
+    return res.json({ success: false });
   try {
-    if (!req.file) {
-      return res.status(400).json({
-        success: false,
-      });
-    }
-
     const form = new FormData();
-
-    form.append("image", fs.createReadStream(req.file.path));
-
+    form.append("image", req.file.buffer, {
+      filename: "frame.jpg",
+      contentType: req.file.mimetype,
+    });
     const response = await axios.post(
       `${process.env.PYTHON_API_URL}/detect`,
       form,
       {
         headers: form.getHeaders(),
+        timeout: 4000,
       },
     );
-
-    fs.unlinkSync(req.file.path);
-
     res.json(response.data);
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-    });
+  } catch {
+    res.json({ success: false });
   }
 });
 

@@ -1,0 +1,464 @@
+{
+ "words": [
+  {
+   "id": "w001",
+   "word": "Duty"
+  },
+  {
+   "id": "w002",
+   "word": "Army"
+  },
+  {
+   "id": "w003",
+   "word": "Friend"
+  },
+  {
+   "id": "w004",
+   "word": "Fear"
+  },
+  {
+   "id": "w005",
+   "word": "Failure"
+  },
+  {
+   "id": "w006",
+   "word": "Win"
+  },
+  {
+   "id": "w007",
+   "word": "Courage"
+  },
+  {
+   "id": "w008",
+   "word": "Leader"
+  },
+  {
+   "id": "w009",
+   "word": "Team"
+  },
+  {
+   "id": "w010",
+   "word": "Water"
+  },
+  {
+   "id": "w011",
+   "word": "Mother"
+  },
+  {
+   "id": "w012",
+   "word": "Money"
+  },
+  {
+   "id": "w013",
+   "word": "Danger"
+  },
+  {
+   "id": "w014",
+   "word": "Help"
+  },
+  {
+   "id": "w015",
+   "word": "Fight"
+  },
+  {
+   "id": "w016",
+   "word": "Honest"
+  },
+  {
+   "id": "w017",
+   "word": "Lazy"
+  },
+  {
+   "id": "w018",
+   "word": "Success"
+  },
+  {
+   "id": "w019",
+   "word": "Order"
+  },
+  {
+   "id": "w020",
+   "word": "Love"
+  },
+  {
+   "id": "w021",
+   "word": "Teacher"
+  },
+  {
+   "id": "w022",
+   "word": "Risk"
+  },
+  {
+   "id": "w023",
+   "word": "Discipline"
+  },
+  {
+   "id": "w024",
+   "word": "Defeat"
+  },
+  {
+   "id": "w025",
+   "word": "Hope"
+  },
+  {
+   "id": "w026",
+   "word": "Anger"
+  },
+  {
+   "id": "w027",
+   "word": "Responsibility"
+  },
+  {
+   "id": "w028",
+   "word": "Sacrifice"
+  },
+  {
+   "id": "w029",
+   "word": "Enemy"
+  },
+  {
+   "id": "w030",
+   "word": "Exam"
+  },
+  {
+   "id": "w031",
+   "word": "Hard"
+  },
+  {
+   "id": "w032",
+   "word": "Brave"
+  },
+  {
+   "id": "w033",
+   "word": "Rule"
+  },
+  {
+   "id": "w034",
+   "word": "Cheat"
+  },
+  {
+   "id": "w035",
+   "word": "Group"
+  },
+  {
+   "id": "w036",
+   "word": "Plan"
+  },
+  {
+   "id": "w037",
+   "word": "Sports"
+  },
+  {
+   "id": "w038",
+   "word": "Nation"
+  },
+  {
+   "id": "w039",
+   "word": "Quarrel"
+  },
+  {
+   "id": "w040",
+   "word": "Boss"
+  },
+  {
+   "id": "w041",
+   "word": "Work"
+  },
+  {
+   "id": "w042",
+   "word": "Strong"
+  },
+  {
+   "id": "w043",
+   "word": "Weak"
+  },
+  {
+   "id": "w044",
+   "word": "Crowd"
+  },
+  {
+   "id": "w045",
+   "word": "Night"
+  },
+  {
+   "id": "w046",
+   "word": "Mistake"
+  },
+  {
+   "id": "w047",
+   "word": "Decision"
+  },
+  {
+   "id": "w048",
+   "word": "Trust"
+  },
+  {
+   "id": "w049",
+   "word": "Respect"
+  },
+  {
+   "id": "w050",
+   "word": "Fire"
+  },
+  {
+   "id": "w051",
+   "word": "Flood"
+  },
+  {
+   "id": "w052",
+   "word": "Accident"
+  },
+  {
+   "id": "w053",
+   "word": "Challenge"
+  },
+  {
+   "id": "w054",
+   "word": "Rest"
+  },
+  {
+   "id": "w055",
+   "word": "Worry"
+  },
+  {
+   "id": "w056",
+   "word": "Pride"
+  },
+  {
+   "id": "w057",
+   "word": "Fun"
+  },
+  {
+   "id": "w058",
+   "word": "Book"
+  },
+  {
+   "id": "w059",
+   "word": "Time"
+  },
+  {
+   "id": "w060",
+   "word": "Goal"
+  },
+  {
+   "id": "w061",
+   "word": "Wealth"
+  },
+  {
+   "id": "w062",
+   "word": "Society"
+  },
+  {
+   "id": "w063",
+   "word": "Command"
+  },
+  {
+   "id": "w064",
+   "word": "Obey"
+  },
+  {
+   "id": "w065",
+   "word": "Shout"
+  },
+  {
+   "id": "w066",
+   "word": "Poor"
+  },
+  {
+   "id": "w067",
+   "word": "Sick"
+  },
+  {
+   "id": "w068",
+   "word": "Alone"
+  },
+  {
+   "id": "w069",
+   "word": "Defend"
+  },
+  {
+   "id": "w070",
+   "word": "Attack"
+  },
+  {
+   "id": "w071",
+   "word": "Train"
+  },
+  {
+   "id": "w072",
+   "word": "Mountain"
+  },
+  {
+   "id": "w073",
+   "word": "Leave"
+  },
+  {
+   "id": "w074",
+   "word": "Study"
+  },
+  {
+   "id": "w075",
+   "word": "Father"
+  },
+  {
+   "id": "w076",
+   "word": "Brother"
+  },
+  {
+   "id": "w077",
+   "word": "Law"
+  },
+  {
+   "id": "w078",
+   "word": "Peace"
+  },
+  {
+   "id": "w079",
+   "word": "War"
+  },
+  {
+   "id": "w080",
+   "word": "Hurt"
+  },
+  {
+   "id": "w081",
+   "word": "Cry"
+  },
+  {
+   "id": "w082",
+   "word": "Laugh"
+  },
+  {
+   "id": "w083",
+   "word": "Dream"
+  },
+  {
+   "id": "w084",
+   "word": "Change"
+  },
+  {
+   "id": "w085",
+   "word": "Lead"
+  },
+  {
+   "id": "w086",
+   "word": "Follow"
+  },
+  {
+   "id": "w087",
+   "word": "Argue"
+  },
+  {
+   "id": "w088",
+   "word": "Forgive"
+  },
+  {
+   "id": "w089",
+   "word": "Revenge"
+  },
+  {
+   "id": "w090",
+   "word": "Reward"
+  },
+  {
+   "id": "w091",
+   "word": "Punish"
+  },
+  {
+   "id": "w092",
+   "word": "Wait"
+  },
+  {
+   "id": "w093",
+   "word": "Hurry"
+  },
+  {
+   "id": "w094",
+   "word": "Late"
+  },
+  {
+   "id": "w095",
+   "word": "Early"
+  },
+  {
+   "id": "w096",
+   "word": "Choice"
+  },
+  {
+   "id": "w097",
+   "word": "Hero"
+  },
+  {
+   "id": "w098",
+   "word": "Soldier"
+  },
+  {
+   "id": "w099",
+   "word": "Police"
+  },
+  {
+   "id": "w100",
+   "word": "Doctor"
+  },
+  {
+   "id": "w101",
+   "word": "Village"
+  },
+  {
+   "id": "w102",
+   "word": "City"
+  },
+  {
+   "id": "w103",
+   "word": "Corrupt"
+  },
+  {
+   "id": "w104",
+   "word": "Pressure"
+  },
+  {
+   "id": "w105",
+   "word": "Stress"
+  },
+  {
+   "id": "w106",
+   "word": "Medal"
+  },
+  {
+   "id": "w107",
+   "word": "Parade"
+  },
+  {
+   "id": "w108",
+   "word": "Run"
+  },
+  {
+   "id": "w109",
+   "word": "Swim"
+  },
+  {
+   "id": "w110",
+   "word": "Climb"
+  },
+  {
+   "id": "w111",
+   "word": "Jump"
+  },
+  {
+   "id": "w112",
+   "word": "Rope"
+  },
+  {
+   "id": "w113",
+   "word": "Rain"
+  },
+  {
+   "id": "w114",
+   "word": "Storm"
+  },
+  {
+   "id": "w115",
+   "word": "Road"
+  }
+ ]
+}

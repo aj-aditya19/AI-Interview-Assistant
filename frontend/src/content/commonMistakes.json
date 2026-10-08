@@ -1,0 +1,182 @@
+[
+ {
+  "id": "cm01",
+  "wrong": "I am agree with you.",
+  "right": "I agree with you.",
+  "why": "'Agree' is already a verb; don't add 'am'."
+ },
+ {
+  "id": "cm02",
+  "wrong": "He don't know the answer.",
+  "right": "He doesn't know the answer.",
+  "why": "Use 'doesn't' with he/she/it."
+ },
+ {
+  "id": "cm03",
+  "wrong": "I am having a car.",
+  "right": "I have a car.",
+  "why": "Stative verbs like 'have' (possession) are not used in the continuous."
+ },
+ {
+  "id": "cm04",
+  "wrong": "She is knowing the answer.",
+  "right": "She knows the answer.",
+  "why": "'Know' is not used in the continuous form."
+ },
+ {
+  "id": "cm05",
+  "wrong": "I have done my graduation in 2022.",
+  "right": "I graduated in 2022.",
+  "why": "Use the simple past with a finished time."
+ },
+ {
+  "id": "cm06",
+  "wrong": "Myself Rahul.",
+  "right": "I am Rahul. / My name is Rahul.",
+  "why": "'Myself' is not used as a subject."
+ },
+ {
+  "id": "cm07",
+  "wrong": "I am doing this since morning.",
+  "right": "I have been doing this since morning.",
+  "why": "Use present perfect continuous with 'since'."
+ },
+ {
+  "id": "cm08",
+  "wrong": "He is my best friend from childhood.",
+  "right": "He has been my best friend since childhood.",
+  "why": "Use present perfect with 'since'."
+ },
+ {
+  "id": "cm09",
+  "wrong": "Please do the needful.",
+  "right": "Please take the necessary action.",
+  "why": "'Do the needful' sounds outdated in formal English."
+ },
+ {
+  "id": "cm10",
+  "wrong": "I will revert back to you.",
+  "right": "I will get back to you.",
+  "why": "'Revert' already means 'go back'; also it is not the same as 'reply'."
+ },
+ {
+  "id": "cm11",
+  "wrong": "What is your good name?",
+  "right": "What is your name?",
+  "why": "'Good name' is unnecessary."
+ },
+ {
+  "id": "cm12",
+  "wrong": "I have a doubt.",
+  "right": "I have a question.",
+  "why": "'Doubt' means uncertainty; for asking, use 'question'."
+ },
+ {
+  "id": "cm13",
+  "wrong": "He gave me a good advice.",
+  "right": "He gave me good advice.",
+  "why": "'Advice' is uncountable; no 'a'."
+ },
+ {
+  "id": "cm14",
+  "wrong": "The informations are useful.",
+  "right": "The information is useful.",
+  "why": "'Information' is uncountable."
+ },
+ {
+  "id": "cm15",
+  "wrong": "I prepone the meeting.",
+  "right": "I moved the meeting earlier.",
+  "why": "'Prepone' is not standard English."
+ },
+ {
+  "id": "cm16",
+  "wrong": "She is more smarter than me.",
+  "right": "She is smarter than me.",
+  "why": "Don't use 'more' with a comparative like 'smarter'."
+ },
+ {
+  "id": "cm17",
+  "wrong": "I discussed about the project.",
+  "right": "I discussed the project.",
+  "why": "'Discuss' doesn't need 'about'."
+ },
+ {
+  "id": "cm18",
+  "wrong": "He explained me the topic.",
+  "right": "He explained the topic to me.",
+  "why": "'Explain' takes 'to' before the person."
+ },
+ {
+  "id": "cm19",
+  "wrong": "I am having fever.",
+  "right": "I have a fever.",
+  "why": "Use 'have' for illness."
+ },
+ {
+  "id": "cm20",
+  "wrong": "Open the light.",
+  "right": "Turn on the light.",
+  "why": "Lights are turned on, not opened."
+ },
+ {
+  "id": "cm21",
+  "wrong": "I am going to my native.",
+  "right": "I am going to my hometown.",
+  "why": "'Native' is not used as a noun for place."
+ },
+ {
+  "id": "cm22",
+  "wrong": "The team have won the match yesterday.",
+  "right": "The team won the match yesterday.",
+  "why": "Use simple past with 'yesterday'."
+ },
+ {
+  "id": "cm23",
+  "wrong": "Each of the students have a book.",
+  "right": "Each of the students has a book.",
+  "why": "'Each' takes a singular verb."
+ },
+ {
+  "id": "cm24",
+  "wrong": "He is senior than me.",
+  "right": "He is senior to me.",
+  "why": "'Senior' and 'junior' take 'to'."
+ },
+ {
+  "id": "cm25",
+  "wrong": "I cleared my doubts with the teacher.",
+  "right": "I got my questions answered by the teacher.",
+  "why": "'Clear doubts' is less natural in English."
+ },
+ {
+  "id": "cm26",
+  "wrong": "Where do you stay?",
+  "right": "Where do you live?",
+  "why": "'Stay' means temporary; use 'live' for home."
+ },
+ {
+  "id": "cm27",
+  "wrong": "I am waiting since two hours.",
+  "right": "I have been waiting for two hours.",
+  "why": "Use present perfect continuous with 'for'."
+ },
+ {
+  "id": "cm28",
+  "wrong": "Return back the book.",
+  "right": "Return the book.",
+  "why": "'Return' already means 'give back'."
+ },
+ {
+  "id": "cm29",
+  "wrong": "He is good in English.",
+  "right": "He is good at English.",
+  "why": "Use 'good at' for skills."
+ },
+ {
+  "id": "cm30",
+  "wrong": "I am agree to the plan.",
+  "right": "I agree to the plan.",
+  "why": "'Agree' is a verb, no 'am'."
+ }
+]

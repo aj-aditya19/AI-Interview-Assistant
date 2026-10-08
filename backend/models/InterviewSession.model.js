@@ -17,6 +17,15 @@ const turnSchema = new mongoose.Schema({
   summary: { type: String },
   attemptNumber: { type: Number, default: 1 },
   shouldRetry: { type: Boolean, default: false },
+  isRetry: { type: Boolean, default: false },
+  speech: {
+    wordCount: Number,
+    fillerCount: Number,
+    fillers: { type: mongoose.Schema.Types.Mixed },
+    speakingSeconds: Number,
+    wpm: Number,
+    paceLabel: String,
+  },
   createdAt: { type: Date, default: Date.now },
 });
 
@@ -26,11 +35,12 @@ const interviewSessionSchema = new mongoose.Schema({
   sessionId: { type: String, required: true, unique: true },
   rounds: [
     {
-      roundType: { type: String, enum: ["hr", "technical", "other"] },
+      roundType: { type: String, enum: ["hr", "technical", "dsa", "system_design", "project", "managerial", "other"] },
       durationMinutes: { type: Number, default: 5, min: 1, max: 60 },
     },
   ],
   currentRoundIndex: { type: Number, default: 0 },
+  roundStartedAt: { type: Date, default: Date.now },
   currentQuestion: { type: String },
   retryCount: { type: Number, default: 0 },
   turns: [turnSchema],

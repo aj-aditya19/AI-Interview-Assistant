@@ -1,7 +1,7 @@
 {
   "hub": {
     "heading": "Communication Practice",
-    "subheading": "Improve your spoken English — vocabulary, hard words, tongue twisters, and tenses",
+    "subheading": "Improve your spoken English: vocabulary, idioms, pronunciation, grammar and fluency",
     "cards": [
       {
         "type": "vocab",
@@ -22,12 +22,35 @@
         "type": "tenses",
         "title": "Tenses & Verb Fluency",
         "description": "Practice speaking sentences across different tenses fluently."
+      },
+      {
+        "type": "idioms",
+        "title": "Idioms & Phrases",
+        "description": "Learn common idioms and say them naturally in conversation."
+      },
+      {
+        "type": "mistakes",
+        "path": "/communication/mistakes",
+        "title": "Fix the Mistake",
+        "description": "Spot and correct the grammar slips Indian speakers make most often."
+      },
+      {
+        "type": "quiz",
+        "path": "/communication/quiz",
+        "title": "Vocabulary Quiz",
+        "description": "10 quick questions on meanings and usage. Wrong answers come back for review."
+      },
+      {
+        "type": "sentence",
+        "path": "/communication/sentence",
+        "title": "Use It in a Sentence",
+        "description": "Write your own sentence with a word and get AI feedback."
       }
     ]
   },
   "practice": {
     "backButton": "Back",
-    "progressLabel": "Word",
+    "progressLabel": "Item",
     "micStart": "Tap to speak",
     "micListening": "Listening...",
     "yourSpeechLabel": "You said",
@@ -57,6 +80,10 @@
       "tenses": {
         "title": "Tenses & Verb Fluency",
         "instruction": "Read the sentence aloud naturally, like you're speaking it."
+      },
+      "idioms": {
+        "title": "Idioms & Phrases",
+        "instruction": "Say the idiom aloud, then read its meaning and example."
       }
     }
   }

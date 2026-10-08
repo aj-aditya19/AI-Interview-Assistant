@@ -1,0 +1,24 @@
+{
+ "prompts": [
+  {
+   "id": "parents",
+   "prompt": "What do your parents think of you? Describe your strengths and weaknesses in their eyes."
+  },
+  {
+   "id": "teachers",
+   "prompt": "What do your teachers / seniors / employers think of you?"
+  },
+  {
+   "id": "friends",
+   "prompt": "What do your friends and colleagues think of you?"
+  },
+  {
+   "id": "self",
+   "prompt": "What do you think of yourself? Describe your strengths and weaknesses honestly."
+  },
+  {
+   "id": "future",
+   "prompt": "What kind of person do you want to become? What qualities do you want to develop and how?"
+  }
+ ]
+}

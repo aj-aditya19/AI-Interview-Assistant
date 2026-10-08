@@ -28,10 +28,12 @@ const interviewProfileSchema = new mongoose.Schema(
     },
     rounds: [
       {
-        roundType: { type: String, enum: ["hr", "technical", "other"] },
+        roundType: { type: String, enum: ["hr", "technical", "dsa", "system_design", "project", "managerial", "other"] },
         durationMinutes: { type: Number, default: 5, min: 1, max: 60 },
       },
     ],
+    language: { type: String, enum: ["english", "hinglish"], default: "english" },
+    companyStyle: { type: String, default: "" },
     isDefault: { type: Boolean, default: false },
   },
   { timestamps: true },

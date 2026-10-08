@@ -59,6 +59,36 @@ const userSchema = new mongoose.Schema(
       bestInterviewScore: { type: Number, default: 0 },
       bestPPDTScore: { type: Number, default: 0 },
     },
+    gamification: {
+      xp: { type: Number, default: 0 },
+      level: { type: Number, default: 1 },
+      streak: {
+        current: { type: Number, default: 0 },
+        longest: { type: Number, default: 0 },
+        lastDate: { type: String, default: null },
+      },
+      weekly: {
+        key: { type: String, default: null },
+        xp: { type: Number, default: 0 },
+      },
+      activity: [
+        { _id: false, date: String, sessions: Number, xp: Number },
+      ],
+      counts: { type: mongoose.Schema.Types.Mixed, default: {} },
+      badges: [{ _id: false, id: String, earnedAt: Date }],
+      lastDaily: { type: String, default: null },
+    },
+    preferences: {
+      displayName: { type: String, trim: true, maxlength: 24 },
+      showOnLeaderboard: { type: Boolean, default: false },
+      goal: {
+        type: String,
+        enum: ["interview", "ssb", "english", "all"],
+        default: "all",
+      },
+      dailyGoal: { type: Number, default: 1, min: 1, max: 10 },
+      onboarded: { type: Boolean, default: false },
+    },
     resetPasswordToken: { type: String },
     resetPasswordExpiry: { type: Date },
   },

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../../components/common/Navbar.jsx";
 import ScoreBar from "../../components/common/ScoreBar.jsx";
+import RewardBanner from "../../components/common/RewardBanner.jsx";
+import ShareButton from "../../components/common/ShareButton.jsx";
+import RadarChart from "../../components/common/RadarChart.jsx";
 import content from "../../content/interviewResult.json";
 import "./InterviewResultPage.css";
 
@@ -61,6 +64,56 @@ export default function InterviewResultPage() {
             >
               {content.buttons.tryAgain}
             </button>
+          </div>
+        </div>
+
+        <RewardBanner gamification={location.state?.gamification} />
+
+        <div className="ft-panel" style={{ marginBottom: 24 }}>
+          <div className="ft-grid-2">
+            <div className="ft-center-col">
+              <RadarChart
+                data={Object.entries(record.result || {}).map(([k, v]) => ({
+                  label: k.charAt(0).toUpperCase() + k.slice(1),
+                  value: v,
+                }))}
+              />
+            </div>
+            <div>
+              <h2 className="section-heading mb-8">Speaking analysis</h2>
+              {record.speech && (record.speech.totalWords > 0) ? (
+                <div className="ft-stack">
+                  <div className="ft-stats">
+                    <div className="ft-stat"><strong>{record.speech.avgWpm ?? "—"}</strong><span>words / minute</span></div>
+                    <div className="ft-stat"><strong>{record.speech.totalFillers}</strong><span>filler words</span></div>
+                    <div className="ft-stat"><strong>{record.speech.fillerPer100Words}</strong><span>per 100 words</span></div>
+                  </div>
+                  {record.speech.topFillers?.length > 0 && (
+                    <div className="tag-list">
+                      {record.speech.topFillers.map((f) => (
+                        <span key={f.word} className="tag">“{f.word}” ×{f.count}</span>
+                      ))}
+                    </div>
+                  )}
+                  <p className="form-hint">
+                    Aim for 110–160 words per minute and fewer than 3 fillers per 100 words. Voice-to-text can miss some “um”s, so the real count may be higher.
+                  </p>
+                </div>
+              ) : (
+                <p className="body-text">No speech data for this interview. Use voice answers to get pace and filler-word feedback.</p>
+              )}
+              <div className="mt-16">
+                <ShareButton
+                  card={{
+                    title: `Mock interview${record.interviewType ? ` · ${record.interviewType}` : ""}`,
+                    score: record.overallScore,
+                    badge: record.readinessLabel,
+                    subtitle: record.finalSummary,
+                    lines: (record.strengths || []).slice(0, 2),
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
