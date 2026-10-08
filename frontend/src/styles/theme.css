@@ -1,0 +1,82 @@
+:root[data-theme="dark"] {
+  --color-bg: #12181b;
+  --color-card: #1b2327;
+  --color-border: #2d3a40;
+  --color-text-primary: #e7eef0;
+  --color-text-secondary: #aebcc1;
+  --color-text-muted: #7f9096;
+  --color-primary: #35b3a3;
+  --color-primary-hover: #2a9588;
+  --color-secondary: #e0b13a;
+  color-scheme: dark;
+}
+:root[data-theme="dark"] body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+}
+:root[data-theme="dark"] .navbar-link:hover,
+:root[data-theme="dark"] .navbar-link.active {
+  background: rgba(53, 179, 163, 0.14);
+  color: var(--color-primary);
+}
+:root[data-theme="dark"] .form-input,
+:root[data-theme="dark"] .form-textarea,
+:root[data-theme="dark"] .form-select {
+  background: #151c1f;
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+:root[data-theme="dark"] .alert-info {
+  background: rgba(53, 179, 163, 0.12);
+  color: #bfe9e3;
+  border-color: rgba(53, 179, 163, 0.3);
+}
+:root[data-theme="dark"] .alert-error {
+  background: rgba(220, 80, 80, 0.14);
+  color: #f3b9b9;
+  border-color: rgba(220, 80, 80, 0.3);
+}
+:root[data-theme="dark"] .alert-success {
+  background: rgba(53, 179, 163, 0.14);
+  color: #bfe9e3;
+}
+:root[data-theme="dark"] .tag {
+  background: rgba(53, 179, 163, 0.14);
+  color: #bfe9e3;
+  border-color: transparent;
+}
+:root[data-theme="dark"] .btn-secondary {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+:root[data-theme="dark"] .btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+:root[data-theme="dark"] .ft-pill.warn {
+  color: #e8c35a;
+}
+:root[data-theme="dark"] .badge-live {
+  background: rgba(53, 179, 163, 0.18);
+  color: #bfe9e3;
+}
+:root[data-theme="dark"] .pl-demo {
+  box-shadow: none;
+}
+:root[data-theme="dark"] img {
+  opacity: 0.95;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #12181b;
+    --color-card: #1b2327;
+    --color-border: #2d3a40;
+    --color-text-primary: #e7eef0;
+    --color-text-secondary: #aebcc1;
+    --color-text-muted: #7f9096;
+    --color-primary: #35b3a3;
+    --color-secondary: #e0b13a;
+    color-scheme: dark;
+  }
+}

@@ -29,9 +29,18 @@
     "isDefault": "Save as default profile"
   },
   "reasonOptions": [
-    { "value": "internship", "label": "An internship" },
-    { "value": "placement", "label": "Campus placement" },
-    { "value": "other", "label": "Something else" }
+    {
+      "value": "internship",
+      "label": "An internship"
+    },
+    {
+      "value": "placement",
+      "label": "Campus placement"
+    },
+    {
+      "value": "other",
+      "label": "Something else"
+    }
   ],
   "roleOptions": [
     "Software Engineer",
@@ -46,14 +55,58 @@
     "Cloud Engineer"
   ],
   "difficultyOptions": [
-    { "value": "Beginner", "label": "Beginner", "hint": "Fundamental questions, slower pace" },
-    { "value": "Intermediate", "label": "Intermediate", "hint": "Standard industry-level questions" },
-    { "value": "Advanced", "label": "Advanced", "hint": "Senior-level depth and cross-cutting topics" }
+    {
+      "value": "Beginner",
+      "label": "Beginner",
+      "hint": "Fundamental questions, slower pace"
+    },
+    {
+      "value": "Intermediate",
+      "label": "Intermediate",
+      "hint": "Standard industry-level questions"
+    },
+    {
+      "value": "Advanced",
+      "label": "Advanced",
+      "hint": "Senior-level depth and cross-cutting topics"
+    }
   ],
   "roundOptions": [
-    { "value": "hr", "label": "HR Round", "description": "Behavioural and culture-fit questions" },
-    { "value": "technical", "label": "Technical Round", "description": "Coding, system design, domain knowledge" },
-    { "value": "other", "label": "Other Round", "description": "Managerial, case study, or custom" }
+    {
+      "value": "hr",
+      "label": "HR Round",
+      "description": "Behavioural and culture-fit questions"
+    },
+    {
+      "value": "technical",
+      "label": "Technical Round",
+      "description": "Concepts and trade-offs in your own tech stack"
+    },
+    {
+      "value": "dsa",
+      "label": "DSA Round",
+      "description": "Explain your approach to problems: data structures, complexity, edge cases"
+    },
+    {
+      "value": "system_design",
+      "label": "System Design",
+      "description": "Design a small system: components, scaling, trade-offs"
+    },
+    {
+      "value": "project",
+      "label": "Project Deep-dive",
+      "description": "Go deep on one of your own projects"
+    },
+    {
+      "value": "managerial",
+      "label": "Managerial Round",
+      "description": "Ownership, pressure, prioritisation, decisions"
+    },
+    {
+      "value": "other",
+      "label": "Other Round",
+      "description": "Case-style or custom"
+    }
   ],
   "buttons": {
     "next": "Continue",

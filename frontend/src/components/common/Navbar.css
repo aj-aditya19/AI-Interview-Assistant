@@ -140,3 +140,15 @@
   .navbar-user .btn { display: none; }
   .navbar-hamburger { display: flex; }
 }
+
+.navbar-streak, .navbar-theme {
+  background: none; border: 1px solid var(--color-border); border-radius: 100px;
+  padding: 4px 10px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--color-text-primary);
+}
+.navbar-streak:hover, .navbar-theme:hover { background: var(--color-bg); }
+.navbar-link { padding: 6px 10px; white-space: nowrap; }
+
+@media (max-width: 1024px) {
+  .navbar-link { padding: 6px 7px; font-size: 0.82rem; }
+  .logo-text { display: none; }
+}

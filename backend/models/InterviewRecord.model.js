@@ -12,6 +12,16 @@ const turnRecordSchema = new mongoose.Schema({
   },
   analysis: [{ type: String }],
   summary: { type: String },
+  improvedAnswer: { type: String },
+  isRetry: { type: Boolean, default: false },
+  speech: {
+    wordCount: Number,
+    fillerCount: Number,
+    fillers: { type: mongoose.Schema.Types.Mixed },
+    speakingSeconds: Number,
+    wpm: Number,
+    paceLabel: String,
+  },
 });
 
 const roundRecordSchema = new mongoose.Schema({
@@ -63,6 +73,14 @@ const interviewRecordSchema = new mongoose.Schema(
     recommendations: [{ type: String }],
     finalSummary: { type: String },
     readinessLabel: { type: String },
+    language: { type: String, default: "english" },
+    speech: {
+      totalWords: Number,
+      totalFillers: Number,
+      fillerPer100Words: Number,
+      avgWpm: Number,
+      topFillers: [{ _id: false, word: String, count: Number }],
+    },
   },
   { timestamps: true },
 );

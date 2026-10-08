@@ -3,6 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#157a6e" />
+    <meta name="description" content="Free AI mock interviews, NDA/SSB practice (PPDT, TAT, WAT, SRT, SDT, GD), spoken English and resume ATS check." />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("iq_theme");
+          if (!t && window.matchMedia("(prefers-color-scheme: dark)").matches) t = "dark";
+          if (t) document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
     <title>InterviewIQ — Practice Smarter</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

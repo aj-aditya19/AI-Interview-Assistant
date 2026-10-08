@@ -1,29 +1,37 @@
 import express from "express";
-import { readFileSync } from "fs";
-import { fileURLToPath } from "url";
-import path from "path";
 import PPDTSession from "../models/PPDTSession.model.js";
 import PPDTRecord from "../models/PPDTRecord.model.js";
 import User from "../models/User.model.js";
 import protect from "../middleware/auth.js";
 import { evaluatePPDT } from "../services/ai.service.js";
+import aiQuota from "../middleware/aiQuota.js";
+import { awardXP } from "../services/gamification.service.js";
+import {
+  ppdtData,
+  availableImages,
+  findImage,
+  absoluteUrl,
+  baseUrlOf,
+} from "../utils/ppdtImages.js";
 
 const router = express.Router();
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ppdtData = JSON.parse(
-  readFileSync(path.join(__dirname, "../data/ppdt.json"), "utf-8"),
-);
 
 router.get("/images", protect, async (req, res) => {
   try {
     const { difficulty } = req.query;
 
-    let images = ppdtData.images.map((img) => ({
+    const base = baseUrlOf(req);
+    const seenIds = new Set(
+      await PPDTRecord.distinct("imageId", { userId: req.user._id }),
+    );
+
+    let images = availableImages().map((img) => ({
       id: img.id,
       difficulty: img.difficulty,
       viewDurationSeconds: img.viewDurationSeconds,
       responseDurationSeconds: img.responseDurationSeconds,
-      imageUrl: img.imageUrl,
+      imageUrl: absoluteUrl(img, base),
+      seen: seenIds.has(img.id),
     }));
 
     if (difficulty) {
@@ -45,7 +53,7 @@ router.post("/session/start", protect, async (req, res) => {
       return res.status(400).json({ message: "imageId is required" });
     }
 
-    const imageData = ppdtData.images.find((img) => img.id === imageId);
+    const imageData = findImage(imageId);
     if (!imageData) {
       return res.status(404).json({ message: "Image not found" });
     }
@@ -64,7 +72,7 @@ router.post("/session/start", protect, async (req, res) => {
 
     res.status(201).json({
       sessionId: session._id,
-      imageUrl: imageData.imageUrl,
+      imageUrl: absoluteUrl(imageData, baseUrlOf(req)),
       viewDurationSeconds: imageData.viewDurationSeconds,
       responseDurationSeconds: imageData.responseDurationSeconds,
       difficulty: imageData.difficulty,
@@ -75,7 +83,7 @@ router.post("/session/start", protect, async (req, res) => {
   }
 });
 
-router.post("/session/submit", protect, async (req, res) => {
+router.post("/session/submit", protect, aiQuota(2), async (req, res) => {
   try {
     const { sessionId, userAnswer, durationSeconds } = req.body;
 
@@ -93,7 +101,7 @@ router.post("/session/submit", protect, async (req, res) => {
       return res.status(404).json({ message: "Session not found or expired" });
     }
 
-    const imageData = ppdtData.images.find((img) => img.id === session.imageId);
+    const imageData = findImage(session.imageId);
     if (!imageData) {
       return res.status(404).json({ message: "Image data not found" });
     }
@@ -101,17 +109,19 @@ router.post("/session/submit", protect, async (req, res) => {
     const evaluation = await evaluatePPDT({
       userAnswer,
       referenceDescription: imageData.referenceDescription,
-      imageId: session.imageId,
+      keyElements: imageData.keyElements,
     });
 
     const record = await PPDTRecord.create({
       userId: req.user._id,
       imageId: session.imageId,
-      imageUrl: imageData.imageUrl,
+      imageUrl: absoluteUrl(imageData, baseUrlOf(req)),
       referenceDescription: imageData.referenceDescription,
       userAnswer,
       overallScore: evaluation.overallScore,
       result: evaluation.result,
+      storyElements: evaluation.storyElements,
+      olq: evaluation.olq,
       recommendations: evaluation.recommendations,
       durationSeconds: durationSeconds || session.responseDurationSeconds,
       difficulty: session.difficulty,
@@ -121,7 +131,12 @@ router.post("/session/submit", protect, async (req, res) => {
 
     await PPDTSession.deleteOne({ _id: sessionId });
 
-    res.json({ record });
+    const gamification = await awardXP(req.user._id, {
+      kind: "ppdt",
+      score: evaluation.overallScore,
+    });
+
+    res.json({ record, gamification });
   } catch (error) {
     console.error("PPDT submit error:", error.message);
     res.status(500).json({ message: "Failed to submit PPDT response" });

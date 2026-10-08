@@ -4,14 +4,24 @@ import api from "../../utils/api.js";
 import content from "../../content/interviewLive.json";
 import "./InterviewLivePage.css";
 import interviewerImage from "./interviewer.jpg";
+import BrowserSupportBanner from "../../components/common/BrowserSupportBanner.jsx";
+import { analyzeTranscript } from "../../utils/speechMetrics.js";
+
 export default function InterviewLivePage() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
+  const savedSession = JSON.parse(
+    sessionStorage.getItem("interviewSession") || "null",
+  );
+
+  const interviewState = state || savedSession;
 
   useEffect(() => {
-    if (!state?.sessionId) navigate("/interview/setup", { replace: true });
-  }, [navigate, state?.sessionId]);
+    if (!interviewState?.sessionId) {
+      navigate("/interview/setup", { replace: true });
+    }
+  }, [navigate, interviewState?.sessionId]);
 
   const {
     sessionId,
@@ -19,7 +29,7 @@ export default function InterviewLivePage() {
     currentRound: initialRound,
     currentRoundIndex: initialRoundIndex,
     rounds = [],
-  } = state || {};
+  } = interviewState || {};
 
   const [currentQuestion, setCurrentQuestion] = useState(firstQuestion || "");
   const [currentRound, setCurrentRound] = useState(initialRound || "hr");
@@ -39,6 +49,23 @@ export default function InterviewLivePage() {
   const [emotion, setEmotion] = useState("");
   const [latestFeedback, setLatestFeedback] = useState(null);
   const [interviewerImageError, setInterviewerImageError] = useState(false);
+  const speechOk = !!(
+    window.SpeechRecognition || window.webkitSpeechRecognition
+  );
+  const listenStartRef = useRef(null);
+  const speakingMsRef = useRef(0);
+  const [latestSpeech, setLatestSpeech] = useState(null);
+  const [lastQ, setLastQ] = useState("");
+  const [retryMode, setRetryMode] = useState(false);
+  const [retryUsed, setRetryUsed] = useState(false);
+  const [retryInfo, setRetryInfo] = useState(null);
+
+  const flushListenTime = () => {
+    if (listenStartRef.current) {
+      speakingMsRef.current += Date.now() - listenStartRef.current;
+      listenStartRef.current = null;
+    }
+  };
 
   const roundDurationSeconds =
     (rounds[currentRoundIndex]?.durationMinutes || 5) * 60;
@@ -87,18 +114,11 @@ export default function InterviewLivePage() {
         const formData = new FormData();
         formData.append("image", blob, "frame.jpg");
 
-        const response = await fetch("http://localhost:5000/api/face-detect", {
-          method: "POST",
-          body: formData,
-        });
-
-        const data = await response.json();
+        const { data } = await api.post("/face-detect", formData);
         if (data?.emotion) {
           setEmotion(data.emotion);
         }
-      } catch (err) {
-        console.error("Face Detect Error:", err);
-      }
+      } catch {}
     }, "image/jpeg");
   };
 
@@ -133,19 +153,82 @@ export default function InterviewLivePage() {
   }, []);
 
   const speakText = useCallback((text) => {
-    if (!synthRef.current) return;
-    synthRef.current.cancel();
+    if (!text || !window.speechSynthesis) {
+      console.error("Speech synthesis unavailable");
+      return;
+    }
+    window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-IN";
     utterance.rate = 0.95;
     utterance.pitch = 1;
-    utterance.onstart = () => setStatus("aiSpeaking");
-    utterance.onend = () => setStatus("waitingForAnswer");
-    synthRef.current.speak(utterance);
+    utterance.volume = 1;
+    utterance.onstart = () => {
+      setStatus("aiSpeaking");
+    };
+    utterance.onend = () => {
+      setStatus("waitingForAnswer");
+    };
+    utterance.onerror = (event) => {
+      console.error("Speech synthesis error:", event);
+      setStatus("waitingForAnswer");
+    };
+    window.speechSynthesis.speak(utterance);
   }, []);
 
   useEffect(() => {
-    if (firstQuestion) speakText(firstQuestion);
-  }, [firstQuestion, speakText]);
+    const loadQuestion = async () => {
+      if (firstQuestion?.trim()) {
+        console.log("USING FIRST QUESTION:", firstQuestion);
+
+        setCurrentQuestion(firstQuestion);
+
+        setConversation([
+          {
+            role: "ai",
+            text: firstQuestion,
+          },
+        ]);
+
+        speakText(firstQuestion);
+        return;
+      }
+
+      if (!sessionId) return;
+
+      try {
+        const res = await api.get(`/interview/session/${sessionId}`);
+
+        console.log("SESSION RESPONSE:", res.data);
+
+        const question = res.data?.currentQuestion?.trim();
+
+        if (question) {
+          console.log("QUESTION FROM SESSION:", question);
+
+          setCurrentQuestion(question);
+
+          setConversation([
+            {
+              role: "ai",
+              text: question,
+            },
+          ]);
+
+          speakText(question);
+        } else {
+          console.error("No question found. Session response:", res.data);
+
+          setError("Question was not received from the interview session.");
+        }
+      } catch (err) {
+        console.error("Failed to load interview question:", err);
+        setError("Failed to load interview question.");
+      }
+    };
+
+    loadQuestion();
+  }, [firstQuestion, sessionId, speakText]);
 
   useEffect(() => {
     conversationEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -163,7 +246,12 @@ export default function InterviewLivePage() {
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = "en-IN";
-    finalTranscriptRef.current = "";
+    if (!transcript) finalTranscriptRef.current = "";
+
+    recognition.onend = () => {
+      flushListenTime();
+      setStatus((st) => (st === "listening" ? "waitingForAnswer" : st));
+    };
 
     recognition.onresult = (e) => {
       let interimText = "";
@@ -184,13 +272,20 @@ export default function InterviewLivePage() {
 
     recognition.start();
     recognitionRef.current = recognition;
+    listenStartRef.current = Date.now();
     setStatus("listening");
-    setTranscript("");
   };
 
   const stopListening = () => {
     recognitionRef.current?.stop();
+    flushListenTime();
     setStatus("waitingForAnswer");
+  };
+
+  const startRetry = () => {
+    setRetryMode(true);
+    setTranscript("");
+    finalTranscriptRef.current = "";
   };
 
   const submitAnswer = async () => {
@@ -198,21 +293,41 @@ export default function InterviewLivePage() {
     if (!answer) return;
 
     stopListening();
+    const speakingSeconds = Math.round(speakingMsRef.current / 1000);
+    speakingMsRef.current = 0;
+    const questionAsked = currentQuestion;
     setStatus("processing");
     setLoading(true);
     setConversation((prev) => [...prev, { role: "user", text: answer }]);
     setTranscript("");
+    finalTranscriptRef.current = "";
 
     try {
       const res = await api.post("/interview/session", {
-        action: "answer",
+        action: retryMode ? "retry" : "answer",
         sessionId,
         answer,
+        speakingSeconds,
       });
 
       if (res.data?.evaluation) {
         setLatestFeedback(res.data.evaluation);
       }
+      setLatestSpeech(res.data?.speech || null);
+
+      if (retryMode) {
+        setRetryInfo({
+          previous: res.data.previousScore,
+          improvement: res.data.improvement,
+        });
+        setRetryUsed(true);
+        setRetryMode(false);
+        setStatus("waitingForAnswer");
+        return;
+      }
+      setRetryInfo(null);
+      setRetryUsed(false);
+      setLastQ(questionAsked);
 
       const {
         nextQuestion,
@@ -276,7 +391,9 @@ export default function InterviewLivePage() {
         sessionId,
         durationSeconds: elapsedSeconds,
       });
-      navigate("/interview/result", { state: { record: res.data.record } });
+      navigate("/interview/result", {
+        state: { record: res.data.record, gamification: res.data.gamification },
+      });
     } catch (err) {
       setError(err.response?.data?.message || "Failed to finish interview");
     } finally {
@@ -362,7 +479,7 @@ export default function InterviewLivePage() {
   const scoreEntries = Object.entries(latestFeedback?.scores || {});
   const latestOverallScore = latestFeedback?.scores?.overall ?? "—";
 
-  if (!state?.sessionId) return null;
+  if (!interviewState?.sessionId) return null;
 
   return (
     <div className="live-page">
@@ -396,6 +513,10 @@ export default function InterviewLivePage() {
             {formatTime(Math.max(0, roundDurationSeconds - roundSeconds))}
           </span>
         </div>
+      </div>
+
+      <div className="container" style={{ paddingTop: 0 }}>
+        <BrowserSupportBanner message="Your browser can't do voice input. Type your answers in the box below instead (use Chrome or Edge for voice)." />
       </div>
 
       <div className="live-main">
@@ -466,6 +587,30 @@ export default function InterviewLivePage() {
             </div>
           </div>
 
+          {retryMode && (
+            <div className="alert alert-info mt-16" role="status">
+              <strong>Retrying:</strong> {lastQ}
+              <button
+                className="btn btn-ghost btn-sm"
+                style={{ marginLeft: 12 }}
+                onClick={() => setRetryMode(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
+
+          {!speechOk && !interviewDone && (
+            <textarea
+              className="form-textarea mt-16"
+              rows={4}
+              value={transcript}
+              onChange={(e) => setTranscript(e.target.value)}
+              placeholder="Type your answer here…"
+              aria-label="Type your answer"
+            />
+          )}
+
           <div className="live-controls">
             {!interviewDone ? (
               <>
@@ -482,6 +627,7 @@ export default function InterviewLivePage() {
                     className="btn btn-primary btn-lg"
                     onClick={startListening}
                     disabled={
+                      !speechOk ||
                       status === "aiSpeaking" ||
                       status === "processing" ||
                       loading
@@ -576,11 +722,59 @@ export default function InterviewLivePage() {
             </p>
           </div>
 
+          {latestFeedback && !interviewDone && (
+            <div className="insight-card card">
+              <h3>Speaking</h3>
+              {latestSpeech?.wpm ? (
+                <p className="improvement-text">
+                  Pace: <strong>{latestSpeech.wpm} wpm</strong> (
+                  {latestSpeech.paceLabel === "good"
+                    ? "good, aim for 110–160"
+                    : latestSpeech.paceLabel === "fast"
+                      ? "a bit fast, slow down"
+                      : "a bit slow, add energy"}
+                  ). Filler words: <strong>{latestSpeech.fillerCount}</strong>
+                </p>
+              ) : (
+                <p className="improvement-text">
+                  Filler words:{" "}
+                  <strong>{latestSpeech?.fillerCount ?? 0}</strong>
+                </p>
+              )}
+              {retryInfo && (
+                <p className="improvement-text">
+                  Retry score change:{" "}
+                  <strong>
+                    {retryInfo.improvement > 0 ? "+" : ""}
+                    {retryInfo.improvement}
+                  </strong>{" "}
+                  (was {retryInfo.previous})
+                </p>
+              )}
+              {!retryUsed && !retryMode && lastQ && (
+                <button
+                  className="btn btn-secondary btn-sm mt-8"
+                  onClick={startRetry}
+                >
+                  Try that answer again
+                </button>
+              )}
+            </div>
+          )}
+
           <div className="insight-card card">
             <h3>Live transcript</h3>
             <div className="live-transcript-box">
               {status === "listening" && transcript ? (
-                <p>{transcript}</p>
+                <>
+                  <p>{transcript}</p>
+                  <small className="form-hint">
+                    {(() => {
+                      const m = analyzeTranscript(transcript);
+                      return `${m.words} words · ${m.fillers} fillers`;
+                    })()}
+                  </small>
+                </>
               ) : (
                 <p className="empty-state">Waiting for your response...</p>
               )}

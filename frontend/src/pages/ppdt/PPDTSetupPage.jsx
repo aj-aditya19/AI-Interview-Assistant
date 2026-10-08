@@ -24,7 +24,9 @@ export default function PPDTSetupPage() {
     const filtered = images.filter((img) => img.difficulty === difficulty);
     if (filtered.length === 0) return;
 
-    const image = filtered[Math.floor(Math.random() * filtered.length)];
+    const unseen = filtered.filter((img) => !img.seen);
+    const pool = unseen.length ? unseen : filtered;
+    const image = pool[Math.floor(Math.random() * pool.length)];
     setLoading(true);
     try {
       const res = await api.post("/ppdt/session/start", {

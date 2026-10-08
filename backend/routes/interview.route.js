@@ -5,6 +5,9 @@ import InterviewRecord from "../models/InterviewRecord.model.js";
 import InterviewProfile from "../models/InterviewProfile.model.js";
 import User from "../models/User.model.js";
 import protect from "../middleware/auth.js";
+import aiQuota from "../middleware/aiQuota.js";
+import { analyzeSpeech, aggregateSpeech } from "../utils/speechMetrics.js";
+import { awardXP } from "../services/gamification.service.js";
 import {
   generateQuestion,
   evaluateAnswer,
@@ -22,20 +25,30 @@ function normalizeRound(r) {
 router.post("/session", protect, async (req, res) => {
   const { action } = req.body;
 
+  if (["start", "answer", "retry", "finish"].includes(action)) {
+    const quota = aiQuota(action === "answer" || action === "retry" ? 2 : 3);
+    return quota(req, res, () => dispatch(action, req, res));
+  }
+  return dispatch(action, req, res);
+});
+
+function dispatch(action, req, res) {
   if (action === "start") {
     return handleStart(req, res);
   } else if (action === "answer") {
     return handleAnswer(req, res);
+  } else if (action === "retry") {
+    return handleRetry(req, res);
   } else if (action === "timeout") {
     return handleRoundTimeout(req, res);
   } else if (action === "finish") {
     return handleFinish(req, res);
   } else {
     return res.status(400).json({
-      message: "Invalid action. Use: start, answer, timeout, or finish",
+      message: "Invalid action. Use: start, answer, retry, timeout, or finish",
     });
   }
-});
+}
 
 async function handleStart(req, res) {
   try {
@@ -94,9 +107,10 @@ async function handleStart(req, res) {
 
 async function handleAnswer(req, res) {
   try {
-    const { sessionId, answer } = req.body;
+    const { sessionId, answer: rawAnswer, speakingSeconds } = req.body;
+    const answer = typeof rawAnswer === "string" ? rawAnswer.slice(0, 4000) : "";
 
-    if (!sessionId || !answer) {
+    if (!sessionId || !answer.trim()) {
       return res
         .status(400)
         .json({ message: "sessionId and answer are required" });
@@ -115,14 +129,17 @@ async function handleAnswer(req, res) {
       session.rounds[session.currentRoundIndex],
     );
 
+    const speech = analyzeSpeech(answer, speakingSeconds);
     const evaluation = await evaluateAnswer({
       question: session.currentQuestion,
       answer,
       roundType: currentRound.roundType,
       profile,
+      speech,
     });
 
     const turn = {
+      speech,
       round: currentRound.roundType,
       question: session.currentQuestion,
       answer,
@@ -134,7 +151,7 @@ async function handleAnswer(req, res) {
     };
     session.turns.push(turn);
     const turnsInCurrentRound = session.turns.filter(
-      (t) => t.round === currentRound.roundType,
+      (t) => t.round === currentRound.roundType && !t.isRetry,
     );
     const maxQuestionsPerRound = 5;
     const roundElapsedMs =
@@ -183,6 +200,7 @@ async function handleAnswer(req, res) {
 
     res.json({
       evaluation,
+      speech,
       nextQuestion: interviewComplete ? null : nextQuestion,
       roundComplete,
       interviewComplete,
@@ -194,6 +212,55 @@ async function handleAnswer(req, res) {
   } catch (error) {
     console.error("Answer submission error:", error.message);
     res.status(500).json({ message: "Failed to process answer" });
+  }
+}
+
+async function handleRetry(req, res) {
+  try {
+    const { sessionId, answer: rawAnswer, speakingSeconds } = req.body;
+    const answer = typeof rawAnswer === "string" ? rawAnswer.slice(0, 4000) : "";
+    if (!sessionId || !answer.trim()) {
+      return res.status(400).json({ message: "sessionId and answer are required" });
+    }
+    const session = await InterviewSession.findOne({ sessionId, userId: req.user._id });
+    if (!session) return res.status(404).json({ message: "Session not found or expired" });
+
+    const last = session.turns[session.turns.length - 1];
+    if (!last) return res.status(400).json({ message: "Nothing to retry yet" });
+    if (last.isRetry) {
+      return res.status(409).json({ message: "You can retry each question once." });
+    }
+
+    const profile = await InterviewProfile.findById(session.profileId);
+    const speech = analyzeSpeech(answer, speakingSeconds);
+    const evaluation = await evaluateAnswer({
+      question: last.question, answer, roundType: last.round, profile, speech,
+    });
+
+    session.turns.push({
+      round: last.round,
+      question: last.question,
+      answer,
+      improvedAnswer: evaluation.improvedAnswer,
+      scores: evaluation.scores,
+      analysis: evaluation.analysis,
+      summary: evaluation.summary,
+      attemptNumber: (last.attemptNumber || 1) + 1,
+      isRetry: true,
+      speech,
+    });
+    await session.save();
+
+    res.json({
+      evaluation,
+      speech,
+      previousScore: last.scores?.overall ?? null,
+      improvement:
+        Math.round(((evaluation.scores?.overall || 0) - (last.scores?.overall || 0)) * 10) / 10,
+    });
+  } catch (error) {
+    console.error("Retry error:", error.message);
+    res.status(500).json({ message: "Failed to process retry" });
   }
 }
 
@@ -287,9 +354,10 @@ async function handleFinish(req, res) {
 
     const roundsForSummary = Object.entries(roundsMap).map(
       ([roundType, turns]) => {
+        const scored = turns.filter((t) => !t.isRetry);
         const roundScore =
-          turns.reduce((sum, t) => sum + (t.scores?.overall || 0), 0) /
-          (turns.length || 1);
+          scored.reduce((sum, t) => sum + (t.scores?.overall || 0), 0) /
+          (scored.length || 1);
         return {
           roundType,
           turns,
@@ -298,16 +366,18 @@ async function handleFinish(req, res) {
       },
     );
 
+    const speech = aggregateSpeech(session.turns.filter((t) => !t.isRetry));
     const summary = await generateFinalSummary({
       rounds: roundsForSummary,
       profile,
+      speech,
     });
 
     const roundTypes = session.rounds.map((r) => r.roundType);
     let interviewType = "Mixed";
     if (roundTypes.length === 1) {
       if (roundTypes[0] === "hr") interviewType = "HR";
-      else if (roundTypes[0] === "technical") interviewType = "Technical";
+      else if (["technical", "dsa", "system_design", "project"].includes(roundTypes[0])) interviewType = "Technical";
       else interviewType = "Behavioral";
     }
 
@@ -330,12 +400,18 @@ async function handleFinish(req, res) {
       recommendations: summary.recommendations,
       finalSummary: summary.finalSummary,
       readinessLabel: summary.readinessLabel,
+      language: profile?.language || "english",
+      speech,
     });
 
     await updateUserStats(req.user._id, summary.overallScore);
     await InterviewSession.deleteOne({ sessionId });
+    const gamification = await awardXP(req.user._id, {
+      kind: "interview",
+      score: summary.overallScore,
+    });
 
-    res.json({ record });
+    res.json({ record, gamification });
   } catch (error) {
     console.error("Finish interview error:", error.message);
     res.status(500).json({ message: "Failed to finish interview" });

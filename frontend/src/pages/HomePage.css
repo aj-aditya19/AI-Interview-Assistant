@@ -111,3 +111,13 @@
   .home-tiles { grid-template-columns: 1fr; }
   .home-stats { grid-template-columns: repeat(2, 1fr); }
 }
+
+.home-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.home-chip {
+  padding: 6px 12px; border: 1px solid var(--color-border); border-radius: 100px;
+  background: var(--color-card); font-size: 0.875rem; font-weight: 600;
+}
+.daily-card { padding: 24px; margin-bottom: 24px; }
+.daily-q { font-family: var(--font-display); font-size: 1.15rem; margin: 12px 0 16px; line-height: 1.4; }
+.home-quick { flex-wrap: wrap; }
+@media (max-width: 640px) { .home-header { flex-direction: column; gap: 12px; } }

@@ -1,0 +1,230 @@
+[
+ {
+  "id": "id01",
+  "word": "Break the ice",
+  "meaning": "to start a conversation in a social setting",
+  "example": "He told a joke to break the ice at the meeting."
+ },
+ {
+  "id": "id02",
+  "word": "Piece of cake",
+  "meaning": "something very easy",
+  "example": "The coding test was a piece of cake."
+ },
+ {
+  "id": "id03",
+  "word": "Under the weather",
+  "meaning": "slightly unwell",
+  "example": "I'm feeling under the weather today."
+ },
+ {
+  "id": "id04",
+  "word": "Hit the nail on the head",
+  "meaning": "to say exactly the right thing",
+  "example": "You hit the nail on the head with that answer."
+ },
+ {
+  "id": "id05",
+  "word": "Burn the midnight oil",
+  "meaning": "to work late into the night",
+  "example": "She burned the midnight oil before the exam."
+ },
+ {
+  "id": "id06",
+  "word": "Once in a blue moon",
+  "meaning": "very rarely",
+  "example": "We eat out once in a blue moon."
+ },
+ {
+  "id": "id07",
+  "word": "Cut corners",
+  "meaning": "to do something badly to save time or money",
+  "example": "Never cut corners on safety."
+ },
+ {
+  "id": "id08",
+  "word": "Bite the bullet",
+  "meaning": "to face a difficult situation bravely",
+  "example": "I had to bite the bullet and apologise."
+ },
+ {
+  "id": "id09",
+  "word": "The ball is in your court",
+  "meaning": "it is your turn to take action",
+  "example": "I've made my offer; the ball is in your court."
+ },
+ {
+  "id": "id10",
+  "word": "Go the extra mile",
+  "meaning": "to make more effort than expected",
+  "example": "Great employees go the extra mile."
+ },
+ {
+  "id": "id11",
+  "word": "Back to square one",
+  "meaning": "back to the beginning after failing",
+  "example": "The plan failed and we were back to square one."
+ },
+ {
+  "id": "id12",
+  "word": "Call it a day",
+  "meaning": "to stop working for the day",
+  "example": "Let's call it a day and continue tomorrow."
+ },
+ {
+  "id": "id13",
+  "word": "Face the music",
+  "meaning": "to accept the consequences",
+  "example": "He had to face the music after the mistake."
+ },
+ {
+  "id": "id14",
+  "word": "Get out of hand",
+  "meaning": "to become impossible to control",
+  "example": "The argument got out of hand."
+ },
+ {
+  "id": "id15",
+  "word": "Hit the books",
+  "meaning": "to study hard",
+  "example": "I need to hit the books this weekend."
+ },
+ {
+  "id": "id16",
+  "word": "In the long run",
+  "meaning": "over a long period of time",
+  "example": "Hard work pays off in the long run."
+ },
+ {
+  "id": "id17",
+  "word": "Jump the gun",
+  "meaning": "to start too early",
+  "example": "Don't jump the gun; wait for the instructions."
+ },
+ {
+  "id": "id18",
+  "word": "Keep an eye on",
+  "meaning": "to watch carefully",
+  "example": "Keep an eye on the time during the test."
+ },
+ {
+  "id": "id19",
+  "word": "Learn the ropes",
+  "meaning": "to learn how a job is done",
+  "example": "It took a month to learn the ropes."
+ },
+ {
+  "id": "id20",
+  "word": "Miss the boat",
+  "meaning": "to lose an opportunity",
+  "example": "Apply now or you'll miss the boat."
+ },
+ {
+  "id": "id21",
+  "word": "On the same page",
+  "meaning": "in agreement and sharing understanding",
+  "example": "Let's make sure the whole team is on the same page."
+ },
+ {
+  "id": "id22",
+  "word": "Pull your socks up",
+  "meaning": "to improve your behaviour or effort",
+  "example": "You need to pull your socks up before the finals."
+ },
+ {
+  "id": "id23",
+  "word": "Rise to the occasion",
+  "meaning": "to perform well in a challenge",
+  "example": "She rose to the occasion during the crisis."
+ },
+ {
+  "id": "id24",
+  "word": "Stand your ground",
+  "meaning": "to refuse to change your position",
+  "example": "He stood his ground in the debate."
+ },
+ {
+  "id": "id25",
+  "word": "Take it with a pinch of salt",
+  "meaning": "not to believe something completely",
+  "example": "Take rumours with a pinch of salt."
+ },
+ {
+  "id": "id26",
+  "word": "Think outside the box",
+  "meaning": "to think in a creative, new way",
+  "example": "We need to think outside the box to solve this."
+ },
+ {
+  "id": "id27",
+  "word": "Turn a blind eye",
+  "meaning": "to ignore something wrong on purpose",
+  "example": "An officer should never turn a blind eye to corruption."
+ },
+ {
+  "id": "id28",
+  "word": "Under pressure",
+  "meaning": "feeling stressed by demands",
+  "example": "He performs well under pressure."
+ },
+ {
+  "id": "id29",
+  "word": "Work like a Trojan",
+  "meaning": "to work extremely hard",
+  "example": "The team worked like Trojans to finish on time."
+ },
+ {
+  "id": "id30",
+  "word": "A blessing in disguise",
+  "meaning": "something good that seemed bad at first",
+  "example": "Losing that job was a blessing in disguise."
+ },
+ {
+  "id": "id31",
+  "word": "Add fuel to the fire",
+  "meaning": "to make a bad situation worse",
+  "example": "Shouting will only add fuel to the fire."
+ },
+ {
+  "id": "id32",
+  "word": "A drop in the ocean",
+  "meaning": "a very small part of what is needed",
+  "example": "His donation was a drop in the ocean."
+ },
+ {
+  "id": "id33",
+  "word": "By the skin of your teeth",
+  "meaning": "only just; narrowly",
+  "example": "He passed the exam by the skin of his teeth."
+ },
+ {
+  "id": "id34",
+  "word": "Cross that bridge when we come to it",
+  "meaning": "deal with a problem only when it happens",
+  "example": "Let's cross that bridge when we come to it."
+ },
+ {
+  "id": "id35",
+  "word": "Leave no stone unturned",
+  "meaning": "to try every possible way",
+  "example": "The team left no stone unturned in the search."
+ },
+ {
+  "id": "id36",
+  "word": "Lead from the front",
+  "meaning": "to set an example by doing it yourself",
+  "example": "A good officer leads from the front."
+ },
+ {
+  "id": "id37",
+  "word": "Swim against the tide",
+  "meaning": "to do the opposite of what most people do",
+  "example": "She swam against the tide and chose a bold career."
+ },
+ {
+  "id": "id38",
+  "word": "Weather the storm",
+  "meaning": "to survive a difficult period",
+  "example": "The company weathered the storm."
+ }
+]

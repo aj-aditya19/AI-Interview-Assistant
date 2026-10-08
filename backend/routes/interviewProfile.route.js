@@ -31,6 +31,8 @@ router.post("/", protect, async (req, res) => {
       difficulty,
       rounds,
       isDefault,
+      language,
+      companyStyle,
     } = req.body;
 
     if (!label || !reason || !targetRole) {
@@ -59,6 +61,8 @@ router.post("/", protect, async (req, res) => {
       additionalMessage,
       difficulty,
       rounds: rounds || ["hr", "technical"],
+      language: language === "hinglish" ? "hinglish" : "english",
+      companyStyle: companyStyle || "",
       isDefault: isDefault || false,
     });
 
@@ -86,6 +90,8 @@ router.put("/:id", protect, async (req, res) => {
       );
     }
 
+    delete req.body.userId;
+    delete req.body._id;
     const updatedProfile = await InterviewProfile.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
